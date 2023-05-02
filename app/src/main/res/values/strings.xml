@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">mobile_assignment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="workout_fragment">Workout Fragment</string>
+    <string name="water_tracker_fragment">Water Tracker Fragment</string>
+    <string name="sleep_tracker_fragment">Sleep Tracker Fragment</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="nutrition_tracker">Nutrition Tracker</string>
 </resources>

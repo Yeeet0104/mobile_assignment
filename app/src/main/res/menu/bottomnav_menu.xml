@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/workoutFragment"
+        android:icon="@drawable/workout"
+        android:label="Workout"
+        android:title="Workout" />
+    <item
+        android:id="@+id/waterTrackerFragment"
+        android:icon="@drawable/water"
+        android:label="Water Tracker"
+        android:title="Water" />
+    <item
+        android:id="@+id/nutritionTrackerFragment"
+        android:icon="@drawable/nutritions"
+        android:label="Nutritions Tracker"
+        android:title="Nutritions" />
+    <item
+        android:id="@+id/sleepTrackerFragment"
+        android:icon="@drawable/sleep"
+        android:label="Sleep Tracker"
+        android:title="Sleep" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/profile"
+        android:label="Profile"
+        android:title="Profile" />
+</menu>
