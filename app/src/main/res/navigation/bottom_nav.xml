@@ -8,26 +8,26 @@
     <fragment
         android:id="@+id/workoutFragment"
         android:name="com.example.mobile_assignment.WorkoutFragment"
-        android:label="fragment_workout"
+        android:label="Workout"
         tools:layout="@layout/fragment_workout" />
     <fragment
         android:id="@+id/waterTrackerFragment"
         android:name="com.example.mobile_assignment.WaterTrackerFragment"
-        android:label="fragment_water_tracker"
+        android:label="Water Tracker"
         tools:layout="@layout/fragment_water_tracker" />
     <fragment
         android:id="@+id/nutritionTrackerFragment"
         android:name="com.example.mobile_assignment.NutritionTrackerFragment"
-        android:label="fragment_nutrition_tracker"
+        android:label="Nutritions Tracker"
         tools:layout="@layout/fragment_nutrition_tracker" />
     <fragment
         android:id="@+id/sleepTrackerFragment"
         android:name="com.example.mobile_assignment.SleepTrackerFragment"
-        android:label="fragment_sleep_tracker"
+        android:label="Sleep Tracker"
         tools:layout="@layout/fragment_sleep_tracker" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.mobile_assignment.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

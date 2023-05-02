@@ -4,26 +4,21 @@
     <item
         android:id="@+id/workoutFragment"
         android:icon="@drawable/workout"
-        android:label="Workout"
-        android:title="Workout" />
+        android:title="@string/workout" />
     <item
         android:id="@+id/waterTrackerFragment"
         android:icon="@drawable/water"
-        android:label="Water Tracker"
-        android:title="Water" />
+        android:title="@string/water" />
     <item
         android:id="@+id/nutritionTrackerFragment"
         android:icon="@drawable/nutritions"
-        android:label="Nutritions Tracker"
-        android:title="Nutritions" />
+        android:title="@string/nutritions" />
     <item
         android:id="@+id/sleepTrackerFragment"
         android:icon="@drawable/sleep"
-        android:label="Sleep Tracker"
-        android:title="Sleep" />
+        android:title="@string/sleep" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/profile"
-        android:label="Profile"
-        android:title="Profile" />
+        android:title="@string/profile" />
 </menu>

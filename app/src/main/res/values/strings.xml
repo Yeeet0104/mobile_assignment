@@ -7,4 +7,9 @@
     <string name="sleep_tracker_fragment">Sleep Tracker Fragment</string>
     <string name="profile_fragment">Profile Fragment</string>
     <string name="nutrition_tracker">Nutrition Tracker</string>
+    <string name="workout">Workout</string>
+    <string name="water">Water</string>
+    <string name="nutritions">Nutritions</string>
+    <string name="sleep">Sleep</string>
+    <string name="profile">Profile</string>
 </resources>
