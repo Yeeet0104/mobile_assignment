@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/workoutFragment">
+
+    <fragment
+        android:id="@+id/workoutFragment"
+        android:name="com.example.mobile_assignment.WorkoutFragment"
+        android:label="Workout"
+        tools:layout="@layout/fragment_workout" />
+    <fragment
+        android:id="@+id/waterTrackerFragment"
+        android:name="com.example.mobile_assignment.WaterTrackerFragment"
+        android:label="Water Tracker"
+        tools:layout="@layout/fragment_water_tracker" />
+    <fragment
+        android:id="@+id/nutritionTrackerFragment"
+        android:name="com.example.mobile_assignment.NutritionTrackerFragment"
+        android:label="Nutritions Tracker"
+        tools:layout="@layout/fragment_nutrition_tracker" />
+    <fragment
+        android:id="@+id/sleepTrackerFragment"
+        android:name="com.example.mobile_assignment.SleepTrackerFragment"
+        android:label="Sleep Tracker"
+        tools:layout="@layout/fragment_sleep_tracker" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.mobile_assignment.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
