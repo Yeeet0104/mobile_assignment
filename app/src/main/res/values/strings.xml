@@ -12,4 +12,10 @@
     <string name="nutritions">Nutritions</string>
     <string name="sleep">Sleep</string>
     <string name="profile">Profile</string>
+    <string name="add_water">add water</string>
+    <string name="_250_ml">250 ML</string>
+    <string name="next_reminder">Next Reminder</string>
+    <string name="_9_30_am">9:30 am</string>
+    <string name="edit_reminder_button">edit reminder button</string>
+    <string name="today_s_record">Today\'s Record</string>
 </resources>
