@@ -12,11 +12,4 @@
     <string name="nutritions">Nutritions</string>
     <string name="sleep">Sleep</string>
     <string name="profile">Profile</string>
-    <string name="started_title">Fitness Buddy</string>
-    <string name="sub_title">Welcome !
-    <br><b>Login</b> If you already have an account.</br>
-        <br><b>Register</b> Get started.</br></string>
-    <string name="illustration_img">Illustration Image</string>
-    <string name="button_register">Register</string>
-    <string name="button_login">Login</string>
 </resources>
