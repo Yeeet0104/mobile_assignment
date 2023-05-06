@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:fitsSystemWindows="true"
-    android:id="@+id/drawer_layout"
-    >
+    android:background="#FFFFFF"
+    tools:context=".MainActivity">
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        tools:context=".MainActivity"
+        android:fitsSystemWindows="true"
+        android:id="@+id/drawer_layout"
+        >
 
 <!--    NOTES IF DW TO SEE THE SIDE DRAWER REMOVE THE tools:openDrawer="start" -->
     <androidx.constraintlayout.widget.ConstraintLayout
