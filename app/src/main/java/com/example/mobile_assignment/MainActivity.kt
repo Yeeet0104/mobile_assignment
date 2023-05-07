@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,22 +35,22 @@ class MainActivity : AppCompatActivity() {
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         setSupportActionBar(toolbar)
 
-        appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
-        NavigationUI.setupActionBarWithNavController(this,navController,drawerLayout)
-        val navigation_view = findViewById<NavigationView>(R.id.nav_view)
-        NavigationUI.setupWithNavController(navigation_view,navController)
-//        val appBarConfiguration = AppBarConfiguration(
-//            setOf(
-//                R.id.workoutFragment,
-//                R.id.waterTrackerFragment,
-//                R.id.nutritionTrackerFragment,
-//                R.id.sleepTrackerFragment,
-//                R.id.profileFragment
-//            )
-//        )
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.workoutFragment,
+                R.id.waterTrackerFragment,
+                R.id.nutritionTrackerFragment,
+                R.id.sleepTrackerFragment,
+                R.id.profileFragment
+            ),
+            drawerLayout
+        )
+        NavigationUI.setupActionBarWithNavController(this,navController, appBarConfiguration)
 
-//        setupActionBarWithNavController(navController, appBarConfiguration)
-//
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        NavigationUI.setupWithNavController(navigationView,navController)
+
+
     }
     override fun onSupportNavigateUp(): Boolean {
         //return navController.navigateUp()
