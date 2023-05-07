@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Mobile_assignment" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.Mobile_assignment" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,6 +12,39 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- Button Style Color -->
+    <style name="ButtonGreen">
+        <item name="android:background">@drawable/background_button_login</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Login Title Style -->
+    <style name="LoginTitle">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Login Sub Title Style -->
+    <style name="LoginSubTitle">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/grey</item>
+        <item name="hintTextColor">@color/grey</item>
+        <item name="startIconTint">@color/black</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeWidthFocused">0dp</item>
+    </style>
+
+    <style name="TextInputEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:background">@drawable/background_text_field_login</item>
     </style>
 
     <style name="CircularProgressBar">

@@ -12,6 +12,22 @@
     <string name="nutritions">Nutritions</string>
     <string name="sleep">Sleep</string>
     <string name="profile">Profile</string>
+    <string name="started_title">Fitness Buddy</string>
+
+    <string name="sub_title">Welcome !
+    <br><font color="#486D86"><b>Login</b></font> If you already have an account.</br>
+        <br><font color="#486D86"><b>Register</b></font> Get started.</br></string>
+
+    <string name="illustration_img">Illustration Image</string>
+    <string name="button_register">Register</string>
+    <string name="button_login">Login</string>
+    <string name="login_title">Login</string>
+
+    <string name="login_sub_title">
+        <font color="#486D86"><b>Login</b></font> if you already have an account.
+    </string>
+
+    <string name="login_email">Your email address</string>
     <string name="add_water">add water</string>
     <string name="_250_ml">250 ML</string>
     <string name="next_reminder">Next Reminder</string>
