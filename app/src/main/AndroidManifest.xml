@@ -12,9 +12,6 @@
         android:theme="@style/Theme.Mobile_assignment"
         tools:targetApi="31">
         <activity
-            android:name=".LoginHomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActiivty"
             android:exported="false" />
         <activity
