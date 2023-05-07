@@ -10,10 +10,4 @@
     <color name="login_primary_color">#EEEEEE</color>
     <color name="green">#486D86</color>
     <color name="grey">#808080</color>
-    <color name="textDarkGreyColor">#3E3E3E</color>
-    <color name="btnBorderColor">#818181</color>
-    <color name="waterDarkBlue">#00486B</color>
-    <color name="cardBorder">#A7A7A7</color>
-    <color name="cardContent">#292929</color>
-    <color name="waterMediumBlue">#058DD0</color>
 </resources>
