@@ -21,21 +21,28 @@
     <string name="illustration_img">Illustration Image</string>
     <string name="button_register">Register</string>
     <string name="button_login">Login</string>
-    <string name="login_title"><b><font color="#486D86">LOGIN</font></b></string>
+    <string name="login_title">Login</string>
+
+    <string name="login_sub_title">
+        <font color="#486D86"><b>Login</b></font> if you already have an account.
+    </string>
 
     <string name="login_email">Your email address</string>
-    <string name="textPassword">Your Password</string>
+    <string name="add_water">add water</string>
+    <string name="_250_ml">250 ML</string>
+    <string name="next_reminder">Next Reminder</string>
+    <string name="_9_30_am">9:30 am</string>
+    <string name="edit_reminder_button">edit reminder button</string>
+    <string name="today_s_record">Today\'s Record</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="textPassword">Password</string>
     <string name="forget_password">Forget Password ?</string>
-    <string name="havent_account">Don't have an account yet? <font color="#486D86"><b> Register</b></font>
-    </string>
-    <string name="register_title">REGISTER</string>
-    <string name="register_name">Your Full Name</string>
+    <string name="havent_account">Dont have an account yet? <font color="#486D86"><b> Register</b></font></string>
+    <string name="register_title">Register</string>
+    <string name="register_name">Username</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="already_account">Already have an account? <font color="#486D86"><b> Login</b></font>
-    </string>
-    <string name="home_title">Welcome To Fitness Buddy</string>
-    <string name="home_sub_title">Enjoy using it !!!</string>
-    <string name="button_logout">LOGOUT</string>
+    <string name="already_account">Already have an account? <font color="#486D86"><b> Login</b></font></string>
 
 
 </resources>
