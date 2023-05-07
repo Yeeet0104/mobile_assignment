@@ -61,15 +61,17 @@ class MainActivity : AppCompatActivity() {
         binding.buttonRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
-        override fun onSupportNavigateUp(): Boolean {
-            //return navController.navigateUp()
-            return NavigationUI.navigateUp(navController, appBarConfiguration)
 
-        }
 
-        private fun setupBottomNavigation() {
-            bottomNav.setupWithNavController(navController)
-        }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        //return navController.navigateUp()
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+
+    }
+
+    private fun setupBottomNavigation() {
+        bottomNav.setupWithNavController(navController)
     }
 }
