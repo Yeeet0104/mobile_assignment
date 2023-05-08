@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/water_history_btn"
+    android:id="@+id/watertracker_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WaterTrackerFragment">
@@ -12,7 +12,7 @@
         style="@style/CircularProgressBar"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="66dp"
         android:indeterminateOnly="false"
         android:progress="60"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -92,7 +92,8 @@
         style="@style/custom_image_btn" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/reminderCard"
+        android:id="@+id/reminderIntervalCard"
+        style="@style/card_layout"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:contentPadding="10dp"
@@ -102,8 +103,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/water_dailytarget_btn"
         app:strokeColor="@color/cardBorder"
-        app:strokeWidth="1dp"
-        style="@style/card_layout">
+        app:strokeWidth="1.2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reminderLayout"
@@ -169,7 +169,7 @@
         android:textColor="@color/cardContent"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminderCard" />
+        app:layout_constraintTop_toBottomOf="@+id/reminderIntervalCard" />
 
     <Button
         android:id="@+id/history_btn"
@@ -185,7 +185,7 @@
         android:textSize="12sp"
         app:iconPadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminderCard"
+        app:layout_constraintTop_toBottomOf="@+id/reminderIntervalCard"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.card.MaterialCardView
@@ -199,7 +199,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/water_record_title"
         app:strokeColor="@color/cardBorder"
-        app:strokeWidth="1dp">
+        app:strokeWidth="1.2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/recordLayout"

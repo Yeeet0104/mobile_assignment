@@ -30,4 +30,9 @@
         android:name="com.example.mobile_assignment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/waterReminderSettingsActivity"
+        android:name="com.example.mobile_assignment.WaterReminderSettingsActivity"
+        android:label="activity_water_reminder_settings"
+        tools:layout="@layout/activity_water_reminder_settings" />
 </navigation>

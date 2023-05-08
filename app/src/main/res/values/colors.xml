@@ -13,4 +13,5 @@
     <color name="cardBorder">#A7A7A7</color>
     <color name="cardContent">#292929</color>
     <color name="waterMediumBlue">#058DD0</color>
+    <color name="waterValueBlue">#0076B1</color>
 </resources>
