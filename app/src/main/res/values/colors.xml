@@ -7,6 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="login_primary_color">#EEEEEE</color>
+    <color name="green">#486D86</color>
+    <color name="grey">#808080</color>
     <color name="textDarkGreyColor">#3E3E3E</color>
     <color name="btnBorderColor">#818181</color>
     <color name="waterDarkBlue">#00486B</color>
@@ -14,4 +17,5 @@
     <color name="cardContent">#292929</color>
     <color name="waterMediumBlue">#058DD0</color>
     <color name="waterValueBlue">#0076B1</color>
+    <color name="sleepPurple">#5A49A0</color>
 </resources>
