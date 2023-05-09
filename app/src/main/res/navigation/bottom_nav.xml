@@ -47,4 +47,9 @@
         android:name="com.example.mobile_assignment.NutritionHistoryFragment"
         android:label="fragment_calories_history"
         tools:layout="@layout/fragment_calories_history" />
+    <activity
+        android:id="@+id/waterReminderSettingsActivity"
+        android:name="com.example.mobile_assignment.WaterReminderSettingsActivity"
+        android:label="activity_water_reminder_settings"
+        tools:layout="@layout/activity_water_reminder_settings" />
 </navigation>
