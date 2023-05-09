@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Mobile_assignment" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
+    <style name="Theme.Mobile_assignment" parent="Theme.MaterialComponents.DayNight.NoActionBar">        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -47,8 +46,13 @@
         <item name="android:background">@drawable/background_text_field_login</item>
     </style>
 
-    <style name="CircularProgressBar">
+    <style name="WaterCircularProgressBar">
         <item name="android:indeterminateOnly">false </item>
         <item name="android:progressDrawable">@drawable/watertracker_cpb</item>
+    </style>
+
+    <style name="SleepCircularProgressBar">
+        <item name="android:indeterminateOnly">false </item>
+        <item name="android:progressDrawable">@drawable/sleeptracker_cpb</item>
     </style>
 </resources>
