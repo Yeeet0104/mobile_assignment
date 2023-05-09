@@ -12,10 +12,10 @@
         android:theme="@style/Theme.Mobile_assignment"
         tools:targetApi="31">
         <activity
-            android:name=".LoginHome"
+            android:name=".Register"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".LoginHome"
             android:exported="false" />
         <activity
             android:name=".Login"
