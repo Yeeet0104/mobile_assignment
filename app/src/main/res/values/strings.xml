@@ -29,6 +29,7 @@
 
     <string name="login_email">Your email address</string>
     <string name="add_water">add water</string>
+    <string name="add_sleep">add sleep</string>
     <string name="_250_ml">250 ML</string>
     <string name="next_reminder">Next Reminder</string>
     <string name="_9_30_am">9:30 am</string>
@@ -46,6 +47,10 @@
     <string name="home_title">Welcome</string>
     <string name="home_sub_title">Enjoy using it !!!</string>
     <string name="button_logout">Logout</string>
+    <string name="sleephours">10 Hours</string>
+    <string name="wakeup_title">Wake Up Time</string>
+    <string name="bedtime_title">Bed Time</string>
+    <string name="weekly_records">Weekly Records</string>
 
 
 </resources>
