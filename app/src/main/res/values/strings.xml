@@ -37,6 +37,30 @@
     <string name="today_s_record">Today\'s Record</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>
+    <string name="reminder_interval">Reminder Interval</string>
+    <string name="reminder_notifications">Reminder Notifications</string>
+    <string name="sound">Sound</string>
+    <string name="sound_type">Sound Type</string>
+    <string name="vibrant">Vibrant</string>
+    <string name="weekly_water_intake_completion">Weekly Water Intake Completion</string>
+    <string name="water_tracker_report">Water Tracker Report</string>
+    <string name="weekly_average">Weekly Average</string>
+    <string name="monthly_average">Monthly Average</string>
+    <string name="average_completion">Average Completion</string>
+    <string name="drink_frequency">Drink Frequency</string>
+    <string-array name="reminder_intervals">
+        <item>Every 30 minutes</item>
+        <item>Every 60 minutes</item>
+        <item>Every 90 minutes</item>
+        <item>Every 120 minutes</item>
+    </string-array>
+    <string-array name="sound_types">
+        <item>Silent</item>
+        <item>Ringtone</item>
+        <item>Alarm</item>
+        <item>Notification</item>
+    </string-array>
     <string name="textPassword">Password</string>
     <string name="forget_password">Forget Password ?</string>
     <string name="havent_account">Dont have an account yet? <font color="#486D86"><b> Register</b></font></string>
@@ -51,6 +75,4 @@
     <string name="wakeup_title">Wake Up Time</string>
     <string name="bedtime_title">Bed Time</string>
     <string name="weekly_records">Weekly Records</string>
-
-
 </resources>
