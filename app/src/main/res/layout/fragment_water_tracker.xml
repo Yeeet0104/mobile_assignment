@@ -72,24 +72,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/_250_ml"
-        android:textColor="@color/waterDarkBlue"
-        android:textSize="36sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watertracker_cpb" />
+        app:layout_constraintTop_toBottomOf="@+id/watertracker_cpb"
+        style="@style/title_under_progessBar" />
 
     <Button
         android:id="@+id/water_dailytarget_btn"
-        android:drawableRight="@drawable/edit_pen"
         android:text="Daily Target: 1600ml"
-        android:textColor="#5C5C5C"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consumedwater_amt"
         tools:ignore="TouchTargetSizeCheck"
-        style="@style/custom_image_btn" />
+        style="@style/daily_target_style" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/reminderCard"

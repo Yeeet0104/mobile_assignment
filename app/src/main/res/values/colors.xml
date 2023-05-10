@@ -16,4 +16,6 @@
     <color name="cardBorder">#A7A7A7</color>
     <color name="cardContent">#292929</color>
     <color name="waterMediumBlue">#058DD0</color>
+
+    <color name="workoutFragmentPrimaryColor">#486D86</color>
 </resources>
