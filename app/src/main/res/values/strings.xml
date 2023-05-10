@@ -75,4 +75,15 @@
     <string name="wakeup_title">Wake Up Time</string>
     <string name="bedtime_title">Bed Time</string>
     <string name="weekly_records">Weekly Records</string>
+    <string name="add_calories">add calories</string>
+    <string name="calories_progress">400 CALS</string>
+    <string name="calories_target">Daily Target: 2400 cals</string>
+    <string name="target_text">Target</string>
+    <string name="calories_left">2000 calories to go</string>
+    <string name="calories_input">400 cals</string>
+    <string name="food">Maggie Mee</string>
+    <string name="food_time">LUNCH</string>
+    <string name="select_type">Select Type</string>
+    <string name="popular_foods">Popular Foods</string>
+
 </resources>

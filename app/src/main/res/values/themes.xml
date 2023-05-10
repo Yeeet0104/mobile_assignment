@@ -57,4 +57,9 @@
         <item name="android:indeterminateOnly">false </item>
         <item name="android:progressDrawable">@drawable/sleeptracker_cpb</item>
     </style>
+
+    <style name="CircleCaloriesBar">
+        <item name="android:indeterminateOnly">false </item>
+        <item name="android:progressDrawable">@drawable/calories_circle</item>
+    </style>
 </resources>
