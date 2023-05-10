@@ -18,4 +18,8 @@
     <color name="waterMediumBlue">#058DD0</color>
 
     <color name="workoutFragmentPrimaryColor">#486D86</color>
+
+    <color name="waterValueBlue">#0076B1</color>
+    <color name="sleepPurple">#5A49A0</color>
+
 </resources>

@@ -8,6 +8,14 @@
         <item name="android:layout_marginEnd">26dp</item>
     </style>
 
+    <style name="sleep_card_layout">
+        <item name="android:layout_width">170dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">26dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginEnd">26dp</item>
+    </style>
+
     <style name="custom_image_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -36,5 +44,9 @@
         <item name="android:drawableRight">@drawable/edit_pen</item>
         <item name="android:textColor">#5C5C5C</item>
         <item name="android:textSize">18sp</item>
+    <style name="custom_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#0076B1</item>
     </style>
 </resources>
