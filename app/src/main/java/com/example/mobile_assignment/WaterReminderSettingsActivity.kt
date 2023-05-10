@@ -44,7 +44,7 @@ class WaterReminderSettingsActivity : AppCompatActivity(), AdapterView.OnItemSel
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val selectedItem = parent?.getItemAtPosition(position).toString()
         //temp toast
-        Toast.makeText(this, selectedItem, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, selectedItem, Toast.LENGTH_SHORT).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
