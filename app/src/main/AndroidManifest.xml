@@ -29,6 +29,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".NutritionHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NutritionOptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCustomFoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CaloriesSearchViewActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

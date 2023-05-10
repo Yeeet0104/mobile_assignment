@@ -17,4 +17,9 @@
     <color name="cardContent">#292929</color>
     <color name="waterMediumBlue">#058DD0</color>
     <color name="sleepPurple">#5A49A0</color>
+    <color name="darkGreen">#577306</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="caloriesLightGreen">#5D741A</color>
+
+
 </resources>

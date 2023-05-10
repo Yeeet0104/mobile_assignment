@@ -42,14 +42,16 @@ class NutritionTrackerFragment : Fragment() {
         navCaloriesBtn = view.findViewById(R.id.add_calories_btn)
 
         navCaloriesBtn.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nutritionTrackerFragment_to_nutritionOptionFragment)
+            val intent = Intent(activity, NutritionOptionActivity::class.java)
+            startActivity(intent)
         }
 
         //Navigate into history fragment
         navHistoryBtn = view.findViewById(R.id.calories_history_btn)
 
         navHistoryBtn.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_nutritionTrackerFragment_to_nutritionHistoryFragment)
+            val intent = Intent(activity, NutritionHistoryActivity::class.java)
+            startActivity(intent)
         }
 
         //Clickable ImageButton to edit the daily calories amount

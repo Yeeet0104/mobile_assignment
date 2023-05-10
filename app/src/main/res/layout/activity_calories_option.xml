@@ -4,23 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NutritionOptionFragment">
+    tools:context=".NutritionOptionActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
+
+    <include
+        android:id="@+id/toolbarHeader"
+        layout="@layout/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/calories_select_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:text="@string/select_type"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHeader" />
 
     <Button
         android:id="@+id/breakfast_btn"
@@ -83,7 +92,7 @@
         app:layout_constraintStart_toStartOf="@+id/calories_select_type"
         app:layout_constraintTop_toBottomOf="@+id/snack_btn" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_food"
         android:layout_width="320dp"
         android:layout_height="35dp"
@@ -98,7 +107,7 @@
         android:id="@+id/historyCompletionCard"
         style="@style/card_layout"
         android:layout_width="320dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
@@ -113,20 +122,51 @@
         app:strokeWidth="1dp">
 
 
-        <TextView
-            android:id="@+id/weeklyCaloriesText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recent Foods"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/recent_food_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:text="Egg Scrambled"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recent_food" />
+
+            <TextView
+                android:id="@+id/recent_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recent Foods"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/recent_food_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="#0F8FCF"
+                app:layout_constraintBottom_toBottomOf="@+id/recent_food_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/recent_food_text"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="250cals" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/caloriesTrackerCard"
         style="@style/card_layout"
         android:layout_width="320dp"
-        android:layout_height="43dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
@@ -141,13 +181,42 @@
         app:strokeWidth="1dp">
 
 
-        <TextView
-            android:id="@+id/trackerReport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/popular_foods"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/popular_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/popular_foods"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/popular_food_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:text="Fried Chicken"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popular_food" />
+
+            <TextView
+                android:id="@+id/popular_food_cal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250cals"
+                android:textColor="#0F8FCF"
+                app:layout_constraintBottom_toBottomOf="@+id/popular_food_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/popular_food_text" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <Button
