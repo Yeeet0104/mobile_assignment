@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="card_layout">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -32,5 +33,17 @@
 
     <style name="headerForTesting">
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="custom_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#0076B1</item>
+    </style>
+
+    <style name="sleep_custom_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#5A49A0</item>
     </style>
 </resources>
