@@ -16,7 +16,8 @@
 
         <include
             android:id="@+id/toolbarHeader"
-            layout="@layout/header" />
+            layout="@layout/header"
+            />
 
         <fragment
             android:id="@+id/fragment"
@@ -27,6 +28,7 @@
             app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbarHeader"
             app:navGraph="@navigation/bottom_nav" />
@@ -39,6 +41,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment"
             app:menu="@menu/main_menu" />
 
 

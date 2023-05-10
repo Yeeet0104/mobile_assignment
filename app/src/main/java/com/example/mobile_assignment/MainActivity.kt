@@ -3,27 +3,26 @@ package com.example.mobile_assignment
 import android.app.Notification.Action
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.mobile_assignment.databinding.ActivityLoginMainBinding
-import com.example.mobile_assignment.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var bottomNav: BottomNavigationView
-    private lateinit var navController: NavController
+class MainActivity : AppCompatActivity(){
+    private lateinit var bottomNav:BottomNavigationView
+    private lateinit var navController:NavController
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityLoginMainBinding
+  
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -42,13 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         navController = findNavController(R.id.fragment)
         bottomNav.setupWithNavController(navController)
-//        setupBottomNavigation()
 
         drawerLayout = findViewById(R.id.drawer_layout)
 
 
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity() {
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
         NavigationUI.setupWithNavController(navigationView, navController)
 
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -73,9 +72,19 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
 
     }
+    override fun onBackPressed() {
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        if (drawerLayout.isDrawerOpen(navigationView)) {
+            drawerLayout.closeDrawer(navigationView)
+        }
+    }
 
     private fun setupBottomNavigation() {
         bottomNav.setupWithNavController(navController)
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
 }

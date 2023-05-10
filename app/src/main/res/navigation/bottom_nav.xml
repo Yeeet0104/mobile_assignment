@@ -19,7 +19,14 @@
         android:id="@+id/nutritionTrackerFragment"
         android:name="com.example.mobile_assignment.NutritionTrackerFragment"
         android:label="Nutritions Tracker"
-        tools:layout="@layout/fragment_nutrition_tracker" />
+        tools:layout="@layout/fragment_nutrition_tracker" >
+        <action
+            android:id="@+id/action_nutritionTrackerFragment_to_nutritionOptionFragment"
+            app:destination="@id/nutritionOptionFragment" />
+        <action
+            android:id="@+id/action_nutritionTrackerFragment_to_nutritionHistoryFragment"
+            app:destination="@id/nutritionHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/sleepTrackerFragment"
         android:name="com.example.mobile_assignment.SleepTrackerFragment"
@@ -30,6 +37,16 @@
         android:name="com.example.mobile_assignment.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/nutritionOptionFragment"
+        android:name="com.example.mobile_assignment.NutritionOptionFragment"
+        android:label="fragment_calories_option"
+        tools:layout="@layout/fragment_calories_option" />
+    <fragment
+        android:id="@+id/nutritionHistoryFragment"
+        android:name="com.example.mobile_assignment.NutritionHistoryFragment"
+        android:label="fragment_calories_history"
+        tools:layout="@layout/fragment_calories_history" />
     <activity
         android:id="@+id/waterReminderSettingsActivity"
         android:name="com.example.mobile_assignment.WaterReminderSettingsActivity"
