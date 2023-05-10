@@ -18,6 +18,7 @@
 
     <style name="CircularProgressBar">
         <item name="android:indeterminateOnly">false</item>
+    </style>
     <!-- Button Style Color -->
     <style name="ButtonGreen">
         <item name="android:background">@drawable/background_button_login</item>
@@ -80,7 +81,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-
+    </style>
     <style name="SleepCircularProgressBar">
         <item name="android:indeterminateOnly">false </item>
         <item name="android:progressDrawable">@drawable/sleeptracker_cpb</item>

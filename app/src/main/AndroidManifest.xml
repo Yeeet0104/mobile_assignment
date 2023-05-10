@@ -18,8 +18,11 @@
             android:name=".WaterHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".WaterReminderSettingsActivity"
             android:name=".Register"
+            android:exported="false"
+            />
+        <activity
+            android:name=".WaterReminderSettingsActivity"
             android:exported="false" />
         <activity
             android:name=".LoginHome"
