@@ -16,6 +16,13 @@
             android:exported="false" />
         <activity
             android:name=".WaterReminderSettingsActivity"
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".LoginHome"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
