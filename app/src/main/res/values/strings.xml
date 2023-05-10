@@ -37,6 +37,12 @@
     <string name="today_s_record">Today\'s Record</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="Amount_routine_string">%d ROUTINE</string>
+    <string name="daily_routine_target">Daily Target: %d Routine</string>
+    <string-array name="arrForCustomWorkOut">
+        <item>Reps</item>
+        <item>Duration (seconds)</item>
+    </string-array>
     <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>
     <string name="reminder_interval">Reminder Interval</string>
     <string name="reminder_notifications">Reminder Notifications</string>
