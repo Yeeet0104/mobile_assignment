@@ -2,18 +2,25 @@ package com.example.mobile_assignment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils.substring
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 
+interface OnWaterAmountAddedListener {
+    fun onWaterAmountAdded(amount: Int)
+}
+
 class AddWaterFragment : DialogFragment() {
 
-
+    var onWaterAmountAddedListener: OnWaterAmountAddedListener? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,6 +45,15 @@ class AddWaterFragment : DialogFragment() {
         val waterMediumBlue = ContextCompat.getColor(requireContext(), R.color.waterMediumBlue)
         var selectedButton: Button? = null
 
+        // Find the button with ID R.id.addwater_200 and set it as selected by default
+        val defaultSelectedButton = view.findViewById<Button>(R.id.addwater_200)
+        defaultSelectedButton.apply {
+            setBackgroundColor(waterMediumBlue)
+            setTextColor(Color.WHITE)
+        }
+        addWaterAmount.text = defaultSelectedButton.text.substring(1) + "ml"
+        selectedButton = defaultSelectedButton
+
         waterAmtBtnIds.forEach { buttonId ->
             val waterAmtBtn = view.findViewById<Button>(buttonId)
             waterAmtBtn.setOnClickListener {
@@ -54,8 +70,13 @@ class AddWaterFragment : DialogFragment() {
             }
         }
 
-        //pass amount to watertrackerfragment to update the amount consumed
-        //val addAmtBtn = view.findViewById<Button>(R.id.addwaterAmount_btn)
+        //pass amount to water tracker fragment to update the amount consumed
+        val addAmtBtn = view.findViewById<Button>(R.id.addwaterAmount_btn)
+        addAmtBtn.setOnClickListener {
+            val amount = addWaterAmount.text.toString().removeSuffix("ml").toInt()
+            onWaterAmountAddedListener?.onWaterAmountAdded(amount)
+            dismiss()
+        }
 
     }
 
