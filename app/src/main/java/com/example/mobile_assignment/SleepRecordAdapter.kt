@@ -15,7 +15,7 @@ class SleepRecordAdapter(
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
-        val date: TextView = itemView.findViewById(R.id.sleep_record_date)
+//        val timeAdded: TextView = itemView.findViewById(R.id.sleep_record_time)
         val weekday: TextView = itemView.findViewById(R.id.sleep_record_weekday)
         val totalHour: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
         val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
@@ -29,6 +29,7 @@ class SleepRecordAdapter(
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val currentRecord = recordList[position]
         holder.moonIcon.setImageResource(R.drawable.moon)
+//        holder.timeAdded.text = currentRecord.timeAdded
 
         // Get the weekday from the record's timeAdded property
 //        val calendar = Calendar.getInstance().apply {

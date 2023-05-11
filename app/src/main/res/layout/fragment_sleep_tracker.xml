@@ -124,7 +124,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/wakeup_icon"
                     app:layout_constraintTop_toBottomOf="@+id/wakeup_title"
-                    tools:listitem="@layout/sleep_tracker_record"/>
+                    tools:text="9:30 am"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -233,7 +233,7 @@
             app:strokeWidth="1.2dp">
 
             <TextView
-                android:id="@+id/sleep_recordtime_1"
+                android:id="@+id/sleep_recordtime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
