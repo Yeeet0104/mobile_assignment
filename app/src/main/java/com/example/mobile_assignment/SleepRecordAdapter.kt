@@ -9,36 +9,30 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
-    private val recordList: MutableList<Record>,
-    private val onRecordDeleted: () -> Unit
+    private val recordList: MutableList<Record>, private val onRecordDeleted: () -> Unit
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
-//        val timeAdded: TextView = itemView.findViewById(R.id.sleep_record_time)
-        val weekday: TextView = itemView.findViewById(R.id.sleep_record_weekday)
+        val date: TextView = itemView.findViewById(R.id.sleep_record_date)
         val totalHour: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
         val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.sleep_tracker_record, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.sleep_tracker_record, parent, false)
         return RecordViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val currentRecord = recordList[position]
         holder.moonIcon.setImageResource(R.drawable.moon)
-//        holder.timeAdded.text = currentRecord.timeAdded
 
-        // Get the weekday from the record's timeAdded property
-//        val calendar = Calendar.getInstance().apply {
-//            time = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).parse(currentRecord.timeAdded)!!
-//        }
-//        val dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())
-//
-//        holder.date.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(calendar.time)
-//        holder.weekday.text = dayOfWeek
+//        holder.timeAdded.text = currentRecord.timeAdded
+//        val dateFormat = DateFormat.getDateInstance().format(currentRecord.timeAdded)
+//        holder.date.text = dateFormat
+
         holder.totalHour.text = currentRecord.amountConsumed
         holder.deleteButton.setOnClickListener {
             recordList.removeAt(position)

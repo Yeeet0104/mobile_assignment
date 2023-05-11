@@ -20,31 +20,31 @@
         android:id="@+id/sleep_record_weekday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/cardContent"
         android:layout_marginStart="30dp"
+        tools:text="text"
+        android:textColor="@color/cardContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sleep_record_img"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Monday" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/sleep_record_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        tools:text="Wednesyda"
         android:textColor="@color/cardContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sleep_record_total_hours"
         app:layout_constraintStart_toEndOf="@+id/sleep_record_weekday"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="15 May 2022" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/sleep_record_total_hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/cardContent"
         android:layout_marginEnd="30dp"
+        android:textColor="@color/cardContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sleep_record_dlt_btn"
         app:layout_constraintTop_toTopOf="parent"

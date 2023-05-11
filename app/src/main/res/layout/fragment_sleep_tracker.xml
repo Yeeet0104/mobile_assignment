@@ -124,7 +124,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/wakeup_icon"
                     app:layout_constraintTop_toBottomOf="@+id/wakeup_title"
-                    tools:text="9:30 am"/>
+                    android:text="9 :30 am"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
