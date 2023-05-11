@@ -9,14 +9,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
-    private val recordList: MutableList<com.example.mobile_assignment.Record>,
+    private val recordList: MutableList<Record>,
     private val onRecordDeleted: () -> Unit
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
-        val timeAdded: TextView = itemView.findViewById(R.id.sleep_record_time)
-        val amountConsumed: TextView = itemView.findViewById(R.id.sleep_record_amt)
+        val date: TextView = itemView.findViewById(R.id.sleep_record_date)
+        val weekday: TextView = itemView.findViewById(R.id.sleep_record_weekday)
+        val totalHour: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
         val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
     }
 
@@ -28,8 +29,16 @@ class SleepRecordAdapter(
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val currentRecord = recordList[position]
         holder.moonIcon.setImageResource(R.drawable.moon)
-        holder.timeAdded.text = currentRecord.timeAdded
-        holder.amountConsumed.text = currentRecord.amountConsumed
+
+        // Get the weekday from the record's timeAdded property
+//        val calendar = Calendar.getInstance().apply {
+//            time = SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault()).parse(currentRecord.timeAdded)!!
+//        }
+//        val dayOfWeek = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())
+//
+//        holder.date.text = SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(calendar.time)
+//        holder.weekday.text = dayOfWeek
+        holder.totalHour.text = currentRecord.amountConsumed
         holder.deleteButton.setOnClickListener {
             recordList.removeAt(position)
             notifyItemRemoved(position)

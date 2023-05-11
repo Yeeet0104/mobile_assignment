@@ -111,7 +111,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
         updateProgressBar(amountConsumed)
 
         // Update the visibility of the "Drink some sleep" text
-        updateDrinkSomeSleepTextVisibility()
+        updateSomeSleepTextVisibility()
 
     }
 
@@ -133,7 +133,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
         }
     }
 
-    private fun updateDrinkSomeSleepTextVisibility() {
+    private fun updateSomeSleepTextVisibility() {
         view?.findViewById<TextView>(R.id.sleep_record_time)?.apply {
             visibility = if (records.isEmpty()) View.VISIBLE else View.GONE
         }

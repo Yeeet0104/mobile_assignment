@@ -114,17 +114,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/wakeup_title" />
 
                 <TextView
-                    android:id="@+id/wakeup_time"
+                    android:id="@+id/sleep_record_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:gravity="center"
-                    android:text="@string/_9_30_am"
                     android:textColor="@color/cardContent"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/wakeup_icon"
-                    app:layout_constraintTop_toBottomOf="@+id/wakeup_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/wakeup_title"
+                    tools:listitem="@layout/sleep_tracker_record"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
