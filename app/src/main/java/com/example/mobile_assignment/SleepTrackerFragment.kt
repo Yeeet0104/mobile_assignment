@@ -19,11 +19,11 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-data class Record(val timeAdded: String, val amountConsumed: String)
+data class SleepRecord(val timeAdded: String, val amountConsumed: String)
 
 @Suppress("NAME_SHADOWING")
 class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.OnSleepAmountAddedListener,
-    SetDailyTargetListener {
+    SetDailyTargetListener, SetDailySleepTargetListener {
 
     //binding
     private var _binding: FragmentSleepTrackerBinding? = null
@@ -34,7 +34,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
     private var isTargetReached = false
 
     //data
-    private var records = mutableListOf<Record>()
+    private var records = mutableListOf<SleepRecord>()
     private var dailyTarget = 0 //1600 in text
 
     // Define the RecyclerView and its adapter
@@ -83,7 +83,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
         val formatter = DateTimeFormatter.ofPattern("h:mm a")
         val formattedTime = currentDateTime.format(formatter)
         val amount = "$amount hr"
-        val record = Record(formattedTime, amount)
+        val record = SleepRecord(formattedTime, amount)
         records.add(record)
         recordAdapter.notifyDataSetChanged()
 

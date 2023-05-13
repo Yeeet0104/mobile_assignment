@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
-    private val recordList: MutableList<Record>, private val onRecordDeleted: () -> Unit
+    private val recordList: MutableList<SleepRecord>, private val onRecordDeleted: () -> Unit
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

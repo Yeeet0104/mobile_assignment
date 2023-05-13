@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 
-interface SetDailyTargetListener {
+interface SetDailySleepTargetListener {
     fun setDailyTarget(newDailyTarget: Int)
     fun getCurrentDailyTarget(): Int
 }
 
 class EditSleepDailyTargetFragment : DialogFragment() {
-    var setDailyTargetListener: SetDailyTargetListener? = null
+    var setDailyTargetListener: SetDailySleepTargetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

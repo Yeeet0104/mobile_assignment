@@ -77,5 +77,23 @@
         <item>Alarm</item>
         <item>Notification</item>
     </string-array>
+    <string name="daily_routine_target">Daily Target: %d Routine</string>
+    <string-array name="arrForCustomWorkOut">
+        <item>Reps</item>
+        <item>Duration (seconds)</item>
+    </string-array>
+    <string name="Amount_routine_string">%d ROUTINE</string>
+    <string name="add_calories">add calories</string>
+    <string name="calories_progress">400 CALS</string>
+    <string name="calories_target">Daily Target: 2400 cals</string>
+    <string name="target_text">Target</string>
+    <string name="calories_left">2000 calories to go</string>
+    <string name="calories_input">400 cals</string>
+    <string name="food">Maggie Mee</string>
+    <string name="food_time">LUNCH</string>
+    <string name="select_type">Select Type</string>
+    <string name="popular_foods">Popular Foods</string>
+
+
 
 </resources>
