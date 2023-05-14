@@ -102,16 +102,15 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         val sleepGoalMillis = TimeUnit.HOURS.toMillis(sleepGoal.toLong())
         val progress = (totalSleptMillis.toFloat() / sleepGoalMillis.toFloat() * 100).toInt()
 
-        updateProgressBar(hoursSlept)
     }
 
-    private fun updateProgressBar(hoursSlept: Long) {
+    private fun updateProgressBar(amountConsumed: Long) {
         dailyTarget = binding.sleepDailytargetBtn.text.toString().replace(Regex("\\D"), "").toInt()
-        updatedProgress = (((hoursSlept.toDouble() / dailyTarget)) * 100).toInt()
+        updatedProgress = (((amountConsumed.toDouble() / dailyTarget)) * 100).toInt()
         binding.sleeptrackerCpb.progress = updatedProgress
 
         //Display congratulations msg to user when user hits the daily target
-        if (!isTargetReached && (hoursSlept >= dailyTarget)) {
+        if (!isTargetReached && (amountConsumed >= dailyTarget)) {
             isTargetReached = true
             Toast.makeText(
                 context,
