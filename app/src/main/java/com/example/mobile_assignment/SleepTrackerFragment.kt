@@ -59,6 +59,8 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
         // Set the onClickListener for the start button
         view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
+        view.findViewById<ImageButton>(R.id.stopsleep_btn).setOnClickListener(this)
+
 
         return view
     }
