@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/currentTimeString"
+            android:id="@+id/sleep_date_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -33,7 +33,7 @@
             android:progress="60"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/currentTimeString"
+            app:layout_constraintTop_toTopOf="@id/sleep_date_title"
             tools:progress="60" />
 
         <ImageButton
@@ -46,7 +46,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/currentTimeString" />
+            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
 
         <ImageButton
             android:id="@+id/stopsleep_btn"
@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/currentTimeString" />
+            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
 
 
         <Chronometer

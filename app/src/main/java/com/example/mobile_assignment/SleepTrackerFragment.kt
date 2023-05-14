@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.FragmentSleepTrackerBinding
 import java.util.concurrent.TimeUnit
 
-data class SleepRecord(val timeAdded: String, val hoursSlept: String)
+data class SleepRecord(val timeAdded: String, val amountConsumed: String)
 
 @Suppress("NAME_SHADOWING")
 class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetListener,
@@ -119,6 +119,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
             ).show()
         }
     }
+
 
     //Set Daily Target & get daily target
     override fun setDailyTarget(newDailyTarget: Int) {
