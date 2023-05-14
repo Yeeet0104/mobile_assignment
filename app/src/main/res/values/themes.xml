@@ -15,6 +15,7 @@
 
     <style name="CircularProgressBar">
         <item name="android:indeterminateOnly">false</item>
+    </style>
     <!-- Button Style Color -->
     <style name="ButtonGreen">
         <item name="android:background">@drawable/background_button_login</item>
