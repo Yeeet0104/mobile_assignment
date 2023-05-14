@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/sleep_date_title"
+            android:id="@+id/current_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -33,20 +33,20 @@
             android:progress="60"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/sleep_date_title"
+            app:layout_constraintTop_toTopOf="@id/current_time_text_view"
             tools:progress="60" />
 
         <ImageButton
             android:id="@+id/playsleep_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/play_sleep"
             android:background="#00FFFFFF"
+            android:contentDescription="@string/play_sleep"
             android:src="@drawable/play"
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/current_time_text_view" />
 
         <ImageButton
             android:id="@+id/stopsleep_btn"
@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/current_time_text_view" />
 
 
         <Chronometer
@@ -88,11 +88,16 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/wakeupTimeCard"
             style="@style/sleep_card_layout"
+            android:layout_width="160dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:contentPadding="10dp"
             app:contentPaddingLeft="13dp"
             app:contentPaddingRight="13dp"
+            app:layout_constraintEnd_toStartOf="@+id/bedTimeCard"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sleep_dailytarget_btn"
             app:strokeColor="@color/cardBorder"
@@ -145,13 +150,18 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bedTimeCard"
             style="@style/sleep_card_layout"
+            android:layout_width="160dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:contentPadding="10dp"
             app:contentPaddingLeft="13dp"
             app:contentPaddingRight="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/wakeupTimeCard"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_dailytarget_btn"
+            app:layout_constraintStart_toEndOf="@+id/wakeupTimeCard"
+            app:layout_constraintTop_toTopOf="@+id/wakeupTimeCard"
             app:strokeColor="@color/cardBorder"
             app:strokeWidth="1dp">
 
@@ -159,7 +169,7 @@
                 android:id="@+id/bedTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteX="12dp"
                 tools:layout_editor_absoluteY="10dp">
 
 
@@ -243,13 +253,6 @@
             app:layout_constraintTop_toBottomOf="@+id/sleep_record_title"
             app:strokeColor="@color/cardBorder"
             app:strokeWidth="1.2dp">
-
-            <TextView
-                android:id="@+id/sleep_recordtime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="Sleep More!" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sleep_records_recycler_view"
