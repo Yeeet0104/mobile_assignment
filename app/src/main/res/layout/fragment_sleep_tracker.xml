@@ -126,7 +126,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/wakeup_title" />
 
                 <TextView
-                    android:id="@+id/sleep_record_time"
+                    android:id="@+id/wakeup_record_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -183,12 +183,12 @@
                     app:layout_constraintTop_toBottomOf="@+id/bedtime_title" />
 
                 <TextView
-                    android:id="@+id/next_reminder_time"
+                    android:id="@+id/bed_record_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:gravity="center"
-                    android:text="@string/_9_30_am"
+                    android:text="@string/bed_record_time_text"
                     android:textColor="@color/cardContent"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -118,6 +118,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
                 // Set the current time to the duration of the timer (in milliseconds)
                 currentTime = Long.MAX_VALUE
 
+                // Update bed_record_time with the current time
+                updateBedRecordTime(view)
+
                 // Create a new CountDownTimer object
                 timer = object : CountDownTimer(currentTime, 1000) {
                     var elapsedTime: Long = 0
@@ -155,6 +158,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
                 // Stop the timer
                 timer?.cancel()
 
+                // Update the wakeup record time
+                updateWakeUpRecordTime(view)
+
                 // Hide the stop button
                 view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.GONE
             }
@@ -174,4 +180,37 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
         }
     }
+
+    private fun updateBedRecordTime(view: View?) {
+        // Get the current time in milliseconds
+        val currentTime = System.currentTimeMillis()
+
+        // Create a Date object from the current time
+        val date = Date(currentTime)
+
+        // Format the date to display as a string
+        val format = SimpleDateFormat("h:mm a")
+        val timeString = format.format(date)
+
+        // Update the bed_record_time TextView with the current time
+        val bedRecordTimeTextView = view?.findViewById<TextView>(R.id.bed_record_time)
+        bedRecordTimeTextView?.text = timeString
+    }
+
+    private fun updateWakeUpRecordTime(view: View?) {
+        // Get the current time in milliseconds
+        val currentTime = System.currentTimeMillis()
+
+        // Create a Date object from the current time
+        val date = Date(currentTime)
+
+        // Format the date to display as a string
+        val format = SimpleDateFormat("h:mm a")
+        val timeString = format.format(date)
+
+        // Update the wakeup_record_time TextView with the current time
+        val wakeUpRecordTimeTextView = view?.findViewById<TextView>(R.id.wakeup_record_time)
+        wakeUpRecordTimeTextView?.text = timeString
+    }
+
 }
