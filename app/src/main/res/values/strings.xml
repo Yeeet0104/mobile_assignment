@@ -37,6 +37,12 @@
     <string name="today_s_record">Today\'s Record</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="Amount_routine_string">%d ROUTINE</string>
+    <string name="daily_routine_target">Daily Target: %d Routine</string>
+    <string-array name="arrForCustomWorkOut">
+        <item>Reps</item>
+        <item>Duration (seconds)</item>
+    </string-array>
     <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>
     <string name="reminder_interval">Reminder Interval</string>
     <string name="reminder_notifications">Reminder Notifications</string>
@@ -75,4 +81,15 @@
     <string name="wakeup_title">Wake Up Time</string>
     <string name="bedtime_title">Bed Time</string>
     <string name="weekly_records">Weekly Records</string>
+    <string name="add_calories">add calories</string>
+    <string name="calories_progress">400 CALS</string>
+    <string name="calories_target">Daily Target: 2400 cals</string>
+    <string name="target_text">Target</string>
+    <string name="calories_left">2000 calories to go</string>
+    <string name="calories_input">400 cals</string>
+    <string name="food">Maggie Mee</string>
+    <string name="food_time">LUNCH</string>
+    <string name="select_type">Select Type</string>
+    <string name="popular_foods">Popular Foods</string>
+
 </resources>

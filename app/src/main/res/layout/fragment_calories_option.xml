@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NutritionOptionFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <TextView
+        android:id="@+id/calories_select_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/select_type"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/breakfast_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="3dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Breakfast"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/calories_select_type"
+        app:layout_constraintTop_toBottomOf="@+id/calories_select_type" />
+
+    <Button
+        android:id="@+id/lunch_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Lunch"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/breakfast_btn"
+        app:layout_constraintTop_toTopOf="@+id/breakfast_btn" />
+
+    <Button
+        android:id="@+id/snack_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Snack"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/breakfast_btn"
+        app:layout_constraintTop_toBottomOf="@+id/breakfast_btn" />
+
+    <Button
+        android:id="@+id/dinner_btn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="28dp"
+        android:backgroundTint="@android:color/transparent"
+        android:text="Dinner"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/snack_btn"
+        app:layout_constraintEnd_toEndOf="@+id/lunch_btn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/snack_btn"
+        app:layout_constraintTop_toTopOf="@+id/snack_btn" />
+
+    <TextView
+        android:id="@+id/search_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Search"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/calories_select_type"
+        app:layout_constraintTop_toBottomOf="@+id/snack_btn" />
+
+    <SearchView
+        android:id="@+id/search_food"
+        android:layout_width="320dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:iconifiedByDefault="true"
+        android:background="@drawable/searchview_bg"
+        android:queryHint="Enter food name"
+        app:layout_constraintStart_toStartOf="@+id/search_text"
+        app:layout_constraintTop_toBottomOf="@+id/search_text" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/historyCompletionCard"
+        style="@style/card_layout"
+        android:layout_width="320dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:contentPadding="10dp"
+        app:contentPaddingLeft="14dp"
+        app:contentPaddingRight="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/search_food"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
+        app:layout_constraintTop_toBottomOf="@+id/search_food"
+        app:strokeColor="@color/cardBorder"
+        app:strokeWidth="1dp">
+
+
+        <TextView
+            android:id="@+id/weeklyCaloriesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recent Foods"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/caloriesTrackerCard"
+        style="@style/card_layout"
+        android:layout_width="320dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        app:contentPadding="10dp"
+        app:contentPaddingLeft="14dp"
+        app:contentPaddingRight="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/historyCompletionCard"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
+        app:layout_constraintTop_toBottomOf="@+id/historyCompletionCard"
+        app:strokeColor="@color/cardBorder"
+        app:strokeWidth="1dp">
+
+
+        <TextView
+            android:id="@+id/trackerReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/popular_foods"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/custom_food_btn"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Custom Food"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caloriesTrackerCard" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
