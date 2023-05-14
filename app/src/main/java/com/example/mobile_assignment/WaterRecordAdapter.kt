@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class WaterRecordAdapter(
-    private val recordList: MutableList<Record>,
+    private val recordList: MutableList<SleepRecord>,
     private val onRecordDeleted: () -> Unit
     ) : RecyclerView.Adapter<WaterRecordAdapter.RecordViewHolder>() {
 

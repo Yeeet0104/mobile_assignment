@@ -4,7 +4,6 @@ package com.example.mobile_assignment
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +33,7 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
     private var isTargetReached = false
 
     //data
-    private var records = mutableListOf<Record>()
+    private var records = mutableListOf<SleepRecord>()
     private  var dailyTarget = 0 //1600 in text
 
     // Define the RecyclerView and its adapter
@@ -84,7 +83,7 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         val formatter = DateTimeFormatter.ofPattern("h:mm a")
         val formattedTime = currentDateTime.format(formatter)
         val amount = "$amount ml"
-        val record = Record(formattedTime, amount)
+        val record = SleepRecord(formattedTime, amount)
         records.add(record)
         recordAdapter.notifyDataSetChanged()
 
