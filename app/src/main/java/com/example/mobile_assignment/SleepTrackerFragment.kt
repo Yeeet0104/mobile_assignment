@@ -2,28 +2,27 @@ package com.example.mobile_assignment
 
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.FragmentSleepTrackerBinding
-import java.time.LocalDateTime
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
+import java.util.concurrent.TimeUnit
 
 data class SleepRecord(val timeAdded: String, val amountConsumed: String)
 
 @Suppress("NAME_SHADOWING")
-class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.OnSleepAmountAddedListener,
-    SetDailyTargetListener, SetDailySleepTargetListener {
+class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetListener,
+    SetDailySleepTargetListener {
 
     //binding
     private var _binding: FragmentSleepTrackerBinding? = null
@@ -41,21 +40,25 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
     private lateinit var recyclerView: RecyclerView
     private lateinit var recordAdapter: SleepRecordAdapter
 
+    // Add a variable to hold the current time
+    private var currentTime: Long = 0
+
+    // Add a variable to hold the timer
+    private var timer: CountDownTimer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSleepTrackerBinding.inflate(inflater, container, false)
-        val view = binding.root
+        val view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
 
         //Set onClickListener
-        binding.addsleepBtn.setOnClickListener(this)
-        binding.sleepDailytargetBtn.setOnClickListener(this)
-        //binding.editReminderBtn.setOnClickListener(this)
-        binding.historyBtn.setOnClickListener(this)
+        view.findViewById<Button>(R.id.sleep_dailytarget_btn).setOnClickListener(this)
 
-        // Update the sleep tracker UI
-        updateSleepConsumptionUI()
+        //binding.editReminderBtn.setOnClickListener(this)
+        view.findViewById<Button>(R.id.history_btn).setOnClickListener(this)
+
+        // Set the onClickListener for the start button
+        view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
 
         return view
     }
@@ -68,50 +71,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
         linearLayoutManager.reverseLayout = true
         recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
         recyclerView.layoutManager = linearLayoutManager
-
-        // Create a list of records and set up the adapter
-        val recordList = records
-        recordAdapter = SleepRecordAdapter(recordList, ::onRecordDeleted)
-        recyclerView.adapter = recordAdapter
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    //Add Sleep
-    override fun onSleepAmountAdded(amount: Int) {
-        //Add Records
-        val currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Kuala_Lumpur"))
-        val formatter = DateTimeFormatter.ofPattern("h:mm a")
-        val formattedTime = currentDateTime.format(formatter)
-        val amount = "$amount hr"
-        val record = SleepRecord(formattedTime, amount)
-        records.add(record)
-        recordAdapter.notifyDataSetChanged()
-
-        //Show toast after add sleep
-        Toast.makeText(context, "$amount of sleep added.", Toast.LENGTH_SHORT).show()
-
-        // Update the sleep tracker UI
-        updateSleepConsumptionUI()
-    }
-
-    private fun onRecordDeleted() {
-        // Update the sleep tracker UI
-        updateSleepConsumptionUI()
-    }
-
-    private fun updateSleepConsumptionUI() {
-        // Update the amount consumed
-        var amountConsumed = 0
-        for (record in records) {
-            amountConsumed += record.amountConsumed.replace(Regex("\\D"), "").toInt()
-        }
-        binding.consumedsleepAmt.text = "$amountConsumed Hours"
-
-        // Update the progress bar
-        updateProgressBar(amountConsumed)
-
-        // Update the visibility of the "Drink some sleep" text
-        updateSomeSleepTextVisibility()
 
     }
 
@@ -148,7 +107,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
         Toast.makeText(
             context, "Daily target set to ${dailyTarget.toString()}hr", Toast.LENGTH_SHORT
         ).show()
-        updateSleepConsumptionUI()
     }
 
     override fun getCurrentDailyTarget(): Int {
@@ -158,17 +116,51 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
 
     //OnClick Listeners
     override fun onClick(v: View?) {
-        when (v) {
+        when (v?.id) {
+            R.id.playsleep_btn -> {
+                // Set the maximum time for the timer to run (in milliseconds)
+                val maxTime = Long.MAX_VALUE
 
-            binding.addsleepBtn -> {
-                val showAddSleepPopUp = AddSleepFragment()
-                showAddSleepPopUp.onSleepAmountAddedListener = this
-                showAddSleepPopUp.show(
-                    (activity as AppCompatActivity).supportFragmentManager, "showAddSleepPopUp"
-                )
+                // Create a new CountDownTimer object
+                timer = object : CountDownTimer(maxTime, 1000) {
+                    var elapsedTime: Long = 0
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        // Update the elapsed time
+                        elapsedTime += 1000
+
+                        // Update the UI with the elapsed time
+                        view?.findViewById<TextView>(R.id.sleep_time)?.text = String.format(
+                            "%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(elapsedTime),
+                            TimeUnit.MILLISECONDS.toSeconds(elapsedTime) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(
+                                    elapsedTime
+                                )
+                            )
+                        )
+                    }
+
+                    override fun onFinish() {
+                        // Handle the timer finishing
+                        view?.findViewById<TextView>(R.id.sleep_time)?.text = "00:00"
+                    }
+                }
+
+                // Start the timer
+                timer?.start()
             }
 
-            binding.sleepDailytargetBtn -> {
+            R.id.stopsleep_btn -> {
+                // Stop the timer and reset the current time
+                timer?.cancel()
+                currentTime = 0
+
+                // Update the UI with the current time
+                view?.findViewById<TextView>(R.id.sleep_time)?.text = "00:00"
+            }
+
+            R.id.sleep_dailytarget_btn -> {
                 val editsleepDailyTarget = EditSleepDailyTargetFragment()
                 editsleepDailyTarget.setDailyTargetListener = this
                 editsleepDailyTarget.show(
@@ -176,28 +168,11 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, AddSleepFragment.
                 )
             }
 
-//            binding.editReminderBtn -> {
-//                val reminderIntent = Intent(activity, SleepReminderSettingsActivity::class.java)
-//                startActivity(reminderIntent)
-//            }
-
-            binding.historyBtn -> {
+            R.id.history_btn -> {
                 val historyIntent = Intent(activity, SleepHistory::class.java)
                 startActivity(historyIntent)
             }
-
         }
     }
 
-
-    override fun onResume() {
-        super.onResume()
-        // Update the sleep tracker UI
-        updateSleepConsumptionUI()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
