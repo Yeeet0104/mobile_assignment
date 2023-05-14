@@ -53,9 +53,9 @@
     <string name="weekly_records">Weekly Records</string>
     <string name="add_calories">add calories</string>
     <string name="calories_progress">%s CALS</string>
-    <string name="calories_target">Daily Target: %s cals</string>
+    <string name="calories_target">Daily Target: 2400 cals</string>
     <string name="target_text">Target</string>
-    <string name="calories_left">%s calories to go</string>
+    <string name="calories_left">2400 calories to go</string>
     <string name="calories_input">%s cals</string>
     <string name="food">Maggie Mee</string>
     <string name="food_time">LUNCH</string>

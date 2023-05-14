@@ -33,6 +33,7 @@ class AddCustomFoodActivity : AppCompatActivity() {
 
         addDataBtn.setOnClickListener {
             saveFoodData()
+
         }
     }
 
@@ -64,6 +65,7 @@ class AddCustomFoodActivity : AppCompatActivity() {
             Toast.makeText(this,"Food Added Successfully", Toast.LENGTH_SHORT).show()
             etfoodName.text.clear()
             etfoodCalories.text.clear()
+            finish()
 
         }.addOnFailureListener {
             err -> Toast.makeText(this,"Error $err.get", Toast.LENGTH_SHORT).show()

@@ -12,15 +12,14 @@
         android:id="@+id/close_confirmfood_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="236dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginEnd="8dp"
         android:background="#00FFFFFF"
         android:contentDescription="exit edit calories"
         android:padding="10dp"
         android:src="@drawable/close_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/food_confirm_text"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
@@ -73,11 +72,33 @@
         android:id="@+id/food_confirm_button"
         android:layout_width="80dp"
         android:layout_height="88dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="76dp"
         android:backgroundTint="@color/transparent"
         android:contentDescription="clickable add food button"
         android:src="@drawable/add_food_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/close_confirmfood_btn" />
+
+    <TextView
+        android:id="@+id/food_confirm_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="Food Time"
+        android:textColor="#577306"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/food_confirm_text"
+        app:layout_constraintStart_toEndOf="@+id/food_confirm_text"
+        app:layout_constraintTop_toTopOf="@+id/food_confirm_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/food_confirm_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breakfast"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/food_confirm_time_text"
+        app:layout_constraintTop_toBottomOf="@+id/food_confirm_time_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

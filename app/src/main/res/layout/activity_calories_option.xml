@@ -92,14 +92,12 @@
         app:layout_constraintStart_toStartOf="@+id/calories_select_type"
         app:layout_constraintTop_toBottomOf="@+id/snack_btn" />
 
-    <androidx.appcompat.widget.SearchView
+    <ImageView
         android:id="@+id/search_food"
         android:layout_width="320dp"
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
-        android:iconifiedByDefault="true"
         android:background="@drawable/searchview_bg"
-        android:queryHint="Enter food name"
         app:layout_constraintStart_toStartOf="@+id/search_text"
         app:layout_constraintTop_toBottomOf="@+id/search_text" />
 
@@ -232,6 +230,20 @@
         app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caloriesTrackerCard" />
+
+    <Button
+        android:id="@+id/update_delete_btn"
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@android:color/darker_gray"
+        android:text="Update/Delete Food"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="@+id/custom_food_btn"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="@+id/custom_food_btn"
+        app:layout_constraintTop_toBottomOf="@+id/custom_food_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
