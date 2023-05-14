@@ -118,11 +118,11 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.playsleep_btn -> {
-                // Set the maximum time for the timer to run (in milliseconds)
-                val maxTime = Long.MAX_VALUE
+                // Set the current time to the duration of the timer (in milliseconds)
+                currentTime = Long.MAX_VALUE
 
                 // Create a new CountDownTimer object
-                timer = object : CountDownTimer(maxTime, 1000) {
+                timer = object : CountDownTimer(currentTime, 1000) {
                     var elapsedTime: Long = 0
 
                     override fun onTick(millisUntilFinished: Long) {
@@ -149,15 +149,17 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
                 // Start the timer
                 timer?.start()
+
+                // Show the stop button
+                view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.VISIBLE
             }
 
             R.id.stopsleep_btn -> {
-                // Stop the timer and reset the current time
+                // Stop the timer
                 timer?.cancel()
-                currentTime = 0
 
-                // Update the UI with the current time
-                view?.findViewById<TextView>(R.id.sleep_time)?.text = "00:00"
+                // Hide the stop button
+                view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.GONE
             }
 
             R.id.sleep_dailytarget_btn -> {
@@ -172,7 +174,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
                 val historyIntent = Intent(activity, SleepHistory::class.java)
                 startActivity(historyIntent)
             }
+
         }
     }
-
 }
