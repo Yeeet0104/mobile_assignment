@@ -18,19 +18,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.FragmentSleepTrackerBinding
 import java.util.concurrent.TimeUnit
 
-data class SleepRecord(val timeAdded: String, val amountConsumed: String)
+data class SleepRecord(val timeAdded: String, val hoursSlept: String)
 
 @Suppress("NAME_SHADOWING")
 class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetListener,
     SetDailySleepTargetListener {
 
     //binding
-    private var _binding: FragmentSleepTrackerBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentSleepTrackerBinding
+
 
     //temp value: 0
     private var updatedProgress = 0
     private var isTargetReached = false
+    private var totalSleptMillis: Long = 0
+    private var sleepGoal: Int = 8 // define the initial value
 
     //data
     private var records = mutableListOf<SleepRecord>()
@@ -51,6 +53,8 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     ): View {
         val view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
 
+        binding = FragmentSleepTrackerBinding.inflate(inflater, container, false)
+
         //Set onClickListener
         view.findViewById<Button>(R.id.sleep_dailytarget_btn).setOnClickListener(this)
 
@@ -60,6 +64,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         // Set the onClickListener for the start button
         view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
         view.findViewById<ImageButton>(R.id.stopsleep_btn).setOnClickListener(this)
+
+        // Update the sleep tracker UI
+        updateSleepConsumptionUI()
 
 
         return view
@@ -74,29 +81,43 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
         recyclerView.layoutManager = linearLayoutManager
 
+        // Create a list of records and set up the adapter
+        val recordList = records
+        recordAdapter = SleepRecordAdapter(recordList, ::onRecordDeleted)
+        recyclerView.adapter = recordAdapter
     }
 
-    private fun updateProgressBar(amountConsumed: Int) {
+    private fun onRecordDeleted() {
+        // Update the sleep tracker UI
+        updateSleepConsumptionUI()
+    }
 
+
+    private fun updateSleepConsumptionUI() {
+        // Update the amount slept
+        val hoursSlept = TimeUnit.MILLISECONDS.toHours(totalSleptMillis)
+        binding.sleepRecordTime.text = "$hoursSlept Hours"
+
+        // Update the progress bar
+        val sleepGoalMillis = TimeUnit.HOURS.toMillis(sleepGoal.toLong())
+        val progress = (totalSleptMillis.toFloat() / sleepGoalMillis.toFloat() * 100).toInt()
+
+        updateProgressBar(hoursSlept)
+    }
+
+    private fun updateProgressBar(hoursSlept: Long) {
         dailyTarget = binding.sleepDailytargetBtn.text.toString().replace(Regex("\\D"), "").toInt()
-        updatedProgress = (((amountConsumed.toDouble() / dailyTarget)) * 100).toInt()
-
+        updatedProgress = (((hoursSlept.toDouble() / dailyTarget)) * 100).toInt()
         binding.sleeptrackerCpb.progress = updatedProgress
 
         //Display congratulations msg to user when user hits the daily target
-        if (!isTargetReached && (amountConsumed >= dailyTarget)) {
+        if (!isTargetReached && (hoursSlept >= dailyTarget)) {
             isTargetReached = true
             Toast.makeText(
                 context,
                 "Congratulations! You have reached your daily sleep hours intake target.",
                 Toast.LENGTH_LONG
             ).show()
-        }
-    }
-
-    private fun updateSomeSleepTextVisibility() {
-        view?.findViewById<TextView>(R.id.sleep_record_time)?.apply {
-            visibility = if (records.isEmpty()) View.VISIBLE else View.GONE
         }
     }
 
@@ -107,7 +128,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
         //Show toast after set daily target
         Toast.makeText(
-            context, "Daily target set to ${dailyTarget.toString()}hr", Toast.LENGTH_SHORT
+            context, "Daily target set to ${dailyTarget.toString()} hour", Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -131,6 +152,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
                         // Update the elapsed time
                         elapsedTime += 1000
 
+                        // Update the total time slept
+                        totalSleptMillis += 1000
+
                         // Update the UI with the elapsed time
                         view?.findViewById<TextView>(R.id.sleep_time)?.text = String.format(
                             "%02d:%02d",
@@ -146,6 +170,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
                     override fun onFinish() {
                         // Handle the timer finishing
                         view?.findViewById<TextView>(R.id.sleep_time)?.text = "00:00"
+
+                        // Update the progress bar
+                        updateProgressBar(elapsedTime)
                     }
                 }
 
