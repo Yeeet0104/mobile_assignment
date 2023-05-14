@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/sleep_date_title"
+            android:id="@+id/currentDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -33,20 +33,20 @@
             android:progress="60"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/sleep_date_title"
+            app:layout_constraintTop_toTopOf="@id/currentDateTextView"
             tools:progress="60" />
 
         <ImageButton
             android:id="@+id/playsleep_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/play_sleep"
             android:background="#FFFF"
+            android:contentDescription="@string/play_sleep"
             android:src="@drawable/play"
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/currentDateTextView" />
 
         <ImageButton
             android:id="@+id/stopsleep_btn"
@@ -59,7 +59,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
             app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
-            app:layout_constraintTop_toBottomOf="@+id/sleep_date_title" />
+            app:layout_constraintTop_toBottomOf="@+id/currentDateTextView" />
 
 
         <Chronometer
@@ -88,6 +88,8 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/wakeupTimeCard"
             style="@style/sleep_card_layout"
+            android:layout_width="160dp"
+            android:layout_height="64dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:contentPadding="10dp"
@@ -145,6 +147,7 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bedTimeCard"
             style="@style/sleep_card_layout"
+            android:layout_width="160dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="0dp"
             app:contentPadding="10dp"
