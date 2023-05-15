@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
     private val recordList: MutableList<SleepRecord>,
-    private val onRecordDeleted: () -> Unit,
+    private val onRecordDeleted: (SleepRecord) -> Unit,
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
 
 
@@ -35,10 +35,11 @@ class SleepRecordAdapter(
         holder.sleepTime.text = currentRecord.sleepTime
 
         holder.deleteButton.setOnClickListener {
+            val deletedRecord = recordList[position]
             recordList.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, recordList.size)
-            onRecordDeleted()
+            onRecordDeleted(deletedRecord)
         }
     }
 

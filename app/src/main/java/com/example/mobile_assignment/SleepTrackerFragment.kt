@@ -43,6 +43,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     private val recordList: MutableList<SleepRecord> = mutableListOf()
     private var dailyTarget = 0 //1600 in text
 
+    // Define the callback function for deleting sleep records
+    private val onRecordDeleted: (SleepRecord) -> Unit = {}
+
     // Define the RecyclerView and its adapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var recordAdapter: SleepRecordAdapter
@@ -62,18 +65,29 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     ): View {
         val view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
 
-        //Set onClickListener
+        // Set onClickListener
         view.findViewById<Button>(R.id.sleep_dailytarget_btn).setOnClickListener(this)
 
-        //binding.editReminderBtn.setOnClickListener(this)
+        // binding.editReminderBtn.setOnClickListener(this)
         view.findViewById<Button>(R.id.history_btn).setOnClickListener(this)
 
         // Set the onClickListener for the start button
         view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
         view.findViewById<ImageButton>(R.id.stopsleep_btn).setOnClickListener(this)
 
+        // Initialize the RecyclerView and its adapter
+        recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
+        recordAdapter = SleepRecordAdapter(recordList, onRecordDeleted)
+
+        // Set up the RecyclerView with the adapter
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = recordAdapter
+        }
+
         return view
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -86,47 +100,28 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
             DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault()).format(Date())
         currentDateTextView.text = currentDate
 
+
         // Find the RecyclerView in the layout and set its layout manager (in reverse order)
-        val linearLayoutManager = LinearLayoutManager(context)
+        val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.reverseLayout = true
         recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
         recyclerView.layoutManager = linearLayoutManager
 
-        // Create an empty list of records and set up the adapter
-        val recordList = mutableListOf<SleepRecord>()
-        recordAdapter = SleepRecordAdapter(recordList, ::onRecordDeleted)
+        // Set up the adapter with the existing recordList
+        recordAdapter = SleepRecordAdapter(recordList, ::onDeleteRecord)
         recyclerView.adapter = recordAdapter
 
-        // Set the initial records to the adapter
-        recordList.addAll(records)
+        // Update the RecyclerView with the records
         recordAdapter.notifyDataSetChanged()
 
     }
 
-    private fun addSleepRecord(recordList: MutableList<SleepRecord>, sleepTime: String) {
-        // Create a new SleepRecord object with the current date, sleep time, and total hours
-        val currentDateTime =
-            SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault()).format(Date())
-        val totalHours = calculateTotalHours(sleepTime)
-        val newRecord = SleepRecord(currentDateTime, sleepTime, totalHours)
+    private fun onDeleteRecord(record: SleepRecord) {
+        // Handle the deletion of the sleep record
+        // You can implement your logic here, such as removing the record from the list and updating the UI
+        records.remove(record)
+        recordAdapter.notifyDataSetChanged()
 
-        // Add the new record to the list
-        recordList.add(newRecord)
-
-        // Update the RecyclerView
-        recordAdapter.notifyItemInserted(recordList.size - 1)
-    }
-
-    private fun calculateSleepTime(currentTime: Long): String {
-        // Calculate the sleep time based on the current time and the timer duration
-        val durationInMillis = Long.MAX_VALUE - currentTime
-        val hours = TimeUnit.MILLISECONDS.toHours(durationInMillis)
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(durationInMillis) % 60
-        return String.format("%02d:%02d", hours, minutes)
-    }
-
-    private fun onRecordDeleted() {
-        // Update the sleep tracker UI
         updateSleepTrackerUI()
     }
 
@@ -229,9 +224,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
                 // After updating the wake-up record time, you can add the sleep record to the list
                 val currentDate = DateFormat.getDateInstance().format(Date())
-                val sleepTime = calculateSleepTime(currentTime)
-                addSleepRecord(recordList, sleepTime)
-
+                val sleepTime = view?.findViewById<TextView>(R.id.sleep_time)?.text.toString()
 
                 // Calculate the total hours of sleep (you can adjust this calculation based on your requirements)
                 val totalHours = calculateTotalHours(sleepTime)
@@ -241,12 +234,16 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
 
                 // Add the record to the list
                 records.add(sleepRecord)
-                recordAdapter.notifyItemInserted(records.size - 1)
-
 
                 // Update the wakeup record time
                 updateWakeUpRecordTime(view)
 
+                // Update the RecyclerView and notify the adapter of the data change
+                recordAdapter.notifyItemInserted(records.size - 1)
+                recyclerView.scrollToPosition(records.size - 1)
+
+                // Display the record list
+                showRecordList()
             }
 
             R.id.sleep_dailytarget_btn -> {
@@ -307,6 +304,13 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         // Update the wakeup_record_time TextView with the current time
         val wakeUpRecordTimeTextView = view?.findViewById<TextView>(R.id.wakeup_record_time)
         wakeUpRecordTimeTextView?.text = timeString
+    }
+
+    private fun showRecordList() {
+        // Clear the current list and add all records
+        recordList.clear()
+        recordList.addAll(records)
+        recordAdapter.notifyDataSetChanged()
     }
 
 }
