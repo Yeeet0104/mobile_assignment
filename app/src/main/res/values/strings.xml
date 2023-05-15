@@ -92,4 +92,14 @@
     <string name="select_type">Select Type</string>
     <string name="popular_foods">Popular Foods</string>
 
+    <string-array name="filterByExercise">
+        <item>Workout Name</item>
+        <item>Body Part</item>
+    </string-array>
+
+    <string name="targetBodyPart">Targeted Body Part:%s</string>
+
+    <string name="workoutTimer">%d Sec</string>
+    <string name="workoutLeft">%d/%d Exercise</string>
+
 </resources>

@@ -39,6 +39,11 @@
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="start_workout_title">
+        <item name="android:textColor">@color/waterDarkBlue</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="daily_target_style" parent="custom_image_btn">
         <item name="android:drawableRight">@drawable/edit_pen</item>

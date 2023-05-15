@@ -49,6 +49,16 @@
             android:parentActivityName=".add_workout_activity"
             android:theme="@style/Theme.Mobile_assignment"
             />
+        <activity android:name=".activity_added_exercise"
+            android:exported="true"
+            android:parentActivityName=".add_custom_exercise"
+            android:theme="@style/Theme.Mobile_assignment"
+            />
+        <activity android:name=".start_workout"
+            android:exported="true"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.Mobile_assignment"
+            />
     </application>
 
 </manifest>

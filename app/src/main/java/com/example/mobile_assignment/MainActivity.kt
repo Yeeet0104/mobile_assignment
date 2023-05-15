@@ -72,12 +72,6 @@ class MainActivity : AppCompatActivity(){
         return NavigationUI.navigateUp(navController, appBarConfiguration)
 
     }
-    override fun onBackPressed() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        if (drawerLayout.isDrawerOpen(navigationView)) {
-            drawerLayout.closeDrawer(navigationView)
-        }
-    }
 
     private fun setupBottomNavigation() {
         bottomNav.setupWithNavController(navController)

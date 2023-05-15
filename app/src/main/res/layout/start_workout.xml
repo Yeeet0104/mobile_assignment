@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/toolbarHeader"
+        layout="@layout/header" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint101"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHeader">
+
+
+        <ProgressBar
+            android:id="@+id/workoutProgessBar"
+            style="@style/CircularProgressBar_workout"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:indeterminateOnly="false"
+            android:progress="0"
+
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearStartWorkout1"
+            tools:progress="100" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearStartWorkout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseLeft">
+
+            <TextView
+
+                android:id="@+id/displayWorkoutName"
+                style="@style/start_workout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Workout Name"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/showWorkoutImage"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="5dp"
+                android:contentDescription="@string/add_water"
+                android:src="@drawable/add_workout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayWorkoutName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/numberCountdown"
+            style="@style/start_workout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="45 sec"
+            android:textSize="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/workoutProgessBar"
+            app:layout_constraintEnd_toEndOf="@+id/workoutProgessBar"
+            app:layout_constraintStart_toStartOf="@+id/workoutProgessBar"
+            app:layout_constraintTop_toTopOf="@+id/workoutProgessBar" />
+
+        <TextView
+
+            android:id="@+id/exerciseLeft"
+            style="@style/start_workout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1/2 Exercise"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/showReps"
+            style="@style/start_workout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 Reps"
+            android:textAlignment="center"
+            android:textSize="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintTop_toTopOf="@+id/workoutProgessBar"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <LinearLayout
+            android:layout_marginBottom="10dp"
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/skipOneWorkout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="10dp"
+                android:text="Skip" />
+
+            <Button
+                android:id="@+id/doneOneWorkout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:text="Done" />
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
