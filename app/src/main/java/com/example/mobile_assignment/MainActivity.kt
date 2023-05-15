@@ -1,6 +1,5 @@
 package com.example.mobile_assignment
 
-import android.app.Notification.Action
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -71,12 +70,6 @@ class MainActivity : AppCompatActivity(){
         //return navController.navigateUp()
         return NavigationUI.navigateUp(navController, appBarConfiguration)
 
-    }
-    override fun onBackPressed() {
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        if (drawerLayout.isDrawerOpen(navigationView)) {
-            drawerLayout.closeDrawer(navigationView)
-        }
     }
 
     private fun setupBottomNavigation() {
