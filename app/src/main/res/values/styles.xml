@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="card_layout">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -34,20 +35,31 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="title_under_progessBar">
+    <style name="custom_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#0076B1</item>
+    </style>
+    <style name="start_workout_title">
         <item name="android:textColor">@color/waterDarkBlue</item>
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="sleep_custom_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">#5A49A0</item>
+    </style>
     <style name="daily_target_style" parent="custom_image_btn">
         <item name="android:drawableRight">@drawable/edit_pen</item>
         <item name="android:textColor">#5C5C5C</item>
         <item name="android:textSize">18sp</item>
     </style>
-    <style name="custom_btn">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">#0076B1</item>
+
+    <style name="title_under_progessBar">
+        <item name="android:textColor">@color/waterDarkBlue</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -8,11 +8,12 @@
     android:id="@+id/headerToolbar"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logo"
         android:layout_gravity="center_horizontal"
-        />
+        android:text="Logo"
+        android:visibility="gone" />
 
 </androidx.appcompat.widget.Toolbar>

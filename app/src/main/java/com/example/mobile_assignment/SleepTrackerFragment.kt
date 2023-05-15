@@ -1,59 +1,218 @@
 package com.example.mobile_assignment
 
+
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile_assignment.databinding.FragmentSleepTrackerBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.concurrent.TimeUnit
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+data class SleepRecord(val timeAdded: String, val amountConsumed: String)
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SleepTrackerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SleepTrackerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+@Suppress("NAME_SHADOWING")
+class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetListener,
+    SetDailySleepTargetListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    //binding
+    private var _binding: FragmentSleepTrackerBinding? = null
+    private val binding get() = _binding!!
+
+    //temp value: 0
+    private var updatedProgress = 0
+    private var isTargetReached = false
+
+    //data
+    private var records = mutableListOf<SleepRecord>()
+    private var dailyTarget = 0 //1600 in text
+
+    // Define the RecyclerView and its adapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recordAdapter: SleepRecordAdapter
+
+    // Add a variable to hold the current time
+    private var currentTime: Long = 0
+
+    // Add a variable to hold the timer
+    private var timer: CountDownTimer? = null
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        val view = inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
+
+        //Set onClickListener
+        view.findViewById<Button>(R.id.sleep_dailytarget_btn).setOnClickListener(this)
+
+        //binding.editReminderBtn.setOnClickListener(this)
+        view.findViewById<Button>(R.id.history_btn).setOnClickListener(this)
+
+        // Set the onClickListener for the start button
+        view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
+        view.findViewById<ImageButton>(R.id.stopsleep_btn).setOnClickListener(this)
+
+
+        return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Find the RecyclerView in the layout and set its layout manager (in reverse order)
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.reverseLayout = true
+        recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
+        recyclerView.layoutManager = linearLayoutManager
+
+    }
+
+    private fun updateProgressBar(amountConsumed: Int) {
+
+        dailyTarget = binding.sleepDailytargetBtn.text.toString().replace(Regex("\\D"), "").toInt()
+        updatedProgress = (((amountConsumed.toDouble() / dailyTarget)) * 100).toInt()
+
+        binding.sleeptrackerCpb.progress = updatedProgress
+
+        //Display congratulations msg to user when user hits the daily target
+        if (!isTargetReached && (amountConsumed >= dailyTarget)) {
+            isTargetReached = true
+            Toast.makeText(
+                context,
+                "Congratulations! You have reached your daily sleep hours intake target.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sleep_tracker, container, false)
+
+    //Set Daily Target & get daily target
+    override fun setDailyTarget(newDailyTarget: Int) {
+        dailyTarget = newDailyTarget
+        binding.sleepDailytargetBtn.text = "Daily Target: ${dailyTarget.toString()}hr"
+
+        //Show toast after set daily target
+        Toast.makeText(
+            context, "Daily target set to ${dailyTarget.toString()}hr", Toast.LENGTH_SHORT
+        ).show()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SleepTrackerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SleepTrackerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun getCurrentDailyTarget(): Int {
+        // Retrieve the current daily target from your application or class
+        return dailyTarget
     }
+
+    //OnClick Listeners
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.playsleep_btn -> {
+                // Set the current time to the duration of the timer (in milliseconds)
+                currentTime = Long.MAX_VALUE
+
+                // Update bed_record_time with the current time
+                updateBedRecordTime(view)
+
+                // Create a new CountDownTimer object
+                timer = object : CountDownTimer(currentTime, 1000) {
+                    var elapsedTime: Long = 0
+
+                    override fun onTick(millisUntilFinished: Long) {
+                        // Update the elapsed time
+                        elapsedTime += 1000
+
+                        // Update the UI with the elapsed time
+                        view?.findViewById<TextView>(R.id.sleep_time)?.text = String.format(
+                            "%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(elapsedTime),
+                            TimeUnit.MILLISECONDS.toSeconds(elapsedTime) - TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(
+                                    elapsedTime
+                                )
+                            )
+                        )
+                    }
+
+                    override fun onFinish() {
+                        // Handle the timer finishing
+                        view?.findViewById<TextView>(R.id.sleep_time)?.text = "00:00"
+                    }
+                }
+
+                // Start the timer
+                timer?.start()
+
+                // Show the stop button
+                view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.VISIBLE
+            }
+
+            R.id.stopsleep_btn -> {
+                // Stop the timer
+                timer?.cancel()
+
+                // Update the wakeup record time
+                updateWakeUpRecordTime(view)
+
+                // Hide the stop button
+                view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.GONE
+            }
+
+            R.id.sleep_dailytarget_btn -> {
+                val editsleepDailyTarget = EditSleepDailyTargetFragment()
+                editsleepDailyTarget.setDailyTargetListener = this
+                editsleepDailyTarget.show(
+                    (activity as AppCompatActivity).supportFragmentManager, "editSleepDailyTarget"
+                )
+            }
+
+            R.id.history_btn -> {
+                val historyIntent = Intent(activity, SleepHistory::class.java)
+                startActivity(historyIntent)
+            }
+
+        }
+    }
+
+    private fun updateBedRecordTime(view: View?) {
+        // Get the current time in milliseconds
+        val currentTime = System.currentTimeMillis()
+
+        // Create a Date object from the current time
+        val date = Date(currentTime)
+
+        // Format the date to display as a string
+        val format = SimpleDateFormat("h:mm a")
+        val timeString = format.format(date)
+
+        // Update the bed_record_time TextView with the current time
+        val bedRecordTimeTextView = view?.findViewById<TextView>(R.id.bed_record_time)
+        bedRecordTimeTextView?.text = timeString
+    }
+
+    private fun updateWakeUpRecordTime(view: View?) {
+        // Get the current time in milliseconds
+        val currentTime = System.currentTimeMillis()
+
+        // Create a Date object from the current time
+        val date = Date(currentTime)
+
+        // Format the date to display as a string
+        val format = SimpleDateFormat("h:mm a")
+        val timeString = format.format(date)
+
+        // Update the wakeup_record_time TextView with the current time
+        val wakeUpRecordTimeTextView = view?.findViewById<TextView>(R.id.wakeup_record_time)
+        wakeUpRecordTimeTextView?.text = timeString
+    }
+
 }

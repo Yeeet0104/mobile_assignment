@@ -32,17 +32,30 @@
     <string name="add_sleep">add sleep</string>
     <string name="_250_ml">250 ML</string>
     <string name="next_reminder">Next Reminder</string>
+    <string name="bed_record_time_text">9:30 am</string>
+    <string name="wakeup_record_time_text">9:30 am</string>
     <string name="_9_30_am">9:30 am</string>
     <string name="edit_reminder_button">edit reminder button</string>
     <string name="today_s_record">Today\'s Record</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="Amount_routine_string">%d ROUTINE</string>
-    <string name="daily_routine_target">Daily Target: %d Routine</string>
-    <string-array name="arrForCustomWorkOut">
-        <item>Reps</item>
-        <item>Duration (seconds)</item>
-    </string-array>
+    <string name="textPassword">Password</string>
+    <string name="forget_password">Forget Password ?</string>
+    <string name="havent_account">Dont have an account yet? <font color="#486D86"><b> Register</b></font></string>
+    <string name="register_title">Register</string>
+    <string name="register_name">Username</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="already_account">Already have an account? <font color="#486D86"><b> Login</b></font></string>
+    <string name="home_title">Welcome</string>
+    <string name="home_sub_title">Enjoy using it !!!</string>
+    <string name="button_logout">Logout</string>
+    <string name="sleephours">10 Hours</string>
+    <string name="wakeup_title">Wake Up Time</string>
+    <string name="bedtime_title">Bed Time</string>
+    <string name="weekly_records">Weekly Records</string>
+    <string name="weekly_sleep_intake_completion">Weekly Sleeping Completion</string>
+    <string name="sleep_tracker_report">Sleeping Tracker Report</string>
+    <string name="weekly_average">Weekly Average</string>
     <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>
     <string name="reminder_interval">Reminder Interval</string>
     <string name="reminder_notifications">Reminder Notifications</string>
@@ -51,7 +64,6 @@
     <string name="vibrant">Vibrant</string>
     <string name="weekly_water_intake_completion">Weekly Water Intake Completion</string>
     <string name="water_tracker_report">Water Tracker Report</string>
-    <string name="weekly_average">Weekly Average</string>
     <string name="monthly_average">Monthly Average</string>
     <string name="average_completion">Average Completion</string>
     <string name="drink_frequency">Drink Frequency</string>
@@ -67,29 +79,34 @@
         <item>Alarm</item>
         <item>Notification</item>
     </string-array>
-    <string name="textPassword">Password</string>
-    <string name="forget_password">Forget Password ?</string>
-    <string name="havent_account">Dont have an account yet? <font color="#486D86"><b> Register</b></font></string>
-    <string name="register_title">Register</string>
-    <string name="register_name">Username</string>
-    <string name="confirm_password">Confirm Password</string>
-    <string name="already_account">Already have an account? <font color="#486D86"><b> Login</b></font></string>
-    <string name="home_title">Welcome</string>
-    <string name="home_sub_title">Enjoy using it !!!</string>
-    <string name="button_logout">Logout</string>
-    <string name="sleephours">10 Hours</string>
-    <string name="wakeup_title">Wake Up Time</string>
-    <string name="bedtime_title">Bed Time</string>
-    <string name="weekly_records">Weekly Records</string>
+    <string name="daily_routine_target">Daily Target: %d Routine</string>
+    <string-array name="arrForCustomWorkOut">
+        <item>Reps</item>
+        <item>Duration (seconds)</item>
+    </string-array>
+    <string name="Amount_routine_string">%d ROUTINE</string>
     <string name="add_calories">add calories</string>
-    <string name="calories_progress">400 CALS</string>
+    <string name="calories_progress">%s CALS</string>
     <string name="calories_target">Daily Target: 2400 cals</string>
     <string name="target_text">Target</string>
-    <string name="calories_left">2000 calories to go</string>
-    <string name="calories_input">400 cals</string>
+    <string name="calories_left">2400 calories to go</string>
+    <string name="calories_input">%s cals</string>
     <string name="food">Maggie Mee</string>
     <string name="food_time">LUNCH</string>
     <string name="select_type">Select Type</string>
     <string name="popular_foods">Popular Foods</string>
+    <string name="stop_sleep">Stop sleep</string>
+    <string name="play_sleep">Play sleep</string>
+
+
+    <string-array name="filterByExercise">
+        <item>Workout Name</item>
+        <item>Body Part</item>
+    </string-array>
+
+    <string name="targetBodyPart">Targeted Body Part:%s</string>
+
+    <string name="workoutTimer">%d Sec</string>
+    <string name="workoutLeft">%d/%d Exercise</string>
 
 </resources>
