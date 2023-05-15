@@ -13,14 +13,14 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 
-interface SetDailyTargetListener {
+interface SetDailyCaloriesTargetListener {
     fun setDailyTarget(newTarget : Int)
     fun getCurrentDailyTarget(): Int
 }
 
 class EditCaloriesFragment : DialogFragment() {
 
-    var setDailyTargetListener : SetDailyTargetListener? = null
+    var setDailyTargetListener : SetDailyCaloriesTargetListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
