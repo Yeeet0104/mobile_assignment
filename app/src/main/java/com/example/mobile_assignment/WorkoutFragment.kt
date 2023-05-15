@@ -22,7 +22,7 @@ import com.google.firebase.database.*
 import org.w3c.dom.Text
 import java.io.Serializable
 
-class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, SetDailyTargetListener {
+class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, SetDailyRoutineTargetListener {
     private lateinit var recv: RecyclerView
     private lateinit var userList: ArrayList<WorkoutPlanName>
     private lateinit var userAdapter: WorkoutPlabNameAdapter
@@ -380,6 +380,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
         dailyTarget = newDailyTarget
         daily_routine_target?.text = getString(R.string.daily_routine_target,newDailyTarget)
     }
+
 
     override fun getCurrentDailyTarget(): Int {
         return dailyTarget

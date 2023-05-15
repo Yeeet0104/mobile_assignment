@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 data class Record(val foodName: String, val foodCalories: String, val foodTime: String)
 
-class NutritionTrackerFragment : Fragment(), SetDailyTargetListener {
+class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
 
     //text view
     private lateinit var tvCaloriesProgress : TextView
