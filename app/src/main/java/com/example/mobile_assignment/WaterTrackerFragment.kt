@@ -151,20 +151,25 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         val dailyTargetRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets").child(currentDate)
         dailyTargetRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                var dailyTargetDB = snapshot.getValue(WaterDailyTarget::class.java)
+                val value = snapshot.value
 
-                if (dailyTargetDB != null) {
-                    dailyTargetRef.setValue(dailyTargetDB.target)
-                    binding.waterDailytargetBtn.text = "Daily Target: ${dailyTargetDB.target}ml"
+                val dailyTargetDB = if (value is Long) {
+                    // Handle the case where the value is a Long
+                    val target = value.toInt()
+                    dailyTargetRef.setValue(target)
+                    WaterDailyTarget(currentDate, target)
                 } else {
-                    // Set default daily target if it doesn't exist in Firebase
-                    var defaultDailyTarget = 1600
-                    setDailyTarget(defaultDailyTarget)
-                    dailyTargetRef.setValue(defaultDailyTarget)
-                    binding.waterDailytargetBtn.text = "Daily Target: $defaultDailyTarget ml"
+                    snapshot.getValue(WaterDailyTarget::class.java)
                 }
 
-
+                if (dailyTargetDB != null) {
+                    binding.waterDailytargetBtn.text = "Daily Target: ${dailyTargetDB.target.toString()}ml"
+                } else {
+                    val defaultTarget = 1600
+                    setDailyTarget(defaultTarget)
+                    dailyTargetRef.setValue(defaultTarget)
+                    binding.waterDailytargetBtn.text = "Daily Target: ${defaultTarget}ml"
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {

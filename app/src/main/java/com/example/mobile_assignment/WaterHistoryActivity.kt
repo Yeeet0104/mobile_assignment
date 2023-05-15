@@ -114,7 +114,15 @@ class WaterHistoryActivity : AppCompatActivity() {
 
                     for (dateSnapshot in snapshot.children) {
                         val date = dateSnapshot.key
-                        val dailyTarget = dateSnapshot.getValue(WaterDailyTarget::class.java)
+                        val value = dateSnapshot.value
+
+                        val dailyTarget = if (value is Long) {
+                            val target = value.toInt()
+                            WaterDailyTarget(date.toString(), target)
+                        } else {
+                            dateSnapshot.getValue(WaterDailyTarget::class.java)
+                        }
+
                         if (dailyTarget != null && date != null) {
                             val target = dailyTarget.target
                             val recordsForDate = records.filter { it.dayAdded == date }
