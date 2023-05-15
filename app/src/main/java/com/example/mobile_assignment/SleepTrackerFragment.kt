@@ -35,7 +35,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     private val binding get() = _binding!!
 
     //temp value: 0
-    private var updatedProgress = 0
     private var isTargetReached = false
 
     //data
@@ -44,7 +43,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
     private var dailyTarget = 0 //1600 in text
 
     // Define the callback function for deleting sleep records
-    private val onRecordDeleted: (SleepRecord) -> Unit = {}
+    private val onRecordDeleted: (SleepRecord) -> Unit = ::onDeleteRecord
 
     // Define the RecyclerView and its adapter
     private lateinit var recyclerView: RecyclerView
@@ -133,25 +132,14 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
             totalHours += record.totalHours
         }
 
-        // Update the progress bar
-        updateProgressBar(totalHours.toInt())
     }
 
-
-    private fun updateProgressBar(amountConsumed: Int) {
-        dailyTarget = binding.sleepDailytargetBtn.text.toString().replace(Regex("\\D"), "").toInt()
-        updatedProgress = (((amountConsumed.toDouble() / dailyTarget)) * 100).toInt()
-
-        binding.sleeptrackerCpb.progress = updatedProgress
-
-        // Display congratulations message to the user when they hit the daily target
-        if (!isTargetReached && (amountConsumed >= dailyTarget)) {
-            isTargetReached = true
-            Toast.makeText(
-                context,
-                "Congratulations! You have reached your daily sleep hours intake target.",
-                Toast.LENGTH_LONG
-            ).show()
+    private fun updateSleepTextVisibility() {
+        val sleepMoreTextView = view?.findViewById<TextView>(R.id.sleep_more)
+        if (records.isEmpty()) {
+            sleepMoreTextView?.visibility = View.VISIBLE
+        } else {
+            sleepMoreTextView?.visibility = View.GONE
         }
     }
 
@@ -311,6 +299,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         recordList.clear()
         recordList.addAll(records)
         recordAdapter.notifyDataSetChanged()
+        updateSleepTextVisibility()
     }
 
 }

@@ -10,16 +10,35 @@ import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
     private val recordList: MutableList<SleepRecord>,
-    private val onRecordDeleted: (SleepRecord) -> Unit,
+    private val onRecordDeleted: (SleepRecord) -> Unit
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
 
-
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
-        val date: TextView = itemView.findViewById(R.id.sleep_record_date)
-        val sleepTime: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
-        val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
+        // ViewHolder components
+        private val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
+        private val date: TextView = itemView.findViewById(R.id.sleep_record_date)
+        private val sleepTime: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
+        private val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
 
+        init {
+            // Set click listener for the delete button
+            deleteButton.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val deletedRecord = recordList[position]
+                    recordList.removeAt(position)
+                    notifyItemRemoved(position)
+                    onRecordDeleted(deletedRecord)
+                }
+            }
+        }
+
+        fun bind(record: SleepRecord) {
+            // Bind the data to the ViewHolder components
+            moonIcon.setImageResource(R.drawable.moon)
+            date.text = record.date
+            sleepTime.text = record.sleepTime
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
@@ -30,19 +49,8 @@ class SleepRecordAdapter(
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val currentRecord = recordList[position]
-        holder.moonIcon.setImageResource(R.drawable.moon)
-        holder.date.text = currentRecord.date
-        holder.sleepTime.text = currentRecord.sleepTime
-
-        holder.deleteButton.setOnClickListener {
-            val deletedRecord = recordList[position]
-            recordList.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, recordList.size)
-            onRecordDeleted(deletedRecord)
-        }
+        holder.bind(currentRecord)
     }
-
 
     override fun getItemCount() = recordList.size
 }

@@ -18,47 +18,33 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:text="Fri, 4 May 2023"
-            app:layout_constraintBottom_toTopOf="@+id/sleeptracker_cpb"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/sleeptracker_cpb"
-            style="@style/SleepCircularProgressBar"
-            android:layout_width="260dp"
-            android:layout_height="260dp"
-            android:layout_marginTop="20dp"
-            android:indeterminateOnly="false"
-            android:progress="60"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/currentDateTextView"
-            tools:progress="60" />
 
         <ImageButton
             android:id="@+id/playsleep_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFF"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
             android:contentDescription="@string/play_sleep"
             android:src="@drawable/play"
-            app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
-            app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
-            app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentDateTextView" />
 
         <ImageButton
             android:id="@+id/stopsleep_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:background="#00FFFFFF"
             android:contentDescription="@string/stop_sleep"
             android:src="@drawable/stop"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/sleeptracker_cpb"
-            app:layout_constraintEnd_toEndOf="@+id/sleeptracker_cpb"
-            app:layout_constraintStart_toStartOf="@+id/sleeptracker_cpb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/currentDateTextView" />
 
 
@@ -70,7 +56,7 @@
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sleeptracker_cpb" />
+            app:layout_constraintTop_toBottomOf="@+id/playsleep_btn" />
 
         <Button
             android:id="@+id/sleep_dailytarget_btn"
@@ -246,6 +232,13 @@
             app:layout_constraintTop_toBottomOf="@+id/sleep_record_title"
             app:strokeColor="@color/cardBorder"
             app:strokeWidth="1.2dp">
+
+            <TextView
+                android:id="@+id/sleep_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Sleep More !"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sleep_records_recycler_view"
