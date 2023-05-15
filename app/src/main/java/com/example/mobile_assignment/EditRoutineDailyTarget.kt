@@ -9,14 +9,14 @@ import android.widget.NumberPicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
-interface SetDailyTargetListener {
+interface SetDailyRoutineTargetListener {
     fun setDailyTarget(newDailyTarget: Int,maxDailyTarget: Int)
     fun getCurrentDailyTarget(): Int
     fun getMaxDailyTarget(): Int
 }
 
 class EditRoutineDailyTarget : DialogFragment() {
-    var setDailyTargetListener : SetDailyTargetListener? = null
+    var setDailyTargetListener : SetDailyRoutineTargetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
