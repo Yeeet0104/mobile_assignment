@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCustomFoodActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <include
+        android:id="@+id/toolbarHeader"
+        layout="@layout/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/add_food_name"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Enter food name"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@+id/add_food_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/add_food_name_text" />
+
+    <TextView
+        android:id="@+id/add_food_name_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:text="Food Name"
+        android:textColor="@color/caloriesLightGreen"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHeader" />
+
+    <TextView
+        android:id="@+id/add_food_calories_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Food Calories"
+        android:textColor="@color/caloriesLightGreen"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/add_food_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/add_food_name" />
+
+    <EditText
+        android:id="@+id/add_food_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:hint="Enter Calories"
+        android:inputType="numberDecimal"
+        app:layout_constraintStart_toStartOf="@+id/add_food_calories_text"
+        app:layout_constraintTop_toBottomOf="@+id/add_food_calories_text" />
+
+    <Button
+        android:id="@+id/add_food_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/darkGreen"
+        android:text="Add Food"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_food_calories"
+        app:layout_constraintVertical_bias="0.118" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
