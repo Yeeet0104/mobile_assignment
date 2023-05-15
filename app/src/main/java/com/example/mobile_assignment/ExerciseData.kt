@@ -4,13 +4,15 @@ import android.widget.ImageView
 import java.io.Serializable
 import java.util.HashMap
 
-data class ExerciseData (
+data class ExerciseData  (
     var workoutName:String? = null,
     var workoutDec:String? = null,
     var workoutReps:String? = null,
-    var workoutPicture:Int? = null,
-    var status: Int? = null
-    ) : java.io.Serializable
+    var workoutPicture:String? = null,
+    var status: Int? = null,
+    var durationType :Int? = null
+    ) : java.io.Serializable {
+}
 
 fun convertToHashMap(value: Serializable): HashMap<String, Any> {
     val hashMap = HashMap<String, Any>()
@@ -23,8 +25,10 @@ fun convertToHashMap(value: Serializable): HashMap<String, Any> {
         hashMap["workoutReps"] = value.workoutReps!!
         hashMap["workoutPicture"] = value.workoutPicture!!
         hashMap["status"] = value.status!!
+        hashMap["durationType"] = value.durationType!!
         // Add more properties as needed
     }
 
     return hashMap
 }
+

@@ -3,83 +3,131 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <include
         android:id="@+id/toolbarHeader"
-        layout="@layout/header"
-        />
+        layout="@layout/header" />
 
-    <LinearLayout
-        android:id="@+id/linearLayoutCustomExe1"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="15dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarHeader">
 
-        <EditText
-            android:id="@+id/newExerName"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_input_add_workout"
-            android:ems="10"
-            android:hint="Workout name"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:id="@+id/pickImage"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/image_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutCustomExe1"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/newExerTargetBodyPart"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_input_add_workout"
-            android:ems="10"
-            android:hint="Targeted Body Part"
-            android:inputType="textPersonName"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp" />
-
+        <Button
+            android:id="@+id/pickImgBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Image"
+            app:layout_constraintBottom_toBottomOf="@+id/pickImage"
+            app:layout_constraintEnd_toEndOf="@+id/pickImage"
+            app:layout_constraintStart_toStartOf="@+id/pickImage"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutCustomExe1"
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:minHeight="40dp"
-                android:layout_marginEnd="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/Course"
-                app:layout_constraintStart_toEndOf="@+id/Course"
-                app:layout_constraintTop_toTopOf="@+id/Course" />
+            android:layout_height="0dp"
+            android:layout_margin="15dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pickImage">
+
 
             <EditText
-                android:id="@+id/durationExe"
+                android:id="@+id/newExerName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_input_add_workout"
                 android:ems="10"
-                android:hint="Duration (Seconds)"
+                android:hint="Workout name"
                 android:inputType="textPersonName"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp" />
 
-        </LinearLayout>
-    </LinearLayout>
+            <EditText
+                android:id="@+id/newExerTargetBodyPart"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/custom_input_add_workout"
+                android:ems="10"
+                android:hint="Targeted Body Part"
+                android:inputType="textPersonName"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp" />
 
-    <Button
-        android:id="@+id/sendResultBackToExercise"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/workoutFragmentPrimaryColor"
-        android:text="Testing"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutCustomExe1"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayoutCustomExe1"
-        app:layout_constraintStart_toStartOf="@+id/linearLayoutCustomExe1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:minHeight="40dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/Course"
+                    app:layout_constraintStart_toEndOf="@+id/Course"
+                    app:layout_constraintTop_toTopOf="@+id/Course" />
+
+                <EditText
+                    android:id="@+id/durationExe"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/custom_input_add_workout"
+                    android:ems="10"
+                    android:hint="Duration (Seconds)"
+                    android:inputType="textPersonName"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/deleteExerciseFromDb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/textDarkGreyColor"
+            android:text="Delete Workout"
+            app:layout_constraintBottom_toTopOf="@+id/sendResultBackToExercise"
+            app:layout_constraintEnd_toEndOf="@+id/sendResultBackToExercise"
+            app:layout_constraintStart_toStartOf="@+id/sendResultBackToExercise" />
+        <Button
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/sendResultBackToExercise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/workoutFragmentPrimaryColor"
+            android:text="Add Workout"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayoutCustomExe1"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayoutCustomExe1"
+            app:layout_constraintStart_toStartOf="@+id/linearLayoutCustomExe1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
