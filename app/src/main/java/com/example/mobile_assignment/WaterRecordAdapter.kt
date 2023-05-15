@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class WaterRecordAdapter(
-    private val recordList: MutableList<SleepRecord>,
+    private val recordList: MutableList<Record>,
     private val onRecordDeleted: () -> Unit
-    ) : RecyclerView.Adapter<WaterRecordAdapter.RecordViewHolder>() {
+) : RecyclerView.Adapter<WaterRecordAdapter.RecordViewHolder>() {
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cupIcon: ImageView = itemView.findViewById(R.id.water_record_img)
@@ -21,7 +21,8 @@ class WaterRecordAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.water_tracker_records, parent, false)
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.water_tracker_records, parent, false)
         return RecordViewHolder(itemView)
     }
 

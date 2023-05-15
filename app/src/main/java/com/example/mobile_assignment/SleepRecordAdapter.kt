@@ -9,14 +9,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class SleepRecordAdapter(
-    private val recordList: MutableList<SleepRecord>, private val onRecordDeleted: () -> Unit
+    private val recordList: MutableList<SleepRecord>,
+    private val onRecordDeleted: () -> Unit,
 ) : RecyclerView.Adapter<SleepRecordAdapter.RecordViewHolder>() {
+
 
     inner class RecordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val moonIcon: ImageView = itemView.findViewById(R.id.sleep_record_img)
         val date: TextView = itemView.findViewById(R.id.sleep_record_date)
-        val totalHour: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
+        val sleepTime: TextView = itemView.findViewById(R.id.sleep_record_total_hours)
         val deleteButton: ImageButton = itemView.findViewById(R.id.sleep_record_dlt_btn)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
@@ -28,12 +31,9 @@ class SleepRecordAdapter(
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         val currentRecord = recordList[position]
         holder.moonIcon.setImageResource(R.drawable.moon)
+        holder.date.text = currentRecord.date
+        holder.sleepTime.text = currentRecord.sleepTime
 
-//        holder.timeAdded.text = currentRecord.timeAdded
-//        val dateFormat = DateFormat.getDateInstance().format(currentRecord.timeAdded)
-//        holder.date.text = dateFormat
-
-        holder.totalHour.text = currentRecord.amountConsumed
         holder.deleteButton.setOnClickListener {
             recordList.removeAt(position)
             notifyItemRemoved(position)
@@ -41,6 +41,7 @@ class SleepRecordAdapter(
             onRecordDeleted()
         }
     }
+
 
     override fun getItemCount() = recordList.size
 }
