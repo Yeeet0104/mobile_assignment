@@ -1,59 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/water_history_btn"
+    android:id="@+id/watertracker_scrollview"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".WaterTrackerFragment">
 
-    <ProgressBar
-        android:id="@+id/watertracker_cpb"
-        style="@style/WaterCircularProgressBar"
-        android:layout_width="260dp"
-        android:layout_height="260dp"
-        android:layout_marginTop="20dp"
-        android:indeterminateOnly="false"
-        android:progress="60"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:progress="60" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/watertracker_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/watertracker_textprogress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="60%"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watertracker_cpb"
-        tools:text="60%" />
-
-<!--    &lt;!&ndash;Temp Comment - Increase/Decrease 10ml Function&ndash;&gt;-->
-<!--    &lt;!&ndash;Increment button that will decrement the progress by 10%&ndash;&gt;-->
-<!--    <Button-->
-<!--        android:id="@+id/btn_decr"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="- 10%"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/btn_incr"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/watertracker_textprogress" />-->
-
-<!--    &lt;!&ndash;Increment button that will increment the progress by 10%&ndash;&gt;-->
-<!--    <Button-->
-<!--        android:id="@+id/btn_incr"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="+ 10%"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.5"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/btn_decr"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/watertracker_textprogress" />-->
+        <ProgressBar
+            android:id="@+id/watertracker_cpb"
+            style="@style/CircularProgressBar"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:indeterminateOnly="false"
+            android:progress="60"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:progress="60" />
 
     <ImageButton
         android:id="@+id/addwater_btn"
@@ -62,7 +31,7 @@
         android:background="#00FFFFFF"
         android:contentDescription="@string/add_water"
         android:src="@drawable/add_water"
-        app:layout_constraintBottom_toTopOf="@+id/watertracker_textprogress"
+        app:layout_constraintBottom_toBottomOf="@+id/watertracker_cpb"
         app:layout_constraintEnd_toEndOf="@+id/watertracker_cpb"
         app:layout_constraintStart_toStartOf="@+id/watertracker_cpb"
         app:layout_constraintTop_toTopOf="@+id/watertracker_cpb" />
@@ -71,28 +40,28 @@
         android:id="@+id/consumedwater_amt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/_250_ml"
+
+        android:text="0 ML"
         android:textColor="@color/waterDarkBlue"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watertracker_cpb" />
+        app:layout_constraintTop_toBottomOf="@+id/watertracker_cpb"
+        style="@style/title_under_progessBar" />
 
     <Button
         android:id="@+id/water_dailytarget_btn"
-        android:drawableRight="@drawable/edit_pen"
         android:text="Daily Target: 1600ml"
-        android:textColor="#5C5C5C"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/consumedwater_amt"
         tools:ignore="TouchTargetSizeCheck"
-        style="@style/custom_image_btn" />
+        style="@style/daily_target_style" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/reminderCard"
+        android:id="@+id/reminderIntervalCard"
+        style="@style/card_layout"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:contentPadding="10dp"
@@ -102,8 +71,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/water_dailytarget_btn"
         app:strokeColor="@color/cardBorder"
-        app:strokeWidth="1dp"
-        style="@style/card_layout">
+        app:strokeWidth="1.2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/reminderLayout"
@@ -169,7 +137,7 @@
         android:textColor="@color/cardContent"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminderCard" />
+        app:layout_constraintTop_toBottomOf="@+id/reminderIntervalCard" />
 
     <Button
         android:id="@+id/history_btn"
@@ -185,71 +153,42 @@
         android:textSize="12sp"
         app:iconPadding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminderCard"
+        app:layout_constraintTop_toBottomOf="@+id/reminderIntervalCard"
         tools:ignore="TouchTargetSizeCheck" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/recordCard"
-        style="@style/card_layout"
-        android:layout_marginTop="6dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp"
-        app:contentPadding="14dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/water_record_title"
-        app:strokeColor="@color/cardBorder"
-        app:strokeWidth="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/recordLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mug"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recordCard"
+            style="@style/card_layout"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:contentPadding="14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/water_record_title"
+            app:strokeColor="@color/cardBorder"
+            app:strokeWidth="1.2dp">
 
             <TextView
-                android:id="@+id/water_recordtime_1"
-                android:layout_width="wrap_content"
+                android:id="@+id/drink_some_water"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="9:20am"
-                android:textColor="@color/cardContent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:gravity="center_horizontal"
+                android:text="Drink some water!"/>
 
-            <TextView
-                android:id="@+id/water_recordamt_1"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/water_records_recycler_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:text="250ml"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/water_record_dltbtn"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:nestedScrollingEnabled="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/water_tracker_records" />
 
-            <ImageButton
-                android:id="@+id/water_record_dltbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:contentDescription="delete water record"
-                android:src="@drawable/rubbishbin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -32,6 +32,8 @@
     <string name="add_sleep">add sleep</string>
     <string name="_250_ml">250 ML</string>
     <string name="next_reminder">Next Reminder</string>
+    <string name="bed_record_time_text">9:30 am</string>
+    <string name="wakeup_record_time_text">9:30 am</string>
     <string name="_9_30_am">9:30 am</string>
     <string name="edit_reminder_button">edit reminder button</string>
     <string name="today_s_record">Today\'s Record</string>
@@ -51,6 +53,38 @@
     <string name="wakeup_title">Wake Up Time</string>
     <string name="bedtime_title">Bed Time</string>
     <string name="weekly_records">Weekly Records</string>
+    <string name="weekly_sleep_intake_completion">Weekly Sleeping Completion</string>
+    <string name="sleep_tracker_report">Sleeping Tracker Report</string>
+    <string name="weekly_average">Weekly Average</string>
+    <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>
+    <string name="reminder_interval">Reminder Interval</string>
+    <string name="reminder_notifications">Reminder Notifications</string>
+    <string name="sound">Sound</string>
+    <string name="sound_type">Sound Type</string>
+    <string name="vibrant">Vibrant</string>
+    <string name="weekly_water_intake_completion">Weekly Water Intake Completion</string>
+    <string name="water_tracker_report">Water Tracker Report</string>
+    <string name="monthly_average">Monthly Average</string>
+    <string name="average_completion">Average Completion</string>
+    <string name="drink_frequency">Drink Frequency</string>
+    <string-array name="reminder_intervals">
+        <item>Every 30 minutes</item>
+        <item>Every 60 minutes</item>
+        <item>Every 90 minutes</item>
+        <item>Every 120 minutes</item>
+    </string-array>
+    <string-array name="sound_types">
+        <item>Silent</item>
+        <item>Ringtone</item>
+        <item>Alarm</item>
+        <item>Notification</item>
+    </string-array>
+    <string name="daily_routine_target">Daily Target: %d Routine</string>
+    <string-array name="arrForCustomWorkOut">
+        <item>Reps</item>
+        <item>Duration (seconds)</item>
+    </string-array>
+    <string name="Amount_routine_string">%d ROUTINE</string>
     <string name="add_calories">add calories</string>
     <string name="calories_progress">%s CALS</string>
     <string name="calories_target">Daily Target: 2400 cals</string>
@@ -61,6 +95,8 @@
     <string name="food_time">LUNCH</string>
     <string name="select_type">Select Type</string>
     <string name="popular_foods">Popular Foods</string>
+    <string name="stop_sleep">Stop sleep</string>
+    <string name="play_sleep">Play sleep</string>
 
 
 </resources>
