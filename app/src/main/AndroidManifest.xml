@@ -15,6 +15,11 @@
             android:name=".SleepHistory"
             android:exported="false" />
         <activity
+
+            android:name=".WaterReminderSettingsActivity"
+            android:exported="false"/>
+
+        <activity
             android:name=".AddSleepFragment"
             android:exported="false" />
         <activity
