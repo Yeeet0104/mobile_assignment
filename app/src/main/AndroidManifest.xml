@@ -15,8 +15,11 @@
             android:name=".SleepHistory"
             android:exported="false" />
         <activity
-
             android:name=".WaterReminderSettingsActivity"
+            android:exported="false"/>
+
+        <activity
+            android:name=".WaterHistoryActivity"
             android:exported="false"/>
 
         <activity
