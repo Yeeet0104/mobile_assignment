@@ -11,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,15 +26,12 @@ data class SleepRecord(
 )
 
 @Suppress("NAME_SHADOWING")
-class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetListener,
-    SetDailySleepTargetListener {
+class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTargetListener,
+    SetDailyTargetListener {
 
     //binding
     private var _binding: FragmentSleepTrackerBinding? = null
     private val binding get() = _binding!!
-
-    //temp value: 0
-    private var isTargetReached = false
 
     //data
     private var records = mutableListOf<SleepRecord>()
@@ -99,7 +95,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
             DateFormat.getDateInstance(DateFormat.FULL, Locale.getDefault()).format(Date())
         currentDateTextView.text = currentDate
 
-
         // Find the RecyclerView in the layout and set its layout manager (in reverse order)
         val linearLayoutManager = LinearLayoutManager(requireContext())
         linearLayoutManager.reverseLayout = true
@@ -143,22 +138,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         }
     }
 
-
-    //Set Daily Target & get daily target
-    override fun setDailyTarget(newDailyTarget: Int) {
-        dailyTarget = newDailyTarget
-        binding.sleepDailytargetBtn.text = "Daily Target: ${dailyTarget.toString()}hr"
-
-        //Show toast after set daily target
-        Toast.makeText(
-            context, "Daily target set to ${dailyTarget.toString()}hr", Toast.LENGTH_SHORT
-        ).show()
-    }
-
-    override fun getCurrentDailyTarget(): Int {
-        // Retrieve the current daily target from your application or class
-        return dailyTarget
-    }
 
     //OnClick Listeners
     override fun onClick(v: View?) {
@@ -235,11 +214,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
             }
 
             R.id.sleep_dailytarget_btn -> {
-                val editsleepDailyTarget = EditSleepDailyTargetFragment()
-                editsleepDailyTarget.setDailyTargetListener = this
-                editsleepDailyTarget.show(
-                    (activity as AppCompatActivity).supportFragmentManager, "editSleepDailyTarget"
-                )
+                changeDailyTarget()
             }
 
             R.id.history_btn -> {
@@ -301,5 +276,36 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetDailyTargetLis
         recordAdapter.notifyDataSetChanged()
         updateSleepTextVisibility()
     }
+
+    //Set Daily Target & get daily target
+    override fun setDailyTarget(newDailyTarget: Int) {
+        dailyTarget = newDailyTarget
+        val sleepDailyTargetBtn = requireView().findViewById<Button>(R.id.sleep_dailytarget_btn)
+        sleepDailyTargetBtn.text = "Daily Target: ${dailyTarget.toString()} hours"
+
+        //Show toast after setting the daily target
+        Toast.makeText(
+            requireContext(),
+            "Daily target set to ${dailyTarget.toString()} hours",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        updateSleepTrackerUI()
+    }
+
+
+    override fun getCurrentDailyTarget(): Int {
+        // Retrieve the current daily target from your application or class
+        return dailyTarget
+    }
+
+    private fun changeDailyTarget() {
+        val editSleepDailyTargetFragment = EditSleepDailyTargetFragment()
+        editSleepDailyTargetFragment.setDailyTargetListener = this // Set the listener
+        editSleepDailyTargetFragment.show(
+            requireActivity().supportFragmentManager, "editSleepDailyTarget"
+        )
+    }
+
 
 }
