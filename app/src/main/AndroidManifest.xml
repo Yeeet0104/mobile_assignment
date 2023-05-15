@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,17 +10,15 @@
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile_assignment"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".WaterHistoryActivity"
+            android:name=".SleepHistory"
+            android:exported="false" />
+        <activity
+            android:name=".AddSleepFragment"
             android:exported="false" />
         <activity
             android:name=".Register"
-            android:exported="false"
-            />
-        <activity
-            android:name=".WaterReminderSettingsActivity"
             android:exported="false" />
         <activity
             android:name=".LoginHome"
@@ -59,6 +55,24 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.Mobile_assignment"
             />
+        <activity
+            android:name=".NutritionHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NutritionOptionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCustomFoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CaloriesSearchViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateFoodSearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FoodDetailsActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

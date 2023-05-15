@@ -6,37 +6,33 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 
-interface SetDailyTargetListener {
+interface SetDailySleepTargetListener {
     fun setDailyTarget(newDailyTarget: Int)
     fun getCurrentDailyTarget(): Int
 }
 
-
-class EditWaterDailyTargetFragment : DialogFragment() {
-    var setDailyTargetListener : SetDailyTargetListener? = null
+class EditSleepDailyTargetFragment : DialogFragment() {
+    var setDailyTargetListener: SetDailySleepTargetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_edit_water_daily_target, container, false)
+        return inflater.inflate(R.layout.fragment_edit_sleep_daily_target, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val targetAmtPicker = view.findViewById<NumberPicker>(R.id.targetAmtPicker)
-        val values = (1000..3000 step 25).map { it.toString() }.toTypedArray()
-        targetAmtPicker.minValue = values.indexOf("1000")
-        targetAmtPicker.maxValue = values.indexOf("3000")
+        val values = (1..24).map { it.toString() }.toTypedArray()
+        targetAmtPicker.minValue = 0
+        targetAmtPicker.maxValue = values.size - 1
         targetAmtPicker.displayedValues = values
         targetAmtPicker.wrapSelectorWheel = false
 
@@ -58,5 +54,4 @@ class EditWaterDailyTargetFragment : DialogFragment() {
             dismiss()
         }
     }
-
 }
