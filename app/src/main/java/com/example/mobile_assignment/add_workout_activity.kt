@@ -1,9 +1,11 @@
 package com.example.mobile_assignment
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -32,13 +34,17 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
     private lateinit var typeSelected: String
     private var isSettings = false
     private var getPlanNameKey = ""
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.add_workout_activity)
+
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         setSupportActionBar(toolbar)
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         Log.d("checkUser",currentUser!!.uid.toString())
@@ -96,7 +102,10 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
             }
         }
     }
-
+    @Suppress("DEPRECATION")
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
+    }
     @Suppress("DEPRECATION")
     private val getDataFromCustomExe =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -123,7 +132,6 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
 
     private fun initForRecycleView() {
-        loadingForInsertData()
         exerciseList = mutableListOf()
         userExerciseList = mutableListOf()
         dbRef.addValueEventListener(object : ValueEventListener {
@@ -155,11 +163,12 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
                                 }
                             }
                         }
+
                         userAdapter.notifyDataSetChanged()
                     }
 
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+
                     }
 
                 })
@@ -167,34 +176,40 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+
             }
         })
-
     }
 
-
+    @Suppress("DEPRECATION")
     private fun addinfo(exercise: ExerciseData) {
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
         val exerciseID = dbRef.push().key!!
-
         dbRef.child(exerciseID).setValue(exercise)
             .addOnCompleteListener {
                 Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
-
+                progressDialog.dismiss()
             }.addOnFailureListener { err ->
+                progressDialog.dismiss()
                 Log.d("err","Error ${err.message}")
             }
         Log.d("checking", userExerciseList.size.toString())
     }
 
     private fun addinfoToUser(exercise: ExerciseData) {
-
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
         dbRef.orderByChild("workoutName").equalTo(exercise.workoutName.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
                     userExerciseDbRef.child(it.key.toString()).setValue(exercise)
                         .addOnCompleteListener {
-                            loadingForInsertData()
+                            progressDialog.dismiss()
                         }.addOnFailureListener { err ->
                             Log.d("ERRORDB",err.toString())
                         }
@@ -202,7 +217,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
             }
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                progressDialog.dismiss()
             }
         })
 
@@ -210,8 +225,12 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
     }
 
 
-
+    @Suppress("DEPRECATION")
     private fun deleteInfo(workoutName: String) {
+        var progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
         userExerciseDbRef.orderByChild("workoutName").equalTo(workoutName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(datasnapshot: DataSnapshot) {
@@ -219,8 +238,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
                     for (snaphot in datasnapshot.children) {
                         Log.d("checkName", snaphot.key.toString())
                         userExerciseDbRef.child(snaphot.key.toString()).removeValue()
-                        var checkName = snaphot.child("workoutName").value.toString()
-                        loadingForInsertData()
+                        progressDialog.dismiss()
                     }
                 }
 
@@ -296,20 +314,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
         }
     }
 
-    @Suppress("DEPRECATION")
-    fun loadingForInsertData() {
-        val handler = Handler()
-        val progressDialog = ProgressDialog(this)
-        progressDialog.setTitle("Loading Data")
-        progressDialog.setMessage("Application is loading, please wait")
-        progressDialog.show()
-        progressDialog.setCancelable(false)
-        progressDialog.setCanceledOnTouchOutside(false)
-        val runnable = Runnable {
-            progressDialog.dismiss()
-        }
-        handler.postDelayed(runnable, 2500)
-    }
+
 
 
     private fun checkUserList() {

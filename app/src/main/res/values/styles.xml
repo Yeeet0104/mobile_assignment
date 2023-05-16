@@ -62,4 +62,14 @@
         <item name="android:textSize">36sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="profileTitle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="profileValues">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">18dp</item>
+    </style>
 </resources>

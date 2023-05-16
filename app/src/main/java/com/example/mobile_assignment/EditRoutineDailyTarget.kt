@@ -1,6 +1,7 @@
 package com.example.mobile_assignment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class EditRoutineDailyTarget : DialogFragment() {
         val currentTarget = setDailyTargetListener?.getCurrentDailyTarget()
         val defaultIndex = currentTarget.toString()
         val maxTarget = setDailyTargetListener?.getMaxDailyTarget()
-
+        Log.d("checkforCounter",maxTarget.toString())
         val targetAmtPicker = view.findViewById<NumberPicker>(R.id.targetAmtPicker)
         targetAmtPicker.minValue = 1
         targetAmtPicker.maxValue = maxTarget!!

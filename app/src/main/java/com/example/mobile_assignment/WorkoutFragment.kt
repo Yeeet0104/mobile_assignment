@@ -1,5 +1,6 @@
 package com.example.mobile_assignment
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -47,6 +48,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
     //checker
     private var dailyTarget = 0
     private var numberOfPlan = 0
+    private var dailyTargetCounter = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -90,20 +92,27 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
         }
         return view
     }
-
+    @Suppress( "DEPRECATION")
     private fun init() {
+        var progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
         dbPlansRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                dailyTargetCounter = 0
             planNameList.clear()
             everyPlanProgress.clear()
             everyPlanTotalProgress.clear()
-                restDurations.clear()
+            restDurations.clear()
             userList.clear()
                 if (snapshot.exists()) {
                     snapshot.children.forEach {
                         var checkForNotList = false
                         if(it.key.toString() == "dailyTarget" || it.key.toString() == "lastWorkoutDate"){
                             checkForNotList = true
+                        }else{
+                            dailyTargetCounter++
                         }
                         var newPlanName = ""
                         var newDuration = ""
@@ -134,7 +143,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                         Log.d("checkForProgressBar",everyPlanTotalProgress.toString())
                     }
                     if(everyPlanTotalProgress.size > 0){
-                        routine.text = getString(R.string.Amount_routine_string,everyPlanTotalProgress.size)
+                        routine.text = everyPlanTotalProgress.size.toString() + " ROUTINE"
                     }
                     checkForProgress()
                     userAdapter.notifyDataSetChanged()
@@ -143,10 +152,11 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                     var displayNoPlans = view?.findViewById<ConstraintLayout>(R.id.displayNoPlans)
                     displayNoPlans?.visibility = View.GONE
                 }
+                progressDialog.dismiss()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                progressDialog.dismiss()
             }
 
         })
@@ -349,9 +359,9 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                         if(it.key.toString() == "dailyTarget"){
                             haveDaily = true
                             dailyTarget = it.value.toString().toInt()
-                            setDailyTarget(dailyTarget,dailyTarget)
                         }
                     }
+                    setDailyTarget(dailyTarget,dailyTargetCounter)
                     updateProgressBar()
                     if(!haveDaily){
                         dailyTarget = 0
@@ -397,7 +407,8 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
         return dailyTarget
     }
     override fun getMaxDailyTarget() : Int {
-        return 10
+        Log.d("checkforCounter",dailyTargetCounter.toString())
+        return dailyTargetCounter
     }
 
 }
