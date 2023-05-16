@@ -26,4 +26,7 @@
     <color name="darkGreen">#577306</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="caloriesLightGreen">#5D741A</color>
+
+
+    <color name="warning_Btn">#d9534f</color>
 </resources>

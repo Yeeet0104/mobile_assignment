@@ -31,7 +31,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/title_email"
-        style="@style/TextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -41,11 +41,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_title"
-        app:startIconDrawable="@drawable/profile">
+        app:startIconDrawable="@drawable/e_mail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_email"
-            style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -53,41 +52,42 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/title_password"
-        style="@style/TextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:hint="@string/textPassword"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_email"
-        app:startIconDrawable="@drawable/profile">
+        app:startIconDrawable="@drawable/password_lock_icon">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:inputType="textPassword"
             android:id="@+id/edit_password"
-            style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/login_forget_password"
-        style="@style/LoginSubTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/forget_password"
-        android:layout_marginTop="15dp"
-        android:textAlignment="textEnd"
-        android:textColor="@color/green"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_login" />
+<!--    <TextView-->
+<!--        android:id="@+id/login_forget_password"-->
+<!--        style="@style/LoginSubTitle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/forget_password"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:textAlignment="textEnd"-->
+<!--        android:textColor="@color/green"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/button_login" />-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button_login"
-        style="@style/ButtonGreen"
+        style="@style/ButtonBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

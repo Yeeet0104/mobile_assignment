@@ -182,7 +182,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
 
             }.addOnFailureListener { err ->
-                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
+                Log.d("err","Error ${err.message}")
             }
         Log.d("checking", userExerciseList.size.toString())
     }
@@ -235,6 +235,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
         if (query != null) {
             val filteredList = ArrayList<ExerciseData>()
             for (i in exerciseList) {
+                Log.d("checkfor selected part",typeSelected.toString())
                 if (typeSelected.lowercase(Locale.ROOT) != "body part") {
                     if (i.workoutName!!.lowercase(Locale.ROOT).contains(query)) {
                         filteredList.add(i)
@@ -242,14 +243,13 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 } else {
                     if (i.workoutDec!!.lowercase(Locale.ROOT).contains(query)) {
                         filteredList.add(i)
+                        Log.d("checkfor selected part",i.workoutDec.toString())
                     }
                 }
             }
 
             if (filteredList.isEmpty()) {
-                Toast.makeText(this, "No Data found", Toast.LENGTH_SHORT).show()
                 userAdapter.notifyDataSetChanged()
-//                userAdapter.setFilteredList(exerciseList)
             } else {
                 userAdapter.setFilteredList(filteredList)
             }
@@ -321,10 +321,10 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
     private fun navigateToAddedActivity() {
         val intent = Intent(this, activity_added_exercise::class.java)
+        intent.putExtra("isSettings", false)
         if (userExerciseList.size <= 0) {
             Toast.makeText(this, "There is no exercise added!", Toast.LENGTH_SHORT).show()
         } else {
-            Log.d("WOIII",userExerciseList.size.toString())
             intent.putExtra("userExerciseList", userExerciseList as Serializable)
             intent.putExtra("planNameKey", getPlanNameKey)
             startActivity(intent)

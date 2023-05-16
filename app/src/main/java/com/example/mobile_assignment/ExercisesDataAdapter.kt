@@ -2,16 +2,12 @@ package com.example.mobile_assignment
 
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.BitmapFactory
-import android.media.Image
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
@@ -88,7 +84,6 @@ class ExercisesDataAdapter(
         holder.editBtn.visibility = View.GONE
         if (!isAddedExe && !isSettings) {
             if (newList.status!! == 1) {
-                Toast.makeText(c, "WOI", Toast.LENGTH_SHORT).show()
                 holder.status = 1
                 holder.cardViewOfExerciseList.strokeColor = ContextCompat.getColor(c, R.color.green)
                 holder.cardViewOfExerciseList.strokeWidth = 5
