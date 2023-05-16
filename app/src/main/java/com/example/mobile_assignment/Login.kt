@@ -34,6 +34,7 @@ class Login : AppCompatActivity() {
 
         binding.haventAccountText.setOnClickListener {
             startActivity(Intent(this, Register::class.java))
+            finish()
         }
 
     }
