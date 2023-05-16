@@ -4,6 +4,7 @@ package com.example.mobile_assignment
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,29 +15,35 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile_assignment.databinding.FragmentSleepTrackerBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-data class SleepRecord(
-    val date: String, val sleepTime: String, val totalHours: Double
-)
 
-@Suppress("NAME_SHADOWING")
+data class SleepRecord(
+    var date: String = "", var sleepTime: String = ""
+) {
+    // Empty constructor required for Firebase deserialization
+    constructor() : this("", "")
+}
+
+
+@Suppress("NAME_SHADOWING", "DEPRECATION")
 class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTargetListener,
     SetDailyTargetListener {
-
-    //binding
-    private var _binding: FragmentSleepTrackerBinding? = null
-    private val binding get() = _binding!!
 
     //data
     private var records = mutableListOf<SleepRecord>()
     private val recordList: MutableList<SleepRecord> = mutableListOf()
-    private var dailyTarget = 0 //1600 in text
+    private var dailyTarget = 0
 
     // Define the callback function for deleting sleep records
     private val onRecordDeleted: (SleepRecord) -> Unit = ::onDeleteRecord
@@ -54,6 +61,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
     // Display system current time for title
     private lateinit var currentDateTextView: TextView
 
+    // Write a message to the database
+    val database = Firebase.database
+    val sleepRecordsRef = database.getReference("sleepRecords")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -73,6 +83,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
         // Initialize the RecyclerView and its adapter
         recyclerView = view.findViewById(R.id.sleep_records_recycler_view)
         recordAdapter = SleepRecordAdapter(recordList, onRecordDeleted)
+
+        // Read a message from the database ( from user )
+        getRecordFromFirebase()
 
         // Set up the RecyclerView with the adapter
         recyclerView.apply {
@@ -110,32 +123,13 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
 
     }
 
+
     private fun onDeleteRecord(record: SleepRecord) {
         // Handle the deletion of the sleep record
         // You can implement your logic here, such as removing the record from the list and updating the UI
         records.remove(record)
         recordAdapter.notifyDataSetChanged()
 
-        updateSleepTrackerUI()
-    }
-
-
-    private fun updateSleepTrackerUI() {
-        // Calculate the total hours of all sleep records
-        var totalHours = 0.0
-        for (record in records) {
-            totalHours += record.totalHours
-        }
-
-    }
-
-    private fun updateSleepTextVisibility() {
-        val sleepMoreTextView = view?.findViewById<TextView>(R.id.sleep_more)
-        if (records.isEmpty()) {
-            sleepMoreTextView?.visibility = View.VISIBLE
-        } else {
-            sleepMoreTextView?.visibility = View.GONE
-        }
     }
 
 
@@ -193,11 +187,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
                 val currentDate = DateFormat.getDateInstance().format(Date())
                 val sleepTime = view?.findViewById<TextView>(R.id.sleep_time)?.text.toString()
 
-                // Calculate the total hours of sleep (you can adjust this calculation based on your requirements)
-                val totalHours = calculateTotalHours(sleepTime)
 
                 // Create a new sleep record
-                val sleepRecord = SleepRecord(currentDate, sleepTime, totalHours)
+                val sleepRecord = SleepRecord(currentDate, sleepTime)
 
                 // Add the record to the list
                 records.add(sleepRecord)
@@ -211,6 +203,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
 
                 // Display the record list
                 showRecordList()
+
+                // Save Record to Firebase
+                saveRecordToFirebase(currentDate, sleepTime)
             }
 
             R.id.sleep_dailytarget_btn -> {
@@ -225,16 +220,45 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
         }
     }
 
-    private fun calculateTotalHours(sleepTime: String): Double {
-        // Perform the necessary calculation to determine the total hours of sleep
-        // You can adjust this calculation based on the sleep time format and requirements of your app
-        // Here's an example implementation assuming the sleep time is in HH:mm format
-        val sleepTimeParts = sleepTime.split(":")
-        val hours = sleepTimeParts[0].toInt()
-        val minutes = sleepTimeParts[1].toInt()
-        val totalHours = hours + (minutes / 60.0)
-        return totalHours
+    private fun saveRecordToFirebase(currentDate: String, sleepTime: String) {
+        val sleepRecord = SleepRecord(currentDate, sleepTime)
+        val recordRef = sleepRecordsRef.push()
+        recordRef.setValue(sleepRecord).addOnSuccessListener {
+            // Record saved successfully
+            Log.d("Firebase", "Record saved successfully with ID: ${recordRef.key}")
+        }.addOnFailureListener { e ->
+            // Error occurred while saving the record
+            Log.e("Firebase", "Error saving record", e)
+        }
     }
+
+    private fun getRecordFromFirebase() {
+        val sleepRecordsRef = FirebaseDatabase.getInstance().getReference("sleepRecords")
+
+        // Retrieve sleep record data from Firebase
+        sleepRecordsRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Clear the existing recordList
+                recordList.clear()
+
+                for (recordSnapshot in dataSnapshot.children) {
+                    val sleepRecord = recordSnapshot.getValue(SleepRecord::class.java)
+                    sleepRecord?.let {
+                        recordList.add(it)
+                    }
+                }
+
+                // Update the RecyclerView adapter with the new data
+                recordAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
+                Log.e("Firebase", "Error retrieving sleep record data: ${error.message}")
+            }
+        })
+    }
+
 
     private fun updateBedRecordTime(view: View?) {
         // Get the current time in milliseconds
@@ -274,7 +298,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
         recordList.clear()
         recordList.addAll(records)
         recordAdapter.notifyDataSetChanged()
-        updateSleepTextVisibility()
     }
 
     //Set Daily Target & get daily target
@@ -290,7 +313,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
             Toast.LENGTH_SHORT
         ).show()
 
-        updateSleepTrackerUI()
     }
 
 

@@ -233,12 +233,6 @@
             app:strokeColor="@color/cardBorder"
             app:strokeWidth="1.2dp">
 
-            <TextView
-                android:id="@+id/sleep_more"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="Sleep More !"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/sleep_records_recycler_view"
