@@ -10,16 +10,13 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label=""
+        android:label="Fitness Buddy"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mobile_assignment"
         tools:targetApi="31">
         <receiver
             android:name=".WaterReminderReceiver"
             android:enabled="true"
-            android:exported="false" />
-        <activity
-            android:name=".SleepHistory"
             android:exported="false" />
         <activity
             android:name=".WaterReminderSettingsActivity"
@@ -29,9 +26,6 @@
             android:name=".WaterHistoryActivity"
             android:exported="false"/>
 
-        <activity
-            android:name=".AddSleepFragment"
-            android:exported="false" />
         <activity
             android:name=".Register"
             android:exported="false" />
