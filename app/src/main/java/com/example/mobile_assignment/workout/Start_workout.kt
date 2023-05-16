@@ -57,7 +57,7 @@ class start_workout : AppCompatActivity() {
         toolbar.title = getPlanName
         setSupportActionBar(toolbar)
 
-        currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+        currentUser = FirebaseAuth.getInstance().currentUser!!.uid
         userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey)
 
         getUserExerciseData()
@@ -75,7 +75,7 @@ class start_workout : AppCompatActivity() {
                 completed()
             }
         }
-        skip = findViewById<Button>(R.id.skipOneWorkout)
+        skip = findViewById(R.id.skipOneWorkout)
         skip.setOnClickListener {
             myCountDownTimer?.cancel()
             clearDatas()
