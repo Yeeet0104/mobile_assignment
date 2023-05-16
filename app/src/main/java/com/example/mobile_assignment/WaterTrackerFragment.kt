@@ -28,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 @Suppress("NAME_SHADOWING", "DEPRECATION")
@@ -46,7 +45,6 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
     private var records = mutableListOf<WaterRecordData>()
     private  var dailyTarget = 0 //1600 in text
     @RequiresApi(Build.VERSION_CODES.O)
-    private val zoneID = ZoneId.of("Asia/Kuala_Lumpur")
 
     // Define the RecyclerView and its adapter
     private lateinit var waterRecyclerView: RecyclerView
@@ -104,7 +102,7 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(snapshot: DataSnapshot) {
                 val waterRecordsDB = mutableListOf<WaterRecordData>()
-                val currentDate = LocalDate.now(zoneID).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
                 // Loop through the children of the snapshot and create a WaterRecordData object for each
                 for (recordSnapshot in snapshot.children) {
@@ -181,7 +179,7 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
     //Add Water
     override fun onWaterAmountAdded(amount: Int) {
         //Add Records
-        val currentDateTime = LocalDateTime.now(zoneID)
+        val currentDateTime = LocalDateTime.now()
         val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
         val formattedTime = currentDateTime.format(timeFormatter)
         val dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
