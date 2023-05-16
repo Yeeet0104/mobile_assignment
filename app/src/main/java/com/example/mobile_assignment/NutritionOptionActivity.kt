@@ -277,7 +277,7 @@ class NutritionOptionActivity : AppCompatActivity() , ConfirmFoodFragment.OnFood
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
 
         // Retrieve the saved data using the keys used during saving
-        val calories = sharedPreferences.getString("recentCalories", "400")
+        val calories = sharedPreferences.getString("recentCalories", "400 cals")
         val foodName = sharedPreferences.getString("recentFood", "Fried Rice")
 
         // Update the UI or variables with the retrieved data
