@@ -282,12 +282,11 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
 
         builder.setPositiveButton("Confirm") { dialog, which ->
             if(!isDelete){
-                if(sImage == null){
-                    newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),dataToBeEdit.workoutPicture,0,durationType)
-                }else{
-                    newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),sImage,0,durationType)
+                if(sImage == ""&& isSettings){
+                        sImage = dataToBeEdit.workoutPicture
                 }
-                if (newExeName.text.toString() !== "" && newExerTargetBodyPart.text.toString() !=="" && newDuration.text.toString() !== ""){
+                newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),sImage,0,durationType)
+                if (newExeName.text.toString() != "" && newExerTargetBodyPart.text.toString() !="" && newDuration.text.toString() != "" && sImage != ""){
                     getKeyThenProceed(dataToBeEdit,newexercise,false)
                     val intent = Intent()
                     intent.putExtra("customExeValue", newexercise)
@@ -295,7 +294,7 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
                     setResult(RESULT_OK, intent)
                     finish()
                 }else{
-                    Toast.makeText(this,"Please fill in ll the blanks!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Please fill in the blanks!",Toast.LENGTH_LONG).show()
                 }
             }else{
                 newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),sImage,0,durationType)

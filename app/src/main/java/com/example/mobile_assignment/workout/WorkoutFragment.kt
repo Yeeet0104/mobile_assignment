@@ -276,10 +276,12 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
         return numerator / denominator
     }
     fun navigateToAddWorkout(isSettings: Boolean, position: Int) {
-        val intent = Intent(view?.context, add_workout_activity::class.java)
-        intent.putExtra("isSettings", isSettings)
-        intent.putExtra("planNameKey",planNameList[position])!!
-
+        if(planNameList.size > 0){
+            val intent = Intent(view?.context, add_workout_activity::class.java)
+            intent.putExtra("isSettings", isSettings)
+            if (!isSettings){
+                intent.putExtra("planNameKey",planNameList[position])!!
+            }
             dbPlansRef.orderByChild("workoutPlanName").equalTo(planNameList[position])
                 .addListenerForSingleValueEvent(object :
                     ValueEventListener {
@@ -299,6 +301,11 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
                         TODO("Not yet implemented")
                     }
                 })
+
+        }else{
+            Toast.makeText(context,"There is no exercise added!",Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     fun navigateToStartWorkout(position: Int) {
