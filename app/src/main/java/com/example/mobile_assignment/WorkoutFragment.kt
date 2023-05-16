@@ -394,7 +394,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
     override fun setDailyTarget(newDailyTarget: Int, maxDailyTarget: Int) {
         dailyTarget = newDailyTarget
         FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child("dailyTarget").setValue(dailyTarget)
-        daily_routine_target_text?.text = getString(R.string.daily_routine_target,newDailyTarget)
+        daily_routine_target_text?.text = "Daily Target: " +newDailyTarget.toString() +  " Routine"
     }
 
 
