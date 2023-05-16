@@ -30,6 +30,13 @@ class Register : AppCompatActivity() {
         setContentView(binding.root)
         auth = Firebase.auth
         // check for email
+
+        binding.alreadyAccountText.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+            finish()
+        }
+
+
         binding.editEmail.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("check",p0.toString())

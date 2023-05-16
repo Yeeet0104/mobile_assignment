@@ -88,7 +88,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         auth.signOut()
 
         // Redirect to the login screen or perform any necessary actions
-        var intent = Intent(context, splashScreen::class.java)
+        var intent = Intent(context, SplashScreen::class.java)
         startActivity(intent)
         requireActivity().finish()
     }
