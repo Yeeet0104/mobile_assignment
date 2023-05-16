@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 data class WorkoutPlanName(
     var workoutPlanName:String,
