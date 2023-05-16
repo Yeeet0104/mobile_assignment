@@ -146,9 +146,11 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
                     checkForProgress()
                     userAdapter.notifyDataSetChanged()
                 }
+                var displayNoPlans = view?.findViewById<ConstraintLayout>(R.id.displayNoPlans)
                 if (userList.size > 0) {
-                    var displayNoPlans = view?.findViewById<ConstraintLayout>(R.id.displayNoPlans)
                     displayNoPlans?.visibility = View.GONE
+                }else{
+                    displayNoPlans?.visibility = View.VISIBLE
                 }
                 progressDialog.dismiss()
             }
