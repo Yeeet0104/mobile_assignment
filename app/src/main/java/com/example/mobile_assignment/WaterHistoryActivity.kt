@@ -50,7 +50,6 @@ class WaterHistoryActivity : AppCompatActivity() {
 
     private fun loadWaterRecordsFromFirebase() {
         val waterRecordsRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterRecords")
-        //val waterRecordsRef = FirebaseDatabase.getInstance().getReference("waterRecords")
         waterRecordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -109,7 +108,6 @@ class WaterHistoryActivity : AppCompatActivity() {
 
         // Retrieve daily targets and compare with total amount consumed to check whether user hit their daily target
         val targetsRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterDailyTargets")
-        //val targetsRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets")
         var averageCompletion: Double = 0.0
 
         targetsRef.addListenerForSingleValueEvent(object : ValueEventListener {
