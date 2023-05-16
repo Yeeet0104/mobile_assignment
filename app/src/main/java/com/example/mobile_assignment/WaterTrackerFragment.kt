@@ -3,7 +3,9 @@
 package com.example.mobile_assignment
 
 
+import android.app.AlarmManager
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -82,14 +84,9 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         //Set onClickListener
         binding.addwaterBtn.setOnClickListener(this)
         binding.waterDailytargetBtn.setOnClickListener(this)
-        binding.editReminderBtn.setOnClickListener(this)
         binding.historyBtn.setOnClickListener(this)
 
         return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun loadWaterDataFromFirebase() {
@@ -101,7 +98,6 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
 
 
         val waterRecordsRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterRecords")
-        //val waterRecordsRef = FirebaseDatabase.getInstance().getReference("waterRecords")
 
         // Attach a listener to the database reference
         waterRecordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -152,7 +148,6 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
         val dailyTargetRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterDailyTargets").child(currentDate)
-        //val dailyTargetRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets").child(currentDate)
         dailyTargetRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val value = snapshot.value
@@ -282,11 +277,6 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
                 editWaterDailyTarget.show((activity as AppCompatActivity).supportFragmentManager, "editWaterDailyTarget")
             }
 
-            binding.editReminderBtn -> {
-                val reminderIntent = Intent(activity, WaterReminderSettingsActivity::class.java)
-                startActivity(reminderIntent)
-            }
-
             binding.historyBtn -> {
                 val historyIntent = Intent(activity, WaterHistoryActivity::class.java)
                 startActivity(historyIntent)
@@ -305,4 +295,6 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         super.onDestroyView()
         _binding = null
     }
+
+
 }

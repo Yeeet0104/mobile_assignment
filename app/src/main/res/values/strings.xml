@@ -68,6 +68,8 @@
     <string name="average_completion">Average Completion</string>
     <string name="drink_frequency">Drink Frequency</string>
     <string-array name="reminder_intervals">
+        <item>No Reminder</item>
+        <item>Every 5 seconds</item>
         <item>Every 30 minutes</item>
         <item>Every 60 minutes</item>
         <item>Every 90 minutes</item>
@@ -108,5 +110,6 @@
 
     <string name="workoutTimer">%d Sec</string>
     <string name="workoutLeft">%d/%d Exercise</string>
+    <string name="reminder">Reminder</string>
 
 </resources>
