@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -22,6 +23,8 @@ class WaterHistoryActivity : AppCompatActivity() {
 
     private lateinit var waterCompletionRecyclerView: RecyclerView
     private lateinit var waterCompletionAdapter: WaterCompletionAdapter
+
+    private var currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,8 @@ class WaterHistoryActivity : AppCompatActivity() {
     }
 
     private fun loadWaterRecordsFromFirebase() {
-        val waterRecordsRef = FirebaseDatabase.getInstance().getReference("waterRecords")
+        val waterRecordsRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterRecords")
+        //val waterRecordsRef = FirebaseDatabase.getInstance().getReference("waterRecords")
         waterRecordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -104,7 +108,8 @@ class WaterHistoryActivity : AppCompatActivity() {
         val avgDrinkFreq = if (days.isNotEmpty()) totalDrinkFreq / days.size else 0
 
         // Retrieve daily targets and compare with total amount consumed to check whether user hit their daily target
-        val targetsRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets")
+        val targetsRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterDailyTargets")
+        //val targetsRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets")
         var averageCompletion: Double = 0.0
 
         targetsRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -176,7 +181,7 @@ class WaterHistoryActivity : AppCompatActivity() {
         // Set the text of the views to the calculated averages
         weeklyDrinkAvg.text = if (weekAverage.isNaN()) "0" else weekAverage.toInt().toString() + "ml / day"
         monthlyDrinkAvg.text = if (monthAverage.isNaN()) "0" else monthAverage.toInt().toString()+ "ml / day"
-        waterCompletionAvg.text = "$averageCompletion %"
+        waterCompletionAvg.text = "${"%.2f".format(averageCompletion)}%"
         drinkFreqAvg.text = "$avgDrinkFreq times / day"
     }
 }
