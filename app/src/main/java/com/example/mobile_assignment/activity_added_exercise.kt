@@ -1,53 +1,59 @@
 package com.example.mobile_assignment
 
+
 import android.app.ProgressDialog
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.gson.Gson
+
 
 class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exercise_pop_up.DataListener {
 
     private lateinit var recyclerView: RecyclerView
+
     private lateinit var exerciseList: MutableList<ExerciseData>
     private lateinit var userExerciseList: MutableList<ExerciseData>
+
     private lateinit var userAdapter: ExercisesDataAdapter
-    private var getPlanNameKey = ""
-    private lateinit var value: String
     private lateinit var userExerciseDbRef: DatabaseReference
     private lateinit var workoutPlanSettings: DatabaseReference
+
     private lateinit var restDuration : EditText
     private lateinit var totalSets : EditText
+
+    private lateinit var value: String
+    private var getPlanNameKey = ""
+    private var currentUser = ""
+    private var isUserSettings = false
     @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_added_exercise)
         var toolbar = findViewById<Toolbar>(R.id.addedExerciseActivityHeader)
         setSupportActionBar(toolbar)
+        //get value from intent
         val retrieverList = intent.getSerializableExtra("userExerciseList") as? MutableList<ExerciseData>
+        getPlanNameKey = intent.getStringExtra("planNameKey")!!
+        isUserSettings = intent.getBooleanExtra("isSettings",false)
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        Log.d("checkUser",currentUser!!.uid.toString())
-
+        //firebase init
+        currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
+        workoutPlanSettings = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey)
 
         restDuration = findViewById(R.id.restDuration)
         totalSets = findViewById(R.id.totalSets)
-
-        getPlanNameKey = intent.getStringExtra("planNameKey")!!
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
-        workoutPlanSettings = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey)
-
 
         userExerciseList = mutableListOf()
         for (test in retrieverList!!){
@@ -65,7 +71,17 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
         doneBtn.setOnClickListener {
             complete()
         }
-
+        var addExercise = findViewById<Button>(R.id.addExercise)
+        if(!isUserSettings){
+            addExercise.text = "Add More Exercise"
+            addExercise.setBackgroundColor(ContextCompat.getColor(this,R.color.btnBorderColor))
+            addExercise.setOnClickListener {
+                finish()
+            }
+        }else{
+            addExercise.text = "Delete Workout Plan"
+            addExercise.setBackgroundColor(Color.RED)
+        }
         recyclerView = findViewById(R.id.recyclerUserWorkoutList)
         recyclerView.layoutManager = LinearLayoutManager(application)
         userAdapter = ExercisesDataAdapter(application, userExerciseList,true,false,null)
@@ -192,5 +208,9 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
             }
 
         })
+    }
+
+    private fun deleteCurrentPlan(){
+        FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey).removeValue()
     }
 }
