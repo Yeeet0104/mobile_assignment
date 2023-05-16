@@ -29,9 +29,12 @@ import java.util.concurrent.TimeUnit
 
 
 data class SleepRecord(
-    var date: String = "", var sleepTime: String = ""
+    var date: String = "",
+    var sleepTime: String = "",
+    var key: String? = null
+    // Add a key property
 ) {
-    // Empty constructor required for Firebase deserialization
+    // Empty constructor required for Firebase deserializationl
     constructor() : this("", "")
 }
 
@@ -125,11 +128,25 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
 
 
     private fun onDeleteRecord(record: SleepRecord) {
-        // Handle the deletion of the sleep record
-        // You can implement your logic here, such as removing the record from the list and updating the UI
-        records.remove(record)
+        // Remove the record from the local list
+        recordList.remove(record)
         recordAdapter.notifyDataSetChanged()
 
+        // Remove the record from Firebase
+        val recordKey = record.key
+        if (recordKey != null) {
+            val recordRef =
+                FirebaseDatabase.getInstance().getReference("sleepRecords").child(recordKey)
+            recordRef.removeValue().addOnSuccessListener {
+                // Record deleted successfully
+                Log.d("Firebase", "Record deleted successfully: $recordKey")
+            }.addOnFailureListener { e ->
+                // Error occurred while deleting the record
+                Log.e("Firebase", "Error deleting record: $recordKey", e)
+            }
+        } else {
+            Log.e("Firebase", "Record key is null")
+        }
     }
 
 
@@ -223,6 +240,8 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
     private fun saveRecordToFirebase(currentDate: String, sleepTime: String) {
         val sleepRecord = SleepRecord(currentDate, sleepTime)
         val recordRef = sleepRecordsRef.push()
+        val recordKey = recordRef.key
+        sleepRecord.key = recordKey // Assign the generated key to the SleepRecord
         recordRef.setValue(sleepRecord).addOnSuccessListener {
             // Record saved successfully
             Log.d("Firebase", "Record saved successfully with ID: ${recordRef.key}")

@@ -27,7 +27,6 @@ class SleepRecordAdapter(
                 if (position != RecyclerView.NO_POSITION) {
                     val deletedRecord = recordList[position]
                     recordList.removeAt(position)
-                    notifyItemRemoved(position)
                     onRecordDeleted(deletedRecord)
                 }
             }
