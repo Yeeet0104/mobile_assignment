@@ -2,6 +2,7 @@ package com.example.mobile_assignment
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -13,7 +14,8 @@ import java.time.format.DateTimeFormatter
 class WaterRecordFirebase {
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val waterRecordsRef: DatabaseReference = database.getReference("waterRecords")
+    private var currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+    private val waterRecordsRef: DatabaseReference = database.getReference("users").child(currentUser).child("waterTracker").child("waterRecords")
 
     fun addWaterRecord(waterRecord: WaterRecordData) {
         val key = waterRecordsRef.push().key
