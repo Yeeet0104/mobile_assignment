@@ -40,7 +40,6 @@
         android:id="@+id/consumedwater_amt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:text="0 ML"
         android:textColor="@color/waterDarkBlue"
         android:textSize="36sp"
@@ -83,46 +82,36 @@
                 android:id="@+id/next_reminder_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/next_reminder"
+                android:text="Goal"
                 android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="@+id/reminder_icon"
+                app:layout_constraintStart_toStartOf="@+id/goal_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/reminder_icon"
+                android:id="@+id/goal_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
                 android:layout_marginTop="4dp"
-                android:src="@drawable/reminder"
+                android:src="@drawable/goal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/next_reminder_title" />
 
             <TextView
-                android:id="@+id/next_reminder_time"
+                android:id="@+id/goal_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="@string/_9_30_am"
+                android:text="Stay Hydrated"
                 android:textColor="@color/cardContent"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/reminder_icon"
-                app:layout_constraintTop_toBottomOf="@+id/next_reminder_title" />
-
-            <ImageButton
-                android:id="@+id/edit_reminder_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="@string/edit_reminder_button"
-                android:padding="2dp"
-                android:src="@drawable/setting_4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="TouchTargetSizeCheck" />
+                app:layout_constraintStart_toEndOf="@+id/goal_icon"
+                app:layout_constraintTop_toBottomOf="@+id/next_reminder_title"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
