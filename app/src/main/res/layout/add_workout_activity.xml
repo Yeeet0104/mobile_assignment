@@ -17,25 +17,30 @@
         android:padding="20dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbarHeader">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Search" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchViewForExerciseList"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:queryHint="Enter Exercise name....."
+                android:layout_marginEnd="3dp"
                 app:iconifiedByDefault="false"
-                            />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/filterTypeExercise"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:queryHint="Enter Exercise name....." />
+
+            <Spinner
+                android:minHeight="40dp"
+                android:id="@+id/filterTypeExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <!--            <EditText-->
 <!--                android:id="@+id/searchForWorkoutEditText"-->
 <!--                android:layout_width="match_parent"-->
@@ -90,6 +95,7 @@
             android:text="Add Custom Exercise" />
 
         <Button
+            android:id="@+id/next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/workoutFragmentPrimaryColor"

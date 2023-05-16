@@ -4,17 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NutritionOptionFragment">
+    tools:context=".NutritionHistoryActivity">
 
     <!-- TODO: Update blank fragment layout -->
 
+
+    <include
+        android:id="@+id/toolbarHeader"
+        layout="@layout/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/historyCompletionCard"
         style="@style/card_layout"
         android:layout_width="320dp"
         android:layout_height="43dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
         app:contentPadding="10dp"
@@ -22,13 +31,13 @@
         app:contentPaddingRight="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHeader"
         app:strokeColor="@color/cardBorder"
         app:strokeWidth="1dp">
 
 
         <TextView
-            android:id="@+id/weeklyCaloriesText"
+            android:id="@+id/recent_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Weekly Calories Completion"
@@ -62,33 +71,38 @@
                 android:id="@+id/weeklyAvg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:text="Weekly Average"
-                app:layout_constraintStart_toStartOf="@+id/trackerReport"
-                app:layout_constraintTop_toBottomOf="@+id/trackerReport" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popular_food" />
 
             <TextView
                 android:id="@+id/completionAvg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Weekly Average"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:text="Average Completion"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/monthlyAvg"
-                app:layout_constraintStart_toStartOf="@+id/monthlyAvg"
-                app:layout_constraintTop_toBottomOf="@+id/monthlyAvg" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/monthlyAvg"
+                app:layout_constraintVertical_bias="1.0" />
 
             <TextView
                 android:id="@+id/monthlyAvg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:text="Monthly Average"
                 app:layout_constraintEnd_toEndOf="@+id/weeklyAvg"
-                app:layout_constraintStart_toStartOf="@+id/weeklyAvg"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/weeklyAvg" />
 
             <TextView
-                android:id="@+id/trackerReport"
+                android:id="@+id/popular_food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nutritions Tracker Report"
@@ -96,6 +110,37 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/weekly_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly Average"
+                android:textColor="@color/waterDarkBlue"
+                app:layout_constraintBottom_toBottomOf="@+id/weeklyAvg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/weeklyAvg" />
+
+            <TextView
+                android:id="@+id/monthly_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly Average"
+                android:textColor="@color/waterDarkBlue"
+                app:layout_constraintBottom_toBottomOf="@+id/monthlyAvg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/monthlyAvg" />
+
+            <TextView
+                android:id="@+id/completion_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0%"
+                android:textColor="@color/waterDarkBlue"
+                app:layout_constraintBottom_toBottomOf="@+id/completionAvg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/completionAvg"
+                app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

@@ -1,15 +1,11 @@
 package com.example.mobile_assignment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.setFragmentResult
-import androidx.navigation.fragment.findNavController
 
 class fragment_add_workout_pop_up : DialogFragment() {
 
@@ -39,7 +35,6 @@ class fragment_add_workout_pop_up : DialogFragment() {
         val editTextAddBtn = view.findViewById<Button>(R.id.addRoutineName_btn)
         editTextAddBtn.setOnClickListener{
             val planName = view.findViewById<EditText>(R.id.RoutineNameText).text.toString()
-            val dataToSend = "Hello, Fragment!"
             dataListener?.onDataReceived(planName)
             dismiss()
         }

@@ -19,14 +19,7 @@
         android:id="@+id/nutritionTrackerFragment"
         android:name="com.example.mobile_assignment.NutritionTrackerFragment"
         android:label="Nutritions Tracker"
-        tools:layout="@layout/fragment_nutrition_tracker" >
-        <action
-            android:id="@+id/action_nutritionTrackerFragment_to_nutritionOptionFragment"
-            app:destination="@id/nutritionOptionFragment" />
-        <action
-            android:id="@+id/action_nutritionTrackerFragment_to_nutritionHistoryFragment"
-            app:destination="@id/nutritionHistoryFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_nutrition_tracker" />
     <fragment
         android:id="@+id/sleepTrackerFragment"
         android:name="com.example.mobile_assignment.SleepTrackerFragment"
