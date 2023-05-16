@@ -51,8 +51,7 @@ class start_workout : AppCompatActivity() {
         exerciseLeft = findViewById(R.id.exerciseLeft)
 
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
-//        getPlanName = intent.getStringExtra("planName")!!
-        restDuration = intent.getIntExtra("duration",10)!!
+        restDuration = 10
 
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         toolbar.title = getPlanName
@@ -90,6 +89,25 @@ class start_workout : AppCompatActivity() {
 
 
     private fun getUserExerciseData() {
+        userExerciseDbRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    snapshot.children.forEach {
+                        if(it.key.toString() == "restDuration"){
+                            restDuration = it.value.toString().toInt()
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+
         userExerciseList = mutableListOf()
         userExerciseDbRef.child("userExerciseList").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -107,10 +125,6 @@ class start_workout : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
-
-    }
-
-    private fun updateProgress(){
 
     }
 

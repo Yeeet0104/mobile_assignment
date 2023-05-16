@@ -117,18 +117,19 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
         }else{
             deleteBtn.visibility = View.GONE
             btn.setOnClickListener {
-                if(sImage == null){
+                if(sImage == "" && isSettings){
+                    sImage = dataToBeEdit.workoutPicture
                     newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),dataToBeEdit.workoutPicture,0,durationType)
-                }else{
+                }else if(!isSettings && sImage != ""){
                     newexercise = ExerciseData(newExeName.text.toString(),newExerTargetBodyPart.text.toString(),newDuration.text.toString(),sImage,0,durationType)
                 }
-                if (newExeName.text.toString() !== "" && newExerTargetBodyPart.text.toString() !=="" && newDuration.text.toString() !== ""){
+                if (newExeName.text.toString() != "" && newExerTargetBodyPart.text.toString() !="" && newDuration.text.toString() != "" && sImage != ""){
                     val intent = Intent()
                     intent.putExtra("customExeValue", newexercise)
                     setResult(RESULT_OK, intent)
                     finish()
                 }else{
-                    Toast.makeText(this,"Please fill in ll the blanks!",Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"Please fill in the blanks!",Toast.LENGTH_LONG).show()
                 }
             }
         }

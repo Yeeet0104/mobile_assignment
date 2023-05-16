@@ -311,7 +311,6 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
                                     override fun onDataChange(snapshot2: DataSnapshot) {
                                         if (snapshot2.exists()) {
                                             if(snapshot2.value.toString().contains("userExerciseList")){
-                                                Log.d("checkDb",snapshot2.toString())
                                                 intent.putExtra(
                                                     "planNameKey",
                                                     it.key.toString()
