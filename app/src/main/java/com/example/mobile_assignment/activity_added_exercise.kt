@@ -1,6 +1,7 @@
 package com.example.mobile_assignment
 
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
@@ -9,6 +10,7 @@ import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -81,6 +83,9 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
         }else{
             addExercise.text = "Delete Workout Plan"
             addExercise.setBackgroundColor(Color.RED)
+            addExercise.setOnClickListener{
+                deleteCurrentPlan()
+            }
         }
         recyclerView = findViewById(R.id.recyclerUserWorkoutList)
         recyclerView.layoutManager = LinearLayoutManager(application)
@@ -211,6 +216,18 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
     }
 
     private fun deleteCurrentPlan(){
-        FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey).removeValue()
+        val builder  = AlertDialog.Builder(this)
+        builder.setTitle("Delete Exercise Info")
+        builder.setMessage("Are You Sure? There is no undo once deleted!")
+
+        builder.setPositiveButton("Confirm") { dialog, which ->
+            FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey).removeValue()
+            finish()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, which ->
+            builder
+        }
+        builder.show()
     }
 }
