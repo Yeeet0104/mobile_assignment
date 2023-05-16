@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.ByteArrayOutputStream
 import java.util.*
@@ -49,13 +50,14 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
         setContentView(R.layout.add_custom_exercise)
 
         dbRef = FirebaseDatabase.getInstance().getReference("ExerciseList")
-
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        Log.d("checkUser",currentUser!!.uid.toString())
 
         isSettings = intent.getBooleanExtra("isSettings",false)
         Log.d("isSetting",isSettings.toString())
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
 
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("workoutPlans").child(getPlanNameKey).child("userExerciseList")
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
         if(isSettings){
             dataToBeEdit = intent.getSerializableExtra("dataToBeEdit") as ExerciseData
             positionToBeEdit = intent.getIntExtra("position",0)

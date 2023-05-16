@@ -10,7 +10,6 @@
         style="@style/CircularProgressBar_workout"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="20dp"
         android:indeterminateOnly="false"
         android:progress="0"
         app:layout_constraintLeft_toLeftOf="parent"

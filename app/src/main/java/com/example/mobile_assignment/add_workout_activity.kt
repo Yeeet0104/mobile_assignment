@@ -13,6 +13,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.Serializable
 import java.util.*
@@ -39,12 +40,16 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        Log.d("checkUser",currentUser!!.uid.toString())
+
+
         isSettings = intent.getBooleanExtra("isSettings",false)
         Log.d("wtff",isSettings.toString())
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
 
         dbRef = FirebaseDatabase.getInstance().getReference("ExerciseList")
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("workoutPlans").child(getPlanNameKey).child("userExerciseList")
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
 
         var spinner: Spinner = findViewById<Spinner>(R.id.filterTypeExercise)
 

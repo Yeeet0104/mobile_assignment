@@ -18,48 +18,59 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import org.w3c.dom.Text
 import java.io.Serializable
 
 class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, SetDailyRoutineTargetListener {
-    private lateinit var recv: RecyclerView
-    private lateinit var userList: ArrayList<WorkoutPlanName>
-    private lateinit var userAdapter: WorkoutPlabNameAdapter
-    private var numberOfPlan = 0
 
-    private lateinit var dbPlansRef: DatabaseReference
-    private lateinit var dbUserPlanNow: DatabaseReference
+    //data
+    private lateinit var userList: ArrayList<WorkoutPlanName>
     private lateinit var planNameList: ArrayList<String>
     private lateinit var everyPlanProgress: ArrayList<Int>
     private lateinit var restDurations: ArrayList<Int>
     private lateinit var everyPlanTotalProgress: ArrayList<Double>
-    private lateinit var userExerciseDbRef: DatabaseReference
     private lateinit var userExerciseList: MutableList<ExerciseData>
+    //db
+    private lateinit var userExerciseDbRef: DatabaseReference
+    private lateinit var dbPlansRef: DatabaseReference
+    private var currentUser =""
+    //views init
     private lateinit var edit_daily_target_routine : ImageView
     private lateinit var workoutProgessBar : ProgressBar
     private lateinit var routine : TextView
+    private lateinit var daily_routine_target_text : TextView
+    //recycleview
+    private lateinit var recv: RecyclerView
+    private lateinit var userAdapter: WorkoutPlabNameAdapter
+    //checker
     private var dailyTarget = 0
-    private var numberOfRoutine = 0
+    private var numberOfPlan = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+
         val view = inflater.inflate(R.layout.fragment_workout, container, false)
         val addWorkoutBtn = view.findViewById<ImageView>(R.id.addworkout_btn)
         var settings = view.findViewById<ImageView>(R.id.settingsPage)
+        daily_routine_target_text = view.findViewById(R.id.daily_routine_target)
         edit_daily_target_routine = view.findViewById(R.id.edit_daily_target_routine)
         workoutProgessBar = view.findViewById(R.id.workoutProgessBar)
         routine = view.findViewById(R.id.routine)
-        dbPlansRef = FirebaseDatabase.getInstance().getReference("workoutPlans")
+
+        dbPlansRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans")
         //init all the lists
         userList = ArrayList()
         planNameList = ArrayList()
         everyPlanProgress = ArrayList()
         everyPlanTotalProgress = ArrayList()
         restDurations = ArrayList()
-
+        routine.text = getString(R.string.Amount_routine_string,0)
+        daily_routine_target_text.text = getString(R.string.daily_routine_target,0)
         init()
 
         recv = view.findViewById(R.id.mRecycler)
@@ -121,7 +132,9 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                             userList.add(WorkoutPlanName(newPlanName, progress, newDuration))
                         }
                     }
-                    routine.text = getString(R.string.Amount_routine_string,everyPlanTotalProgress.size)
+                    if(everyPlanTotalProgress.size > 0){
+                        routine.text = getString(R.string.Amount_routine_string,everyPlanTotalProgress.size)
+                    }
                     checkForProgress()
                     userAdapter.notifyDataSetChanged()
                 }
@@ -204,7 +217,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
         val intent = Intent(context, activity_added_exercise::class.java)
         var planNameKey = ""
         userExerciseList = mutableListOf()
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("workoutPlans")
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans")
         userExerciseDbRef.orderByChild("workoutPlanName").equalTo(planName).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -279,13 +292,8 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
     }
 
     fun navigateToStartWorkout(position: Int) {
-        var showOnce = false
         val intent = Intent(view?.context, start_workout::class.java)
-        intent.putExtra("planName",planNameList[position])!!
-        intent.putExtra("duration",restDurations[position])!!
-        dbPlansRef.orderByChild("workoutPlanName").equalTo(planNameList[position])
-            .addListenerForSingleValueEvent(object :
-                ValueEventListener {
+        dbPlansRef.orderByChild("workoutPlanName").equalTo(planNameList[position]).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         snapshot.children.forEach {
@@ -314,15 +322,12 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                                     }
 
                                     override fun onCancelled(error: DatabaseError) {
-                                        TODO("Not yet implemented")
+
                                     }
 
                                 })
                         }
-                    } else {
-                        Log.d("whyNoValue", snapshot.children.toString())
                     }
-
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -333,17 +338,22 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
     }
 
     private fun checkForProgress(){
+        var haveDaily = false
         dbPlansRef.addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     snapshot.children.forEach{
                         if(it.key.toString() == "dailyTarget"){
+                            haveDaily = true
                             dailyTarget = it.value.toString().toInt()
                             setDailyTarget(dailyTarget,dailyTarget)
                         }
                     }
                     updateProgressBar()
+                    if(!haveDaily){
+                        dailyTarget = 0
+                    }
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -363,7 +373,6 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
             }
             everyPlanTotalProgress.remove(closestValue)
             totalclosestValue += closestValue
-            Log.d("checkWhichCloser",totalclosestValue.toString())
         }
 
         workoutProgessBar.progress = ((totalclosestValue /dailyTarget)* 100 ).toInt()
@@ -376,9 +385,8 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
         ediRoutineDailyTarget.show((activity as AppCompatActivity).supportFragmentManager, "editWaterDailyTarget")
     }
     override fun setDailyTarget(newDailyTarget: Int, maxDailyTarget: Int) {
-        var daily_routine_target = view?.findViewById<TextView>(R.id.daily_routine_target)
         dailyTarget = newDailyTarget
-        daily_routine_target?.text = getString(R.string.daily_routine_target,newDailyTarget)
+        daily_routine_target_text?.text = getString(R.string.daily_routine_target,newDailyTarget)
     }
 
 
