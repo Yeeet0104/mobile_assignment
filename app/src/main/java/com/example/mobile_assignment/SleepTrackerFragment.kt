@@ -65,7 +65,7 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
     // Write a message to the database
     private var currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
     val database = Firebase.database
-    val sleepRecordsRef = database.getReference("sleepRecords")
+    val sleepRecordsRef = database.getReference("users").child(currentUser).child("sleepRecords")
 
 
     override fun onCreateView(
@@ -132,8 +132,8 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
         // Remove the record from Firebase
         val recordKey = record.key
         if (recordKey != null) {
-            val recordRef =
-                FirebaseDatabase.getInstance().getReference("sleepRecords").child(recordKey)
+            val recordRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser)
+                .child("sleepRecords").child(recordKey)
             recordRef.removeValue().addOnSuccessListener {
                 // Record deleted successfully
                 Log.d("Firebase", "Record deleted successfully: $recordKey")
@@ -145,7 +145,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
             Log.e("Firebase", "Record key is null")
         }
     }
-
 
     //OnClick Listeners
     override fun onClick(v: View?) {
