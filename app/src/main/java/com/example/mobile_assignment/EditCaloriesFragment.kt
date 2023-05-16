@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 
 interface SetDailyCaloriesTargetListener {
-    fun setDailyTarget(newTarget : Int)
+    fun setDailyCaloriesTarget(newTarget : Int)
     fun getCurrentDailyTarget(): Int
 }
 
@@ -37,19 +37,26 @@ class EditCaloriesFragment : DialogFragment() {
         val closeBtn: ImageButton = view.findViewById(R.id.close_editcalories_btn)
         val editCalories: EditText = view.findViewById(R.id.editCaloriesAmount)
 
-        // Set the default value of the NumberPicker to the current daily target
-        val currentTarget = setDailyTargetListener?.getCurrentDailyTarget()
+
 
         confirmBtn.setOnClickListener {
             val caloriesAmount = editCalories.text.toString()
 
-            if (caloriesAmount.isEmpty()){
-                Toast.makeText(context,"Please fill in the amount you want!", Toast.LENGTH_SHORT).show()
-            }
-            //return the calories amount to fragment
-            setDailyTargetListener?.setDailyTarget(caloriesAmount.toInt())
+            if (caloriesAmount.isEmpty()) {
+                Toast.makeText(context, "Please fill in the amount you want!", Toast.LENGTH_SHORT).show()
+            } else {
+                try {
+                    // Convert caloriesAmount to integer
+                    val calories = caloriesAmount.toInt()
 
-            dismiss()
+                    // Return the calories amount to the fragment
+                    setDailyTargetListener?.setDailyCaloriesTarget(calories)
+
+                    dismiss()
+                } catch (e: NumberFormatException) {
+                    Toast.makeText(context, "Invalid number format!", Toast.LENGTH_SHORT).show()
+                }
+            }
 
         }
 

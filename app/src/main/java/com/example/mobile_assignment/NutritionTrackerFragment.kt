@@ -1,7 +1,10 @@
 package com.example.mobile_assignment
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,14 +17,26 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 
-data class Record(val foodName: String, val foodCalories: String, val foodTime: String)
+data class FoodRecord(val foodName: String, val foodCalories: String, val foodTime: String)
 
 class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
+
+    //user
+    private var currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+
 
     //text view
     private lateinit var tvCaloriesProgress : TextView
@@ -35,8 +50,12 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
     private lateinit var caloriesProgressBar: ProgressBar
 
     //data
-    private var records = mutableListOf<Record>()
+    private val foodRecordFirebase = FoodRecordFirebase()
+    private var records = mutableListOf<FoodRecord>()
     private var dailyTarget = 2400
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val zoneID = ZoneId.of("Asia/Kuala_Lumpur")
+    private var historyRecords = mutableListOf<FoodHistoryModel>()
 
     //adapter
     private lateinit var recyclerView: RecyclerView
@@ -52,6 +71,7 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -106,8 +126,11 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadData()
 
         // Find the RecyclerView in the layout and set its layout manager (in reverse order)
         val linearLayoutManager = LinearLayoutManager(context)
@@ -116,21 +139,105 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
         recyclerView.layoutManager = linearLayoutManager
 
         // Create a list of records and set up the adapter
-        val foodRecordList = records
-        recordAdapter = FoodRecordAdapter(foodRecordList, ::onRecordDeleted)
+        recordAdapter = FoodRecordAdapter(records,::onRecordDeleted, historyRecords)
         recyclerView.adapter = recordAdapter
+
+
+    }
+
+    private fun saveData(){
+
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs_$currentUser", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+
+        // Convert the list of records to a JSON string
+        val gson = Gson()
+        val recordsJson = gson.toJson(records)
+        val historyRecordsJson = gson.toJson(historyRecords)
+
+        editor.apply {
+            putInt("dailyTarget", dailyTarget)
+            putString("records", recordsJson)
+            putString("historyRecords", historyRecordsJson)
+            putInt("updatedProgress", updatedProgress)
+        }.apply()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadData() {
+        val sharedPreferences: SharedPreferences = requireContext().getSharedPreferences("sharedPrefs_$currentUser", Context.MODE_PRIVATE)
+        val storedDay = sharedPreferences.getInt("storedDay", -1)
+
+        val calendar = Calendar.getInstance()
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+        if (currentDay != storedDay) {
+            // Clear the SharedPreferences
+            val editor: SharedPreferences.Editor = sharedPreferences.edit()
+            editor.clear()
+            editor.putInt("storedDay", currentDay)
+            editor.apply()
+
+        }
+
+        tvCaloriesTarget = requireView().findViewById(R.id.calories_target)
+        // Retrieve the saved data using the keys used during saving
+        dailyTarget = sharedPreferences.getInt("dailyTarget", 2400)
+
+        // Update the UI or variables with the retrieved data
+        tvCaloriesTarget.text = "Daily Target: ${dailyTarget.toString()} cals"
+
+        // Retrieve the saved records JSON string from SharedPreferences
+        val recordsJson = sharedPreferences.getString("records", null)
+
+        // Convert the JSON string back to a list of records
+        if (recordsJson != null) {
+            val gson = Gson()
+            val type = object : TypeToken<List<FoodRecord>>() {}.type
+            records = gson.fromJson(recordsJson, type)
+        }
+
+        val historyRecordsJson = sharedPreferences.getString("historyRecords", null)
+
+        // Convert the JSON string back to a list of records
+        if (historyRecordsJson != null) {
+            val gson = Gson()
+            val type = object : TypeToken<List<FoodHistoryModel>>() {}.type
+            historyRecords = gson.fromJson(historyRecordsJson, type)
+        }
+
+        //Update Progress Bar
+        caloriesProgressBar = requireView().findViewById(R.id.calories_bar)
+        caloriesProgressBar.progress = updatedProgress
+
+        foodRecordFirebase.setDailyCaloriesTarget(dailyTarget)
+        updateCaloriesUI()
+
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onFoodConfirmed(foodName: String, foodCalories: String, foodTime: String) {
 
         //Add record
         val foodTime = "$foodTime"
         val foodCalories = "$foodCalories"
         val foodName = "$foodName"
-        val record = Record(foodName, foodCalories, foodTime)
+        val record = FoodRecord(foodName, foodCalories, foodTime)
         records.add(record)
         recordAdapter.notifyDataSetChanged()
+
+
+        //Add Records
+        val currentDateTime = LocalDateTime.now(zoneID)
+        val dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formattedDay = currentDateTime.format(dayFormatter)
+        val recordHistory = FoodHistoryModel(formattedDay, foodCalories)
+
+        historyRecords.add(recordHistory)
+
+        // Add data to firebase
+        foodRecordFirebase.addFoodRecord(recordHistory)
 
         //Show toast after add water
         Toast.makeText(context, "$foodCalories of calories added.", Toast.LENGTH_SHORT).show()
@@ -147,19 +254,15 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
             caloriesAdded += r.foodCalories.replace(Regex("\\D"), "").toInt()
         }
 
-
-
         tvCaloriesProgress.text = "$caloriesAdded CALS"
-
-
-
-
 
         //Update Progress Bar
         updateProgressBar(caloriesAdded)
 
         //Update visibility of empty text
         updateConsumeFoodVisibility()
+
+        saveData()
 
     }
 
@@ -184,10 +287,13 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
         }
     }
 
-    override fun setDailyTarget(newTarget: Int){
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun setDailyCaloriesTarget(newTarget: Int){
         tvCaloriesTarget = requireView().findViewById(R.id.calories_target)
         dailyTarget = newTarget
         tvCaloriesTarget.text = "Daily Target: ${dailyTarget.toString()} cals"
+
+        foodRecordFirebase.setDailyCaloriesTarget(dailyTarget)
 
         //Show toast after set daily target
         Toast.makeText(context, "Daily target set to ${dailyTarget.toString()} cals", Toast.LENGTH_SHORT).show()
@@ -203,6 +309,7 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
         super.onResume()
         // Update the calories tracker UI
         updateCaloriesUI()
+
     }
 
     private fun updateConsumeFoodVisibility() {
@@ -215,5 +322,8 @@ class NutritionTrackerFragment : Fragment(), SetDailyCaloriesTargetListener {
         // Retrieve the current daily target from your application or class
         return dailyTarget
     }
+
+
+
 
 }

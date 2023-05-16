@@ -21,8 +21,8 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/historyCompletionCard"
         style="@style/card_layout"
-        android:layout_width="320dp"
-        android:layout_height="43dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
@@ -36,19 +36,42 @@
         app:strokeWidth="1dp">
 
 
-        <TextView
-            android:id="@+id/recent_food"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weekly Calories Completion"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/recent_food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weekly Calories Completion"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/calories_completion_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recent_food"
+                tools:listitem="@layout/calories_weekly_completion" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/caloriesTrackerCard"
         style="@style/card_layout"
-        android:layout_width="321dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         app:cardCornerRadius="8dp"
@@ -56,8 +79,8 @@
         app:contentPadding="10dp"
         app:contentPaddingLeft="14dp"
         app:contentPaddingRight="14dp"
-        app:layout_constraintEnd_toEndOf="@+id/historyCompletionCard"
-        app:layout_constraintStart_toStartOf="@+id/historyCompletionCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyCompletionCard"
         app:strokeColor="@color/cardBorder"
         app:strokeWidth="1dp">

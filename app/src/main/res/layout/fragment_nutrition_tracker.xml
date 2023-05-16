@@ -43,7 +43,6 @@
         style="@style/CircleCaloriesBar"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="50dp"
         android:progress="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
