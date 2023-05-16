@@ -57,6 +57,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
         val view = inflater.inflate(R.layout.fragment_workout, container, false)
         val addWorkoutBtn = view.findViewById<ImageView>(R.id.addworkout_btn)
         var settings = view.findViewById<ImageView>(R.id.settingsPage)
+
         daily_routine_target_text = view.findViewById(R.id.daily_routine_target)
         edit_daily_target_routine = view.findViewById(R.id.edit_daily_target_routine)
         workoutProgessBar = view.findViewById(R.id.workoutProgessBar)

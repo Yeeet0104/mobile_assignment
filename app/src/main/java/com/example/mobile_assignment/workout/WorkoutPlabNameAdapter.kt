@@ -20,9 +20,9 @@ class WorkoutPlabNameAdapter(val c: Context, val workoutPlanNameList:ArrayList<W
         var startWorkout :ImageView
         var settings : ImageView
         init {
-            name = view.findViewById<TextView>(R.id.mTitle)
-            mbNum = view.findViewById<TextView>(R.id.mSubTitle)
-            addWorkoutBtn = view.findViewById<ImageView>(R.id.addworkout_btn)
+            name = view.findViewById(R.id.mTitle)
+            mbNum = view.findViewById(R.id.mSubTitle)
+            addWorkoutBtn = view.findViewById(R.id.addworkout_btn)
             startWorkout = view.findViewById(R.id.playWorkout_btn)
             settings = view.findViewById(R.id.settings_workout_btn)
         }
@@ -43,7 +43,7 @@ class WorkoutPlabNameAdapter(val c: Context, val workoutPlanNameList:ArrayList<W
         val newList = workoutPlanNameList[position]
         holder.name.text = newList.workoutPlanName
         holder.mbNum.text = newList.progress
-        Log.d("wtf",newList.progress)
+
         holder.addWorkoutBtn.setOnClickListener{
             fragemnt.navigateToAddWorkout(false,position)
         }

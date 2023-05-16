@@ -62,7 +62,7 @@
     <string name="sound">Sound</string>
     <string name="sound_type">Sound Type</string>
     <string name="vibrant">Vibrant</string>
-    <string name="weekly_water_intake_completion">Weekly Water Intake Completion</string>
+    <string name="weekly_water_intake_completion">Water Intake Completion</string>
     <string name="water_tracker_report">Water Tracker Report</string>
     <string name="monthly_average">Monthly Average</string>
     <string name="average_completion">Average Completion</string>

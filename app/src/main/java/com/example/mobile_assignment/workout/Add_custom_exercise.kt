@@ -64,8 +64,6 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
         }
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         spinner = findViewById(R.id.spinner)
 
