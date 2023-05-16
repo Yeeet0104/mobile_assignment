@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
+import com.example.mobile_assignment.R
 
 class fragment_add_workout_pop_up : DialogFragment() {
 

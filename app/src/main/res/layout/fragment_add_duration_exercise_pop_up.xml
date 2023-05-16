@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    tools:context=".fragment_add_duration_exercise_pop_up"
+    tools:context=".workout.fragment_add_duration_exercise_pop_up"
     >
     <ImageButton
         android:id="@+id/close_workout_pop_up"

@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 
 import android.app.AlertDialog
@@ -10,17 +10,19 @@ import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile_assignment.*
+import com.example.mobile_assignment.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
-class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exercise_pop_up.DataListener {
+class activity_added_exercise : AppCompatActivity(),
+    fragment_add_duration_exercise_pop_up.DataListener {
 
     private lateinit var recyclerView: RecyclerView
 
@@ -76,7 +78,7 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
         var addExercise = findViewById<Button>(R.id.addExercise)
         if(!isUserSettings){
             addExercise.text = "Add More Exercise"
-            addExercise.setBackgroundColor(ContextCompat.getColor(this,R.color.btnBorderColor))
+            addExercise.setBackgroundColor(ContextCompat.getColor(this, R.color.btnBorderColor))
             addExercise.setOnClickListener {
                 finish()
             }
@@ -152,9 +154,7 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
         userExerciseDbRef.orderByChild("workoutName").equalTo(workoutName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(datasnapshot: DataSnapshot) {
-                    Log.d("checkName", datasnapshot.value.toString())
                     for (snaphot in datasnapshot.children) {
-                        Log.d("checkName", snaphot.key.toString())
                         userExerciseDbRef.child(snaphot.key.toString()).removeValue()
                     }
                     userAdapter.notifyDataSetChanged()
@@ -188,7 +188,6 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     snapshot.children.forEach{
-                        Log.d("CHECKDBLA",it.key.toString())
                         if (it.key.toString() == "progress"){
                             var totalSetText = ""
                             if(!totalSets.text.contains("/")){
@@ -201,7 +200,7 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
                             workoutPlanSettings.child("restDuration").setValue(restDuration.text.toString())
                         }
                     }
-                    val intent = Intent(application ,MainActivity::class.java)
+                    val intent = Intent(application , MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                     startActivity(intent)
                     finish()

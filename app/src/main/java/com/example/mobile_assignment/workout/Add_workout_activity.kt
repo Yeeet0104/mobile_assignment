@@ -1,10 +1,9 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -15,12 +14,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile_assignment.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -52,12 +51,14 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
 
         isSettings = intent.getBooleanExtra("isSettings",false)
         Log.d("wtff",isSettings.toString())
-        getPlanNameKey = intent.getStringExtra("planNameKey")!!
+        if(intent.getStringExtra("planNameKey") != null){
+            getPlanNameKey = intent.getStringExtra("planNameKey")!!
+        }
 
         dbRef = FirebaseDatabase.getInstance().getReference("ExerciseList")
         userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
 
-        var spinner: Spinner = findViewById<Spinner>(R.id.filterTypeExercise)
+        var spinner: Spinner = findViewById(R.id.filterTypeExercise)
 
         spinner.onItemSelectedListener = this
 
@@ -114,6 +115,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
                 val value = data?.getSerializableExtra("customExeValue")
                 val isDeleted = data?.getBooleanExtra("isDeleted",false)
                 val isSettings = data?.getBooleanExtra("isSettings",false)
+
                 if(!isDeleted!!){
                     val hashValue = convertToHashMap(value!!)
                     var newExercise = ExerciseData(
@@ -335,7 +337,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
             startActivity(intent)
         }
     }
-    fun navigateToAddCustom(isSettings:Boolean,newList :ExerciseData?,position : Int?) {
+    fun navigateToAddCustom(isSettings:Boolean, newList : ExerciseData?, position : Int?) {
         val intent = Intent(this, add_custom_exercise::class.java)
         intent.putExtra("isSettings",isSettings)
         intent.putExtra("planNameKey", getPlanNameKey)
@@ -355,7 +357,7 @@ class add_workout_activity : AppCompatActivity(), AdapterView.OnItemSelectedList
         typeSelected = "body part"
     }
 
-    fun getDataFromAdapter(position : Int,newList :ExerciseData){
+    fun getDataFromAdapter(position : Int,newList : ExerciseData){
         navigateToAddCustom(isSettings,newList ,position)
     }
 }

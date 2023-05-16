@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 
 import android.content.Context
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile_assignment.R
 import com.google.android.material.card.MaterialCardView
 
 class ExercisesDataAdapter(
@@ -21,10 +22,7 @@ class ExercisesDataAdapter(
 ) :
     RecyclerView.Adapter<ExercisesDataAdapter.viewHolder>(){
 
-    private var exerciseCount = 0
-
     private lateinit var onClickListener: OnClickListener
-
     interface OnClickListener {
         fun onClick(position: Int, model: ExerciseData, isDelete: Boolean, notExists: Boolean)
     }
@@ -61,7 +59,7 @@ class ExercisesDataAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ExercisesDataAdapter.viewHolder {
+    ): viewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val v = inflater.inflate(R.layout.workout_item_list, parent, false)
         return viewHolder(v)
@@ -72,7 +70,7 @@ class ExercisesDataAdapter(
     }
 
 
-    override fun onBindViewHolder(holder: ExercisesDataAdapter.viewHolder, position: Int) {
+    override fun onBindViewHolder(holder: viewHolder, position: Int) {
         val newList = exerciseList[position]
         val bytes = android.util.Base64.decode(newList.workoutPicture, android.util.Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
@@ -144,7 +142,4 @@ class ExercisesDataAdapter(
         this.exerciseList = exerciseList
         notifyDataSetChanged()
     }
-
-
-
 }

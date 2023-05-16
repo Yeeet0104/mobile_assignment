@@ -1,7 +1,6 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,13 +15,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.mobile_assignment.MainActivity
+import com.example.mobile_assignment.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 
 
-class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListener ,fragment_add_duration_exercise_pop_up.DataListener{
+class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListener ,
+    fragment_add_duration_exercise_pop_up.DataListener {
 
     private lateinit var newexercise: ExerciseData
     var sImage:String? = ""
@@ -51,13 +53,11 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
 
         dbRef = FirebaseDatabase.getInstance().getReference("ExerciseList")
         val currentUser = FirebaseAuth.getInstance().currentUser
-        Log.d("checkUser",currentUser!!.uid.toString())
 
         isSettings = intent.getBooleanExtra("isSettings",false)
-        Log.d("isSetting",isSettings.toString())
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
 
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser!!.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
         if(isSettings){
             dataToBeEdit = intent.getSerializableExtra("dataToBeEdit") as ExerciseData
             positionToBeEdit = intent.getIntExtra("position",0)
@@ -160,7 +160,6 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
             }
         }
 
-//        Toast.makeText(this, "Type Selected is ${p0?.getItemAtPosition(p2).toString()}", Toast.LENGTH_LONG).show()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -216,40 +215,16 @@ class add_custom_exercise: AppCompatActivity() , AdapterView.OnItemSelectedListe
     }
 
 
-    private fun updateExerciseDB(exercise:ExerciseData,key : String){
-        Log.d("checkIfExist",key)
+    private fun updateExerciseDB(exercise: ExerciseData, key : String){
         userExerciseDbRef.child(key).setValue(exercise)
-
     }
 
-//    private fun updateChanges(original:ExerciseData,updated :ExerciseData){
-//        dbRef.orderByChild("workoutName").equalTo(original.workoutName.toString()).addListenerForSingleValueEvent(object :
-//            ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                snapshot.children.forEach {
-//                    Log.d("TESTUPDATEKEY",it.key.toString())
-//                    updateExerciseDB(updated,it.key.toString())
-//
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//        })
-//    }
-
-    private fun getKeyThenProceed(original:ExerciseData,updated :ExerciseData,isDelete: Boolean){
-        Log.d("TESTUPDATEKEY",original.workoutName!!)
-        Log.d("TESTUPDATEKEY",updated.workoutName!!)
+    private fun getKeyThenProceed(original: ExerciseData, updated : ExerciseData, isDelete: Boolean){
         dbRef.orderByChild("workoutName").equalTo(original.workoutName).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
-                    Log.d("TESTUPDATEKEY",it.key.toString())
-                    Log.d("TESTUPDATEKEY",it.value.toString())
-
                     if(!isDelete){
-                        Log.d("finding the right keys",it.key.toString())
                         dbRef.child(it.key.toString()).setValue(updated)
                         updateExerciseDB(updated,it.key.toString())
                     }else{
