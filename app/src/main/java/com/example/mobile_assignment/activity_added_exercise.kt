@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.gson.Gson
 
@@ -36,12 +37,16 @@ class activity_added_exercise : AppCompatActivity(),fragment_add_duration_exerci
         setSupportActionBar(toolbar)
         val retrieverList = intent.getSerializableExtra("userExerciseList") as? MutableList<ExerciseData>
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        Log.d("checkUser",currentUser!!.uid.toString())
+
+
         restDuration = findViewById(R.id.restDuration)
         totalSets = findViewById(R.id.totalSets)
 
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("workoutPlans").child(getPlanNameKey).child("userExerciseList")
-        workoutPlanSettings = FirebaseDatabase.getInstance().getReference("workoutPlans").child(getPlanNameKey)
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey).child("userExerciseList")
+        workoutPlanSettings = FirebaseDatabase.getInstance().getReference("users").child(currentUser.uid).child("workoutPlans").child(getPlanNameKey)
 
 
         userExerciseList = mutableListOf()

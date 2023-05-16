@@ -80,13 +80,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_email"
-        app:startIconDrawable="@drawable/profile">
+        app:startIconDrawable="@drawable/profile"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edit_password"
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -100,13 +103,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_password"
-        app:startIconDrawable="@drawable/profile">
+        app:startIconDrawable="@drawable/profile"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/confirm_edit_password"
             style="@style/TextInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 

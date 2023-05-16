@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.compose.ui.text.toLowerCase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,6 +37,7 @@ class start_workout : AppCompatActivity() {
     private var getPlanNameKey =""
     private var getPlanName =""
     private var restDuration = 10
+    private var currentUser =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_workout)
@@ -48,14 +50,14 @@ class start_workout : AppCompatActivity() {
         exerciseLeft = findViewById(R.id.exerciseLeft)
 
         getPlanNameKey = intent.getStringExtra("planNameKey")!!
-        getPlanName = intent.getStringExtra("planName")!!
+//        getPlanName = intent.getStringExtra("planName")!!
         restDuration = intent.getIntExtra("duration",10)!!
 
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         toolbar.title = getPlanName
         setSupportActionBar(toolbar)
-
-        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("workoutPlans").child(getPlanNameKey)
+        currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
+        userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey)
 
         getUserExerciseData()
         checkForCompletedWorkout()
