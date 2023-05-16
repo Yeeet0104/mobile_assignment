@@ -1,7 +1,6 @@
 package com.example.mobile_assignment
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +11,13 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mobile_assignment.workout.WorkoutPlanName
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import org.w3c.dom.Text
 import java.io.Serializable
 
 class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, SetDailyRoutineTargetListener {
@@ -240,7 +236,6 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                                 if (snapshot2.exists()) {
                                     snapshot2.children.forEach{ value->
                                         userExerciseList.add(value.getValue(ExerciseData::class.java)!!)
-                                        Log.d("checkName",value.value.toString())
                                     }
                                 }
                                 intent.putExtra("userExerciseList", userExerciseList as Serializable)
