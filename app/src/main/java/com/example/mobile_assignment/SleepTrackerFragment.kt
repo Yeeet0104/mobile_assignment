@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -62,8 +63,10 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
     private lateinit var currentDateTextView: TextView
 
     // Write a message to the database
+    private var currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
     val database = Firebase.database
     val sleepRecordsRef = database.getReference("sleepRecords")
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -242,7 +245,9 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
     }
 
     private fun getRecordFromFirebase() {
-        val sleepRecordsRef = FirebaseDatabase.getInstance().getReference("sleepRecords")
+        val sleepRecordsRef =
+            FirebaseDatabase.getInstance().getReference("users").child(currentUser)
+                .child("sleepRecords")
 
         // Retrieve sleep record data from Firebase
         sleepRecordsRef.addValueEventListener(object : ValueEventListener {
