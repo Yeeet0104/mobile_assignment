@@ -57,8 +57,7 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWaterTrackerBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -203,17 +202,17 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         // Update the water tracker UI
         updateWaterConsumptionUI()
     }
-    private fun onRecordDeleted(){
+
+    private fun onRecordDeleted() {
         // Update the water tracker UI
         updateWaterConsumptionUI()
     }
+
     private fun updateWaterConsumptionUI() {
         // Update the amount consumed
         var amountConsumed = 0
         for (record in records) {
-            amountConsumed += record.amountConsumed
-                .replace(Regex("\\D"), "")
-                .toInt()
+            amountConsumed += record.amountConsumed.replace(Regex("\\D"), "").toInt()
         }
         binding.consumedwaterAmt.text = "$amountConsumed ML"
 
@@ -224,21 +223,25 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         updateDrinkSomeWaterTextVisibility()
 
     }
+
     private fun updateProgressBar(amountConsumed: Int) {
 
-        dailyTarget = binding.waterDailytargetBtn.text.toString()
-            .replace(Regex("\\D"), "")
-            .toInt()
-        updatedProgress = (((amountConsumed.toDouble()/dailyTarget))*100).toInt()
+        dailyTarget = binding.waterDailytargetBtn.text.toString().replace(Regex("\\D"), "").toInt()
+        updatedProgress = (((amountConsumed.toDouble() / dailyTarget)) * 100).toInt()
 
         binding.watertrackerCpb.progress = updatedProgress
 
         //Display congratulations msg to user when user hits the daily target
         if (!isTargetReached && (amountConsumed >= dailyTarget)) {
             isTargetReached = true
-            Toast.makeText(context, "Congratulations! You have reached your daily water intake target.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                context,
+                "Congratulations! You have reached your daily water intake target.",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
+
     private fun updateDrinkSomeWaterTextVisibility() {
         view?.findViewById<TextView>(R.id.drink_some_water)?.apply {
             visibility = if (records.isEmpty()) View.VISIBLE else View.GONE
@@ -255,27 +258,34 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         waterRecordFirebase.setDailyTarget(dailyTarget)
 
         //Show toast after set daily target
-        Toast.makeText(context, "Daily target set to ${dailyTarget.toString()}ml", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context, "Daily target set to ${dailyTarget.toString()}ml", Toast.LENGTH_SHORT
+        ).show()
         updateWaterConsumptionUI()
     }
+
     override fun getCurrentDailyTarget(): Int {
         // Retrieve the current daily target from your application or class
         return dailyTarget
     }
 
     //OnClick Listeners
-    override fun onClick(v:View?){
-        when(v) {
+    override fun onClick(v: View?) {
+        when (v) {
             binding.addwaterBtn -> {
                 val showAddWaterPopUp = AddWaterFragment()
                 showAddWaterPopUp.onWaterAmountAddedListener = this
-                showAddWaterPopUp.show((activity as AppCompatActivity).supportFragmentManager, "showAddWaterPopUp")
+                showAddWaterPopUp.show(
+                    (activity as AppCompatActivity).supportFragmentManager, "showAddWaterPopUp"
+                )
             }
 
             binding.waterDailytargetBtn -> {
                 val editWaterDailyTarget = EditWaterDailyTargetFragment()
                 editWaterDailyTarget.setDailyTargetListener = this
-                editWaterDailyTarget.show((activity as AppCompatActivity).supportFragmentManager, "editWaterDailyTarget")
+                editWaterDailyTarget.show(
+                    (activity as AppCompatActivity).supportFragmentManager, "editWaterDailyTarget"
+                )
             }
 
             binding.editReminderBtn -> {

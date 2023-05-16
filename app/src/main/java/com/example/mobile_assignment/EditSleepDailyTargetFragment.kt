@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
 
-interface SetDailySleepTargetListener {
+interface SetSleepDailyTargetListener {
     fun setDailyTarget(newDailyTarget: Int)
     fun getCurrentDailyTarget(): Int
 }
 
 class EditSleepDailyTargetFragment : DialogFragment() {
-    var setDailyTargetListener: SetDailySleepTargetListener? = null
+    var setDailyTargetListener: SetDailyTargetListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,21 +29,23 @@ class EditSleepDailyTargetFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val targetAmtPicker = view.findViewById<NumberPicker>(R.id.targetAmtPicker)
+
+        val targetSleepAmtPicker = view.findViewById<NumberPicker>(R.id.targetSleepAmtPicker)
         val values = (1..24).map { it.toString() }.toTypedArray()
-        targetAmtPicker.minValue = 0
-        targetAmtPicker.maxValue = values.size - 1
-        targetAmtPicker.displayedValues = values
-        targetAmtPicker.wrapSelectorWheel = false
+        targetSleepAmtPicker.minValue = 0
+        targetSleepAmtPicker.maxValue = values.size - 1
+        targetSleepAmtPicker.displayedValues = values
+        targetSleepAmtPicker.wrapSelectorWheel = false
 
         // Set the default value of the NumberPicker to the current daily target
         val currentTarget = setDailyTargetListener?.getCurrentDailyTarget()
-        val defaultIndex = values.indexOf(currentTarget.toString())
-        targetAmtPicker.value = defaultIndex
+        val defaultIndex = values.indexOf(currentTarget?.toString()) // Add null check
+        targetSleepAmtPicker.value =
+            defaultIndex.takeIf { it != -1 } ?: 0 // Use default value if not found
 
         val changeTargetBtn = view.findViewById<Button>(R.id.changeTargetBtn)
         changeTargetBtn.setOnClickListener {
-            val actualValue = (values[targetAmtPicker.value]).toInt()
+            val actualValue = values[targetSleepAmtPicker.value].toInt()
             setDailyTargetListener?.setDailyTarget(actualValue)
             dismiss()
         }
