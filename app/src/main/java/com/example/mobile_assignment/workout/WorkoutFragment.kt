@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -15,12 +15,14 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile_assignment.workout.WorkoutPlanName
+import com.example.mobile_assignment.*
+import com.example.mobile_assignment.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.io.Serializable
 
-class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, SetDailyRoutineTargetListener {
+class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener,
+    SetDailyRoutineTargetListener {
 
     //data
     private lateinit var userList: ArrayList<WorkoutPlanName>
@@ -212,9 +214,8 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
 
     override fun onDataReceived(data: String) {
         if (viewLifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)) {
-            // Update UI elements or perform UI-related operations here
-            addInfo(view, data)
 
+            addInfo(view, data)
             val routine = view?.findViewById<TextView>(R.id.routine)
             routine?.text = getString(R.string.Amount_routine_string, numberOfPlan)
             Toast.makeText(context, data, Toast.LENGTH_LONG).show()

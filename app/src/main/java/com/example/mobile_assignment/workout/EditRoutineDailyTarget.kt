@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.NumberPicker
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.mobile_assignment.R
 
 interface SetDailyRoutineTargetListener {
     fun setDailyTarget(newDailyTarget: Int,maxDailyTarget: Int)

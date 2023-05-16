@@ -1,4 +1,4 @@
-package com.example.mobile_assignment
+package com.example.mobile_assignment.workout
 
 import android.content.Context
 import android.util.Log
@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobile_assignment.workout.WorkoutPlanName
+import com.example.mobile_assignment.R
 
 
-class WorkoutPlabNameAdapter(val c: Context, val workoutPlanNameList:ArrayList<WorkoutPlanName>, var fragemnt :WorkoutFragment):
+class WorkoutPlabNameAdapter(val c: Context, val workoutPlanNameList:ArrayList<WorkoutPlanName>, var fragemnt : WorkoutFragment):
     RecyclerView.Adapter<WorkoutPlabNameAdapter.viewHolder>(){
     inner class viewHolder(val view: View):RecyclerView.ViewHolder(view){
         var name: TextView
