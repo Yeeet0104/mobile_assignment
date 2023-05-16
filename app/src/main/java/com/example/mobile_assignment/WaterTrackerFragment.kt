@@ -1,9 +1,13 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.mobile_assignment
 
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +19,19 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.FragmentWaterTrackerBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
-data class Record(val timeAdded: String, val amountConsumed: String)
-
-@Suppress("NAME_SHADOWING")
-class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAddedListener,
-    SetDailyTargetListener {
+@Suppress("NAME_SHADOWING", "DEPRECATION")
+class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAddedListener,  SetDailyTargetListener{
 
     //binding
     private var _binding: FragmentWaterTrackerBinding? = null
@@ -34,19 +42,41 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
     private var isTargetReached = false
 
     //data
-    private var records = mutableListOf<Record>()
-    private var dailyTarget = 0 //1600 in text
+    private var records = mutableListOf<WaterRecordData>()
+    private  var dailyTarget = 0 //1600 in text
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val zoneID = ZoneId.of("Asia/Kuala_Lumpur")
 
     // Define the RecyclerView and its adapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var recordAdapter: WaterRecordAdapter
+    private lateinit var waterRecyclerView: RecyclerView
+    private lateinit var waterRecordAdapter: WaterRecordAdapter
+
+    //firebase
+    private val waterRecordFirebase = WaterRecordFirebase()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWaterTrackerBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        // Find the RecyclerView in the layout and set its layout manager (in reverse order)
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.reverseLayout = true
+        waterRecyclerView = view.findViewById(R.id.water_records_recycler_view)
+        waterRecyclerView.layoutManager = linearLayoutManager
+
+        // Create a list of records and set up the adapter
+        val recordList = records
+        waterRecordAdapter = WaterRecordAdapter(recordList, ::onRecordDeleted)
+        waterRecyclerView.adapter = waterRecordAdapter
+
+        // Retrieve data from Firebase
+        loadWaterDataFromFirebase()
+        loadDailyTargetFromFirebase()
+        updateWaterConsumptionUI()
 
         //Set onClickListener
         binding.addwaterBtn.setOnClickListener(this)
@@ -54,38 +84,117 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
         binding.editReminderBtn.setOnClickListener(this)
         binding.historyBtn.setOnClickListener(this)
 
-        // Update the water tracker UI
-        updateWaterConsumptionUI()
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
 
-        // Find the RecyclerView in the layout and set its layout manager (in reverse order)
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.reverseLayout = true
-        recyclerView = view.findViewById(R.id.water_records_recycler_view)
-        recyclerView.layoutManager = linearLayoutManager
+    private fun loadWaterDataFromFirebase() {
+        //Show loading when the data is loaded from firebase
+        val progressDialog = ProgressDialog(activity)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
 
-        // Create a list of records and set up the adapter
-        val recordList = records
-        recordAdapter = WaterRecordAdapter(recordList, ::onRecordDeleted)
-        recyclerView.adapter = recordAdapter
+        val waterRecordsRef = FirebaseDatabase.getInstance().getReference("waterRecords")
+
+        // Attach a listener to the database reference
+        waterRecordsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val waterRecordsDB = mutableListOf<WaterRecordData>()
+                val currentDate = LocalDate.now(zoneID).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+                // Loop through the children of the snapshot and create a WaterRecordData object for each
+                for (recordSnapshot in snapshot.children) {
+                    val record = recordSnapshot.getValue(WaterRecordData::class.java)
+                    record?.let {
+                        // Filter the records by today's date
+                        Log.d("Current Date", currentDate)
+                        if (it.dayAdded == currentDate) {
+                            waterRecordsDB.add(it)
+                        }
+                    }
+                }
+
+                // Update the adapter with the retrieved data
+                waterRecordAdapter.updateRecords(waterRecordsDB)
+                waterRecordAdapter.notifyDataSetChanged()
+
+                // Assign the retrieved data to the global variable
+                this@WaterTrackerFragment.records.clear()
+                this@WaterTrackerFragment.records.addAll(waterRecordsDB)
+                Log.d("WaterTrackerFragment", "Updated records: $waterRecordsDB")
+
+                // Update the water tracker UI
+                updateWaterConsumptionUI()
+
+                //Dismiss the progress dialog after the data is loaded
+                progressDialog.dismiss()
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle the error
+                progressDialog.dismiss()
+            }
+        })
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadDailyTargetFromFirebase(){
+        val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val dailyTargetRef = FirebaseDatabase.getInstance().reference.child("waterDailyTargets").child(currentDate)
+        dailyTargetRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val value = snapshot.value
+
+                val dailyTargetDB = if (value is Long) {
+                    // Handle the case where the value is a Long
+                    val target = value.toInt()
+                    dailyTargetRef.setValue(target)
+                    WaterDailyTarget(currentDate, target)
+                } else {
+                    snapshot.getValue(WaterDailyTarget::class.java)
+                }
+
+                if (dailyTargetDB != null) {
+                    binding.waterDailytargetBtn.text = "Daily Target: ${dailyTargetDB.target.toString()}ml"
+                } else {
+                    val defaultTarget = 1600
+                    setDailyTarget(defaultTarget)
+                    dailyTargetRef.setValue(defaultTarget)
+                    binding.waterDailytargetBtn.text = "Daily Target: ${defaultTarget}ml"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle cancellation
+            }
+        })
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     //Add Water
     override fun onWaterAmountAdded(amount: Int) {
         //Add Records
-        val currentDateTime = LocalDateTime.now(ZoneId.of("Asia/Kuala_Lumpur"))
-        val formatter = DateTimeFormatter.ofPattern("h:mm a")
-        val formattedTime = currentDateTime.format(formatter)
+        val currentDateTime = LocalDateTime.now(zoneID)
+        val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
+        val formattedTime = currentDateTime.format(timeFormatter)
+        val dayFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formattedDay = currentDateTime.format(dayFormatter)
+
         val amount = "$amount ml"
-        val record = Record(formattedTime, amount)
-        records.add(record)
-        recordAdapter.notifyDataSetChanged()
+        val newWaterRecord = WaterRecordData(formattedDay, formattedTime, amount)
+        records.add(newWaterRecord)
+        waterRecordAdapter.notifyDataSetChanged()
+
+
+        // Add data to firebase
+        waterRecordFirebase.addWaterRecord(newWaterRecord)
 
         //Show toast after add water
         Toast.makeText(context, "$amount of water added.", Toast.LENGTH_SHORT).show()
@@ -140,9 +249,13 @@ class WaterTrackerFragment : Fragment(), View.OnClickListener, OnWaterAmountAdde
     }
 
     //Set Daily Target & get daily target
-    override fun setDailyTarget(newDailyTarget: Int) {
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun setDailyTarget(newDailyTarget: Int){
         dailyTarget = newDailyTarget
         binding.waterDailytargetBtn.text = "Daily Target: ${dailyTarget.toString()}ml"
+
+        // set new daily target to DB
+        waterRecordFirebase.setDailyTarget(dailyTarget)
 
         //Show toast after set daily target
         Toast.makeText(

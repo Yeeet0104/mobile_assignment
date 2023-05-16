@@ -10,9 +10,8 @@
         style="@style/CircularProgressBar_workout"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="20dp"
         android:indeterminateOnly="false"
-        android:progress="60"
+        android:progress="0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,6 +30,7 @@
         app:layout_constraintTop_toTopOf="@+id/workoutProgessBar" />
 
     <TextView
+
         android:id="@+id/routine"
         style="@style/title_under_progessBar"
         android:layout_width="wrap_content"
@@ -39,27 +39,66 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/workoutProgessBar" />
+    <LinearLayout
 
+        android:gravity="center"
+        android:id="@+id/layout1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/routine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
     <TextView
+        android:textColor="#5C5C5C"
+        android:textSize="20sp"
         android:id="@+id/daily_routine_target"
-        style="@style/daily_target_style"
+        android:fontFamily="sans-serif-medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/daily_routine_target"
-        app:layout_constraintEnd_toEndOf="parent"
+        />
+        <ImageView
+            android:id="@+id/edit_daily_target_routine"
+            android:layout_marginStart="10dp"
+            android:layout_width="20sp"
+            android:layout_height="20sp"
+            android:src="@drawable/edit_pen"
+            />
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:id="@+id/settingsLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/routine" />
+        app:layout_constraintTop_toBottomOf="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/routine_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="15dp"
-        android:text="Routines"
-        android:textColor="@color/cardContent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/daily_routine_target" />
+        <TextView
+            android:textSize="16dp"
+            android:id="@+id/routine_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Routines"
+            android:textColor="@color/cardContent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/settingsPage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:contentDescription="edit workout list"
+            android:padding="2dp"
+            android:src="@drawable/setting_line_duotone_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -68,21 +107,32 @@
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/routine_title"
-        app:layout_constraintStart_toStartOf="@+id/routine_title"
-        app:layout_constraintTop_toBottomOf="@+id/routine_title" />
+        app:layout_constraintEnd_toEndOf="@+id/settingsLayout"
+        app:layout_constraintStart_toStartOf="@+id/settingsLayout"
+        app:layout_constraintTop_toBottomOf="@+id/settingsLayout" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/displayNoPlans"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/routine_title"
-        app:layout_constraintStart_toStartOf="@+id/routine_title"
-        app:layout_constraintTop_toBottomOf="@+id/routine_title"
-        >
+        android:layout_height="85dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/workout_fragment_border"
+        app:layout_constraintTop_toBottomOf="@+id/settingsLayout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add your own routines!"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

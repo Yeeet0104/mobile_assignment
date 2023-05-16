@@ -8,7 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="login_primary_color">#EEEEEE</color>
-    <color name="green">#486D86</color>
+    <color name="blue">#486D86</color>
+    <color name="green">#00FF00</color>
     <color name="grey">#808080</color>
     <color name="textDarkGreyColor">#3E3E3E</color>
     <color name="btnBorderColor">#818181</color>
@@ -21,5 +22,11 @@
 
     <color name="waterValueBlue">#0076B1</color>
     <color name="sleepPurple">#5A49A0</color>
+  
+    <color name="darkGreen">#577306</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="caloriesLightGreen">#5D741A</color>
 
+
+    <color name="warning_Btn">#d9534f</color>
 </resources>

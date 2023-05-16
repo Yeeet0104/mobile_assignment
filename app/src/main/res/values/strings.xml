@@ -86,11 +86,11 @@
     </string-array>
     <string name="Amount_routine_string">%d ROUTINE</string>
     <string name="add_calories">add calories</string>
-    <string name="calories_progress">400 CALS</string>
+    <string name="calories_progress">%s CALS</string>
     <string name="calories_target">Daily Target: 2400 cals</string>
     <string name="target_text">Target</string>
-    <string name="calories_left">2000 calories to go</string>
-    <string name="calories_input">400 cals</string>
+    <string name="calories_left">2400 calories to go</string>
+    <string name="calories_input">%s cals</string>
     <string name="food">Maggie Mee</string>
     <string name="food_time">LUNCH</string>
     <string name="select_type">Select Type</string>
@@ -98,5 +98,15 @@
     <string name="stop_sleep">Stop sleep</string>
     <string name="play_sleep">Play sleep</string>
 
+
+    <string-array name="filterByExercise">
+        <item>Workout Name</item>
+        <item>Body Part</item>
+    </string-array>
+
+    <string name="targetBodyPart">Targeted Body Part:%s</string>
+
+    <string name="workoutTimer">%d Sec</string>
+    <string name="workoutLeft">%d/%d Exercise</string>
 
 </resources>

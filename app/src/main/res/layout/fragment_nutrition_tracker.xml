@@ -43,7 +43,7 @@
         style="@style/CircleCaloriesBar"
         android:layout_width="260dp"
         android:layout_height="260dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:progress="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -84,7 +84,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="@string/calories_progress"
-        android:textColor="#BD7D00"
+        android:textColor="#577306"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,11 +150,10 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/caloriesHistoryCard"
         style="@style/card_layout"
+        android:layout_height="180dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
-        app:contentPadding="10dp"
-        app:contentPaddingLeft="14dp"
-        app:contentPaddingRight="14dp"
+        app:contentPadding="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.588"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,79 +161,21 @@
         app:strokeColor="@color/cardBorder"
         app:strokeWidth="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/calories_input_layout"
+        <TextView
+            android:id="@+id/consume_some_food"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calories_record">
+            android:gravity="center_horizontal"
+            android:text="Consume some food!" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calories_records_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/calories_tracker_records" />
 
-            <ImageView
-                android:id="@+id/food_image"
-                android:layout_width="41dp"
-                android:layout_height="40dp"
-                android:contentDescription="food image"
-                android:src="@drawable/lunch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/calories_record_dltbtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:src="@drawable/rubbishbin"
-                app:layout_constraintBottom_toBottomOf="@+id/calories_input"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.652"
-                app:layout_constraintStart_toEndOf="@+id/calories_input"
-                app:layout_constraintTop_toTopOf="@+id/calories_input"
-                app:layout_constraintVertical_bias="0.666" />
-
-            <TextView
-                android:id="@+id/calories_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="208dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="center"
-                android:text="@string/calories_input"
-                android:textColor="#976300"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/food_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="4dp"
-                android:gravity="center"
-                android:text="@string/food"
-                android:textColor="@color/cardContent"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/food_image" />
-
-            <TextView
-                android:id="@+id/calories_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:gravity="center"
-                android:text="@string/food_time"
-                android:textColor="@color/cardContent"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/food_image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.041" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
 
