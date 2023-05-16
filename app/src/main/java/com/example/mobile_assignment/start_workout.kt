@@ -19,19 +19,20 @@ import java.util.*
 
 
 class start_workout : AppCompatActivity() {
-
     private lateinit var userExerciseList: MutableList<ExerciseData>
     private lateinit var userExerciseDbRef: DatabaseReference
-    private var exerCount = 0
+
     private lateinit var exerciseName: TextView
     private lateinit var exerciseLeft: TextView
-    private lateinit var exerciseImage: ImageView
+
     private lateinit var countdownProgressBar: ProgressBar
     private lateinit var timerText: TextView
     private lateinit var showWorkoutImage: ImageView
     private lateinit var showReps: TextView
     private lateinit var nextbtn : Button
     private lateinit var skip : Button
+
+    private var exerCount = 0
     private var myCountDownTimer: CountDownTimer? = null
     private var totalExerciseCount = 0
     private var getPlanNameKey =""
@@ -56,6 +57,7 @@ class start_workout : AppCompatActivity() {
         var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
         toolbar.title = getPlanName
         setSupportActionBar(toolbar)
+
         currentUser = FirebaseAuth.getInstance().currentUser!!.uid.toString()
         userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child(getPlanNameKey)
 
@@ -63,7 +65,7 @@ class start_workout : AppCompatActivity() {
         checkForCompletedWorkout()
         setTime()
 
-        nextbtn = findViewById<Button>(R.id.doneOneWorkout)
+        nextbtn = findViewById(R.id.doneOneWorkout)
         nextbtn.setOnClickListener {
             myCountDownTimer?.cancel()
             clearDatas()
@@ -118,18 +120,7 @@ class start_workout : AppCompatActivity() {
         val date = formatterDate.format(calender)
         val formatterTimer = SimpleDateFormat("yyyy-MM-dd")
         val time = formatterTimer.format(calender)
-        userExerciseDbRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    userExerciseDbRef.child("lastWorkoutDate").setValue(date)
-                }
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
+        FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child("lastWorkoutDate").setValue(date)
     }
 
     private fun startTimer(inputDuration: Int,isRest:Boolean) {

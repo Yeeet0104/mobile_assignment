@@ -8,7 +8,10 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
+import androidx.compose.ui.text.android.TextLayout
+import androidx.core.content.ContextCompat
 import com.example.mobile_assignment.databinding.ActivityRegisterBinding
+import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
@@ -18,12 +21,15 @@ class Register : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var dbRef: DatabaseReference
+    private var isNotMatch = false
+    private var passwordInvalidLength = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         auth = Firebase.auth
+        // check for email
         binding.editEmail.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 Log.d("check",p0.toString())
@@ -42,25 +48,36 @@ class Register : AppCompatActivity() {
             }
 
         })
-        var passwordCheck = checkpasswordLength(binding.editPassword)
-        var confirmPasswordCheck = checkpasswordLength(binding.confirmEditPassword)
-
+        //checking for password length
+        checkpasswordLength(binding.editPassword,binding.titlePassword)
+        checkpasswordLength(binding.confirmEditPassword,binding.confirmPassword)
 
         binding.buttonRegister.setOnClickListener {
-            isEmailRegistered(binding.editEmail.text.toString()) { isRegistered, errorMessage ->
-                if (isRegistered) {
-                    Toast.makeText(this,"Email Already Taken",Toast.LENGTH_SHORT).show()
-                } else {
-                    if(isEmailValid(binding.editEmail.text.toString())){
-                        val email = binding.editEmail.text.toString()
-                        val password = binding.editPassword.text.toString()
-                        val username = binding.editName.text.toString()
-                        registerUser(username,email, password)
+            if(passwordCompare(binding.editPassword.text.toString(), binding.confirmEditPassword.text.toString()) && binding.editPassword.text.toString().length >= 6 && binding.confirmEditPassword.text.toString().length >= 6){
+                isEmailRegistered(binding.editEmail.text.toString()) { isRegistered, errorMessage ->
+                    if (isRegistered) {
+                        Toast.makeText(this,"Email Already Taken",Toast.LENGTH_SHORT).show()
+                    } else {
+                        if(isEmailValid(binding.editEmail.text.toString())){
+                            val email = binding.editEmail.text.toString()
+                            val password = binding.editPassword.text.toString()
+                            val username = binding.editName.text.toString()
+                            registerUser(username,email, password)
+                        }
+                        // Email is not registered or an error occurred
+                        if (errorMessage != null) {
+                            Log.d("checkEmailError",errorMessage)
+                        }
                     }
-                    // Email is not registered or an error occurred
-                    if (errorMessage != null) {
-                        Log.d("checkEmailError",errorMessage)
-                    }
+                }
+            }else{
+                if(isNotMatch && !passwordInvalidLength){
+                    binding.titlePassword.error = "Password Not Match"
+                    binding.confirmPassword.error = "Password Not Match"
+                }else{
+                    binding.editPassword.error = null
+                    binding.titlePassword.error = null
+                    binding.confirmPassword.error = null
                 }
             }
         }
@@ -114,8 +131,7 @@ class Register : AppCompatActivity() {
                 }
             }
     }
-    private fun checkpasswordLength(editText: EditText) : Boolean{
-        var valueReturn = false
+    private fun checkpasswordLength(editText: EditText,editTextLayout: TextInputLayout){
          editText.addTextChangedListener(object: TextWatcher {
              override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                  Log.d("check",p0.toString())
@@ -126,16 +142,19 @@ class Register : AppCompatActivity() {
              }
 
              override fun afterTextChanged(p0: Editable?) {
-                    if (editText.text.length < 6){
-                        editText.error = "Must More Than 6 characters"
-                        valueReturn = false
+                    if (editText.text.toString().length < 6){
+                        editTextLayout.error = "Must More Than 6 characters"
+                        passwordInvalidLength = true
                     }else{
-                        editText.error = null
-                        valueReturn = true
+                        passwordInvalidLength = false
+                        editTextLayout.error = null
                     }
              }
 
          })
-        return valueReturn
+    }
+    private fun passwordCompare(password1: String, password2: String): Boolean {
+        isNotMatch = password1 != password2
+        return password1 == password2
     }
 }

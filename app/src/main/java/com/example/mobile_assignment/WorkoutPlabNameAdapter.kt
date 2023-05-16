@@ -53,7 +53,7 @@ class WorkoutPlabNameAdapter(val c: Context, val workoutPlanNameList:ArrayList<W
             fragemnt.navigateToStartWorkout(position)
         }
         holder.settings.setOnClickListener{
-            fragemnt.navigateToAddedActivity(holder.name.text.toString(),position)
+            fragemnt.navigateToAddedActivity(holder.name.text.toString(),position,true)
         }
     }
 

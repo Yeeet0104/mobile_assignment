@@ -102,7 +102,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                 if (snapshot.exists()) {
                     snapshot.children.forEach {
                         var checkForNotList = false
-                        if(it.key.toString() == "dailyTarget"){
+                        if(it.key.toString() == "dailyTarget" || it.key.toString() == "lastWorkoutDate"){
                             checkForNotList = true
                         }
                         var newPlanName = ""
@@ -131,6 +131,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
                         if(!checkForNotList){
                             userList.add(WorkoutPlanName(newPlanName, progress, newDuration))
                         }
+                        Log.d("checkForProgressBar",everyPlanTotalProgress.toString())
                     }
                     if(everyPlanTotalProgress.size > 0){
                         routine.text = getString(R.string.Amount_routine_string,everyPlanTotalProgress.size)
@@ -213,8 +214,9 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
             Toast.makeText(context, data, Toast.LENGTH_LONG).show()
         }
     }
-    fun navigateToAddedActivity(planName:String, position: Int) {
+    fun navigateToAddedActivity(planName:String, position: Int,isSettings: Boolean) {
         val intent = Intent(context, activity_added_exercise::class.java)
+        intent.putExtra("isSettings", isSettings)
         var planNameKey = ""
         userExerciseList = mutableListOf()
         userExerciseDbRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans")
@@ -373,8 +375,8 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
             }
             everyPlanTotalProgress.remove(closestValue)
             totalclosestValue += closestValue
+            Log.d("checkForProgress2",totalclosestValue.toString())
         }
-
         workoutProgessBar.progress = ((totalclosestValue /dailyTarget)* 100 ).toInt()
 
     }
@@ -386,6 +388,7 @@ class WorkoutFragment : Fragment(), fragment_add_workout_pop_up.DataListener, Se
     }
     override fun setDailyTarget(newDailyTarget: Int, maxDailyTarget: Int) {
         dailyTarget = newDailyTarget
+        FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("workoutPlans").child("dailyTarget").setValue(dailyTarget)
         daily_routine_target_text?.text = getString(R.string.daily_routine_target,newDailyTarget)
     }
 
