@@ -1,10 +1,11 @@
 package com.example.mobile_assignment
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobile_assignment.databinding.ActivityUpdateFoodBinding
@@ -27,6 +28,12 @@ class UpdateFoodSearchActivity: AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityUpdateFoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
 
         foodRecyclerView = findViewById(R.id.food_list_recycler_view)
         foodRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -91,6 +98,21 @@ class UpdateFoodSearchActivity: AppCompatActivity(){
 
             }
         })
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle toolbar item clicks
+        when (item.itemId) {
+            android.R.id.home -> {
+                // If the back button is clicked, finish the activity
+                finish()
+                return true
+            }
+            // Handle other menu items if needed
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 

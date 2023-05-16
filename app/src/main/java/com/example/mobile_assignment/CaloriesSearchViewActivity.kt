@@ -7,6 +7,7 @@ import android.os.PersistableBundle
 import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -14,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +42,11 @@ class CaloriesSearchViewActivity: AppCompatActivity(), ConfirmFoodFragment.OnFoo
         super.onCreate(savedInstanceState)
         binding = ActivityCaloriesSearchviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         foodRecyclerView = findViewById(R.id.food_list_recycler_view)
         foodRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -107,7 +114,6 @@ class CaloriesSearchViewActivity: AppCompatActivity(), ConfirmFoodFragment.OnFoo
         })
     }
 
-
     override fun onFoodConfirmed(foodName: String, calories: String, time: String) {
         val resultIntent = Intent()
         resultIntent.putExtra("foodName", foodName)
@@ -115,6 +121,21 @@ class CaloriesSearchViewActivity: AppCompatActivity(), ConfirmFoodFragment.OnFoo
         resultIntent.putExtra("foodTime", time)
         setResult(Activity.RESULT_OK, resultIntent)
         finish()
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle toolbar item clicks
+        when (item.itemId) {
+            android.R.id.home -> {
+                // If the back button is clicked, finish the activity
+                finish()
+                return true
+            }
+            // Handle other menu items if needed
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }

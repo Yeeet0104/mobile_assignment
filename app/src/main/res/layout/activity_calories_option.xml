@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".NutritionOptionActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-
 
     <include
         android:id="@+id/toolbarHeader"
@@ -27,8 +25,8 @@
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
         app:layout_constraintTop_toBottomOf="@+id/toolbarHeader" />
 
     <Button
@@ -40,7 +38,7 @@
         android:text="Breakfast"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/calories_select_type"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
         app:layout_constraintTop_toBottomOf="@+id/calories_select_type" />
 
     <Button
@@ -52,6 +50,9 @@
         android:text="Lunch"
         android:textAllCaps="false"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/breakfast_btn"
+        app:layout_constraintEnd_toEndOf="@+id/search_food"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/breakfast_btn"
         app:layout_constraintTop_toTopOf="@+id/breakfast_btn" />
 
@@ -63,7 +64,7 @@
         android:text="Snack"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/breakfast_btn"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
         app:layout_constraintTop_toBottomOf="@+id/breakfast_btn" />
 
     <Button
@@ -76,7 +77,7 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/snack_btn"
-        app:layout_constraintEnd_toEndOf="@+id/lunch_btn"
+        app:layout_constraintEnd_toEndOf="@+id/search_food"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/snack_btn"
         app:layout_constraintTop_toTopOf="@+id/snack_btn" />
@@ -85,11 +86,13 @@
         android:id="@+id/search_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         android:text="Search"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/calories_select_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/search_food"
         app:layout_constraintTop_toBottomOf="@+id/snack_btn" />
 
     <ImageView
@@ -98,7 +101,8 @@
         android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/searchview_bg"
-        app:layout_constraintStart_toStartOf="@+id/search_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_text" />
 
     <com.google.android.material.card.MaterialCardView
@@ -112,28 +116,17 @@
         app:contentPadding="10dp"
         app:contentPaddingLeft="14dp"
         app:contentPaddingRight="14dp"
-        app:layout_constraintEnd_toEndOf="@+id/search_food"
-        app:layout_constraintHorizontal_bias="0.49"
-        app:layout_constraintStart_toStartOf="@+id/search_food"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_food"
         app:strokeColor="@color/cardBorder"
         app:strokeWidth="1dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:id="@+id/first_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/recent_food_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp"
-                android:text="Egg Scrambled"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recent_food" />
 
             <TextView
                 android:id="@+id/recent_food"
@@ -145,17 +138,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/recent_food_cal"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/recent_constraint_layout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="#0F8FCF"
-                app:layout_constraintBottom_toBottomOf="@+id/recent_food_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/recent_food_text"
-                app:layout_constraintVertical_bias="0.0"
-                tools:text="250cals" />
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/recent_food"
+                app:layout_constraintTop_toBottomOf="@+id/recent_food">
+
+                <TextView
+                    android:id="@+id/recent_food_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Egg Scrambled"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/recent_food_cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="240dp"
+                    android:text="350cals"
+                    android:textColor="#0F8FCF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/recent_food_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -171,17 +183,17 @@
         app:contentPadding="10dp"
         app:contentPaddingLeft="14dp"
         app:contentPaddingRight="14dp"
-        app:layout_constraintEnd_toEndOf="@+id/historyCompletionCard"
-        app:layout_constraintHorizontal_bias="0.48"
-        app:layout_constraintStart_toStartOf="@+id/search_food"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyCompletionCard"
         app:strokeColor="@color/cardBorder"
         app:strokeWidth="1dp">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/popular_food"
@@ -189,31 +201,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/popular_foods"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/popular_food_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="8dp"
-                android:text="Fried Chicken"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/popular_food" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_food_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="81dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/popular_calories_tracker_food_list" />
 
-            <TextView
-                android:id="@+id/popular_food_cal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="250cals"
-                android:textColor="#0F8FCF"
-                app:layout_constraintBottom_toBottomOf="@+id/popular_food_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/popular_food_text" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -227,7 +230,6 @@
         android:textAllCaps="false"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/caloriesTrackerCard" />
 

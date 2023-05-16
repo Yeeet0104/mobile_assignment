@@ -25,7 +25,7 @@
         <activity
             android:name=".WaterHistoryActivity"
             android:exported="false"/>
-
+      
         <activity
             android:name=".Register"
             android:exported="false" />
@@ -73,22 +73,31 @@
             />
         <activity
             android:name=".NutritionHistoryActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".NutritionOptionActivity"
+            android:parentActivityName=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".AddCustomFoodActivity"
+            android:parentActivityName=".NutritionOptionActivity"
             android:exported="false" />
         <activity
             android:name=".CaloriesSearchViewActivity"
+            android:parentActivityName=".NutritionOptionActivity"
             android:exported="false" />
         <activity
             android:name=".UpdateFoodSearchActivity"
+            android:parentActivityName=".NutritionOptionActivity"
             android:exported="false" />
         <activity
             android:name=".FoodDetailsActivity"
+            android:parentActivityName=".UpdateFoodSearchActivity"
             android:exported="false" />
+
+
+
     </application>
 
 </manifest>

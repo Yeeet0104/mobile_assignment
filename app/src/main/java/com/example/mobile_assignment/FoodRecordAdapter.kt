@@ -9,10 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class FoodRecordAdapter (
-    private var foodRecordList: MutableList<Record>,
-    private val onRecordDeleted: () -> Unit
+    private var foodRecordList: MutableList<FoodRecord>,
+    private val onRecordDeleted: () -> Unit,
+    private val foodHistoryList: MutableList<FoodHistoryModel> = mutableListOf()
     ) : RecyclerView.Adapter<FoodRecordAdapter.ViewHolder>() {
 
+    private val foodRecordFirebase = FoodRecordFirebase()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,6 +39,10 @@ class FoodRecordAdapter (
 
 
         holder.dltButton.setOnClickListener {
+            val deleteRecord  = foodHistoryList[position]
+            foodRecordFirebase.removeFoodRecord(deleteRecord)
+
+
             foodRecordList.removeAt(position)
             notifyItemRemoved(position)
             notifyItemRangeChanged(position, foodRecordList.size)

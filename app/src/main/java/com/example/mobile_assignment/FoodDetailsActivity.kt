@@ -3,12 +3,14 @@ package com.example.mobile_assignment
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.database.FirebaseDatabase
 
 class FoodDetailsActivity : AppCompatActivity(){
@@ -22,6 +24,11 @@ class FoodDetailsActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_food_details)
+
+        var toolbar = findViewById<Toolbar>(R.id.toolbarHeader)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         initView()
         setValuesToViews()
@@ -95,9 +102,8 @@ class FoodDetailsActivity : AppCompatActivity(){
         mTask.addOnSuccessListener {
             Toast.makeText(this, "Food data deleted", Toast.LENGTH_LONG).show()
 
-            val intent = Intent(this, UpdateFoodSearchActivity::class.java)
             finish()
-            startActivity(intent)
+
         }.addOnFailureListener{ error ->
             Toast.makeText(this, "Deleting Err ${error.message}", Toast.LENGTH_LONG).show()
         }
@@ -117,5 +123,20 @@ class FoodDetailsActivity : AppCompatActivity(){
         tvFoodName.text = intent.getStringExtra("foodName")
         tvFoodCalories.text = intent.getStringExtra("foodCalories")
 
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle toolbar item clicks
+        when (item.itemId) {
+            android.R.id.home -> {
+                // If the back button is clicked, finish the activity
+                finish()
+                return true
+            }
+            // Handle other menu items if needed
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
