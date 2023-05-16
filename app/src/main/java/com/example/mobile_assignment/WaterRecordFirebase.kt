@@ -47,8 +47,8 @@ class WaterRecordFirebase {
     fun setDailyTarget(newDailyTarget: Int){
         val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         val dailyTargetRef = FirebaseDatabase.getInstance().getReference("users").child(currentUser).child("waterTracker").child("waterDailyTargets").child(currentDate)
-        val dailyTarget = WaterDailyTarget(currentDate, newDailyTarget)
-        dailyTargetRef.setValue(dailyTarget)
+//        val dailyTarget = WaterDailyTarget(currentDate, newDailyTarget)
+        dailyTargetRef.setValue(newDailyTarget)
     }
 
 

@@ -118,7 +118,6 @@ class WaterHistoryActivity : AppCompatActivity() {
                     for (dateSnapshot in snapshot.children) {
                         val date = dateSnapshot.key
                         val value = dateSnapshot.value
-
                         val dailyTarget = if (value is Long) {
                             val target = value.toInt()
                             WaterDailyTarget(date.toString(), target)
@@ -167,6 +166,7 @@ class WaterHistoryActivity : AppCompatActivity() {
         return records.sumOf { record ->
             record.amountConsumed.replace(" ml", "").toIntOrNull() ?: 0
         }
+
     }
 
     private fun updateWaterReportUI(weekAverage: Double, monthAverage: Double, averageCompletion: Double, avgDrinkFreq: Int) {
