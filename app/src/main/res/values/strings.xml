@@ -53,7 +53,7 @@
     <string name="wakeup_title">Wake Up Time</string>
     <string name="bedtime_title">Bed Time</string>
     <string name="weekly_records">Weekly Records</string>
-    <string name="weekly_sleep_intake_completion">Weekly Sleeping Completion</string>
+    <string name="weekly_sleep_intake_completion">Sleeping History</string>
     <string name="sleep_tracker_report">Sleeping Tracker Report</string>
     <string name="weekly_average">Weekly Average</string>
     <string name="title_activity_water_reminder_settings">WaterReminderSettings</string>

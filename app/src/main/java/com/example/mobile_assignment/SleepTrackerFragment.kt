@@ -1,7 +1,6 @@
 package com.example.mobile_assignment
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -29,9 +28,7 @@ import java.util.concurrent.TimeUnit
 
 
 data class SleepRecord(
-    var date: String = "",
-    var sleepTime: String = "",
-    var key: String? = null
+    var date: String = "", var sleepTime: String = "", var key: String? = null
     // Add a key property
 ) {
     // Empty constructor required for Firebase deserializationl
@@ -75,9 +72,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
 
         // Set onClickListener
         view.findViewById<Button>(R.id.sleep_dailytarget_btn).setOnClickListener(this)
-
-        // binding.editReminderBtn.setOnClickListener(this)
-        view.findViewById<Button>(R.id.history_btn).setOnClickListener(this)
 
         // Set the onClickListener for the start button
         view.findViewById<ImageButton>(R.id.playsleep_btn).setOnClickListener(this)
@@ -201,7 +195,8 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
                 view?.findViewById<ImageButton>(R.id.stopsleep_btn)?.visibility = View.GONE
 
                 // After updating the wake-up record time, you can add the sleep record to the list
-                val currentDate = DateFormat.getDateInstance().format(Date())
+                val dateFormat = SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault())
+                val currentDate = dateFormat.format(Date())
                 val sleepTime = view?.findViewById<TextView>(R.id.sleep_time)?.text.toString()
 
 
@@ -227,11 +222,6 @@ class SleepTrackerFragment : Fragment(), View.OnClickListener, SetSleepDailyTarg
 
             R.id.sleep_dailytarget_btn -> {
                 changeDailyTarget()
-            }
-
-            R.id.history_btn -> {
-                val historyIntent = Intent(activity, SleepHistory::class.java)
-                startActivity(historyIntent)
             }
 
         }
